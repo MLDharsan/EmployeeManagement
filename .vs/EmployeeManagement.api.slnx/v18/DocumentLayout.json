@@ -1,0 +1,881 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\services\\notificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\services\\notificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\dtos\\notification\\createnotificationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\dtos\\notification\\createnotificationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\controllers\\notificationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\controllers\\notificationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\interfaces\\inotificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\interfaces\\inotificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\dtos\\notification\\notificationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\dtos\\notification\\notificationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260521055238_AddNotificationModule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:EmployeeManagement.api\\Migrations\\20260521055238_AddNotificationModule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\models\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\models\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\controllers\\leaverequestscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\controllers\\leaverequestscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\services\\leaverequestservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\services\\leaverequestservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\interfaces\\ileaverequestservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\interfaces\\ileaverequestservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\dtos\\leaverequest\\createleaverequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\dtos\\leaverequest\\createleaverequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\dtos\\leaverequest\\leaverequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\dtos\\leaverequest\\leaverequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260521052528_NortificationSetups.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:EmployeeManagement.api\\Migrations\\20260521052528_NortificationSetups.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260521052211_AddLeaveRelationship.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:EmployeeManagement.api\\Migrations\\20260521052211_AddLeaveRelationship.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\models\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\models\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\models\\leaverequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\models\\leaverequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\interfaces\\iattendanceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\interfaces\\iattendanceservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\dtos\\attendance\\attendancedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\dtos\\attendance\\attendancedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260521050849_AddAttendanceTable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:EmployeeManagement.api\\Migrations\\20260521050849_AddAttendanceTable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\models\\attendance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\models\\attendance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260521042117_UpdateDepartmentRelationship.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:EmployeeManagement.api\\Migrations\\20260521042117_UpdateDepartmentRelationship.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\controllers\\departmentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\controllers\\departmentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\services\\departmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\services\\departmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\interfaces\\idepartmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\interfaces\\idepartmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\dtos\\department\\createdepartmentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\dtos\\department\\createdepartmentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\dtos\\department\\updatedepartmentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\dtos\\department\\updatedepartmentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\dtos\\department\\departmentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\dtos\\department\\departmentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\models\\department.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\models\\department.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\controllers\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\controllers\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260521031344_AddRolesTable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:EmployeeManagement.api\\Migrations\\20260521031344_AddRolesTable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\employeemanagement.api.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\employeemanagement.api.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260520090133_UpdationCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:EmployeeManagement.api\\Migrations\\20260520090133_UpdationCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\interfaces\\iemployeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\interfaces\\iemployeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\services\\employeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\services\\employeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\models\\employeelevel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\models\\employeelevel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\dtos\\employee\\employeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\dtos\\employee\\employeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\employeemanagement.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\employeemanagement.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260520085618_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:EmployeeManagement.api\\Migrations\\20260520085618_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260520085535_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:EmployeeManagement.api\\Migrations\\20260520085535_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\dtos\\leave\\createleaverequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\dtos\\leave\\createleaverequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\dtos\\auth\\registerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\dtos\\auth\\registerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\dtos\\auth\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\dtos\\auth\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\dtos\\employee\\createemployeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\dtos\\employee\\createemployeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\dtos\\employee\\updateemployeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\dtos\\employee\\updateemployeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|c:\\users\\logad\\desktop\\projects\\employeemanagement.api\\employeemanagement.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A6079341-48B4-8009-5517-5C74911DE5EC}|EmployeeManagement.api\\EmployeeManagement.api.csproj|solutionrelative:employeemanagement.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "NotificationService.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Services\\NotificationService.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Services\\NotificationService.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Services\\NotificationService.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Services\\NotificationService.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAxwBIAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T05:56:27.871Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Program.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Program.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Program.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Program.cs",
+              "ViewState": "AgIAAFYAAAAAAAAAAAAAAGgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-19T10:39:12.035Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "NotificationsController.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Controllers\\NotificationsController.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Controllers\\NotificationsController.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Controllers\\NotificationsController.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Controllers\\NotificationsController.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAADwvzYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T05:57:32.907Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CreateNotificationDto.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Notification\\CreateNotificationDto.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\DTOs\\Notification\\CreateNotificationDto.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Notification\\CreateNotificationDto.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\DTOs\\Notification\\CreateNotificationDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T05:54:56.117Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "INotificationService.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Interfaces\\INotificationService.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Interfaces\\INotificationService.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Interfaces\\INotificationService.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Interfaces\\INotificationService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T05:55:53.49Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "NotificationDto.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Notification\\NotificationDto.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\DTOs\\Notification\\NotificationDto.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Notification\\NotificationDto.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\DTOs\\Notification\\NotificationDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T05:53:50.504Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "20260521055238_AddNotificationModule.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260521055238_AddNotificationModule.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Migrations\\20260521055238_AddNotificationModule.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260521055238_AddNotificationModule.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Migrations\\20260521055238_AddNotificationModule.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T05:52:38.507Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Notification.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Models\\Notification.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Models\\Notification.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Models\\Notification.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Models\\Notification.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAA1wA8AAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T05:23:32.114Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LeaveRequestsController.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Controllers\\LeaveRequestsController.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Controllers\\LeaveRequestsController.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Controllers\\LeaveRequestsController.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Controllers\\LeaveRequestsController.cs",
+              "ViewState": "AgIAAEQAAAAAAAAAAAAUwFAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T05:38:10.859Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "LeaveRequestService.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Services\\LeaveRequestService.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Services\\LeaveRequestService.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Services\\LeaveRequestService.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Services\\LeaveRequestService.cs",
+              "ViewState": "AgIAAGQAAAAAAAAAAAAUwHMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T05:36:40.829Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ILeaveRequestService.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Interfaces\\ILeaveRequestService.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Interfaces\\ILeaveRequestService.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Interfaces\\ILeaveRequestService.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Interfaces\\ILeaveRequestService.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAqwBMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T05:35:53.421Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CreateLeaveRequestDto.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\LeaveRequest\\CreateLeaveRequestDto.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\DTOs\\LeaveRequest\\CreateLeaveRequestDto.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\LeaveRequest\\CreateLeaveRequestDto.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\DTOs\\LeaveRequest\\CreateLeaveRequestDto.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAA1wBAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T05:35:06.025Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "LeaveRequestDto.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\LeaveRequest\\LeaveRequestDto.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\DTOs\\LeaveRequest\\LeaveRequestDto.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\LeaveRequest\\LeaveRequestDto.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\DTOs\\LeaveRequest\\LeaveRequestDto.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAA1wBUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T05:34:35.487Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "20260521052528_NortificationSetups.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260521052528_NortificationSetups.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Migrations\\20260521052528_NortificationSetups.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260521052528_NortificationSetups.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Migrations\\20260521052528_NortificationSetups.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T05:25:28.373Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "20260521052211_AddLeaveRelationship.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260521052211_AddLeaveRelationship.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Migrations\\20260521052211_AddLeaveRelationship.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260521052211_AddLeaveRelationship.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Migrations\\20260521052211_AddLeaveRelationship.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T05:22:11.781Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Employee.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Models\\Employee.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Models\\Employee.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Models\\Employee.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Models\\Employee.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAiwCoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T08:43:02.811Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "LeaveRequest.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Models\\LeaveRequest.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Models\\LeaveRequest.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Models\\LeaveRequest.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Models\\LeaveRequest.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAowBoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T05:16:34.508Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "IAttendanceService.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Interfaces\\IAttendanceService.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Interfaces\\IAttendanceService.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Interfaces\\IAttendanceService.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Interfaces\\IAttendanceService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T05:11:40.116Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "AttendanceDto.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Attendance\\AttendanceDto.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\DTOs\\Attendance\\AttendanceDto.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Attendance\\AttendanceDto.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\DTOs\\Attendance\\AttendanceDto.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAxwA4AAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T05:10:51.569Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "20260521050849_AddAttendanceTable.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260521050849_AddAttendanceTable.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Migrations\\20260521050849_AddAttendanceTable.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260521050849_AddAttendanceTable.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Migrations\\20260521050849_AddAttendanceTable.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T05:08:49.263Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAA9wA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T03:00:26.806Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "Attendance.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Models\\Attendance.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Models\\Attendance.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Models\\Attendance.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Models\\Attendance.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAA1wBIAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T05:02:56.217Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "20260521042117_UpdateDepartmentRelationship.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260521042117_UpdateDepartmentRelationship.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Migrations\\20260521042117_UpdateDepartmentRelationship.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260521042117_UpdateDepartmentRelationship.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Migrations\\20260521042117_UpdateDepartmentRelationship.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwBYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T04:21:17.312Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "DepartmentsController.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Controllers\\DepartmentsController.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Controllers\\DepartmentsController.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Controllers\\DepartmentsController.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Controllers\\DepartmentsController.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAgwE8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T04:19:31.172Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "DepartmentService.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Services\\DepartmentService.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Services\\DepartmentService.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Services\\DepartmentService.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Services\\DepartmentService.cs",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAowEcAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T04:16:53.822Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "IDepartmentService.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Interfaces\\IDepartmentService.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Interfaces\\IDepartmentService.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Interfaces\\IDepartmentService.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Interfaces\\IDepartmentService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T04:15:54.219Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "CreateDepartmentDto.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Department\\CreateDepartmentDto.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\DTOs\\Department\\CreateDepartmentDto.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Department\\CreateDepartmentDto.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\DTOs\\Department\\CreateDepartmentDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T04:13:19.002Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "UpdateDepartmentDto.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Department\\UpdateDepartmentDto.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\DTOs\\Department\\UpdateDepartmentDto.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Department\\UpdateDepartmentDto.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\DTOs\\Department\\UpdateDepartmentDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T04:14:29.623Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "DepartmentDto.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Department\\DepartmentDto.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\DTOs\\Department\\DepartmentDto.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Department\\DepartmentDto.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\DTOs\\Department\\DepartmentDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T04:11:48.226Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "Department.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Models\\Department.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Models\\Department.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Models\\Department.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Models\\Department.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-19T10:27:00.025Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "EmployeesController.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Controllers\\EmployeesController.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Controllers\\EmployeesController.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Controllers\\EmployeesController.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Controllers\\EmployeesController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwAoAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T09:18:17.453Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "EmployeeLevel.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Models\\EmployeeLevel.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Models\\EmployeeLevel.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Models\\EmployeeLevel.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Models\\EmployeeLevel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-19T10:27:58.442Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwB8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T01:15:31.074Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "20260521031344_AddRolesTable.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260521031344_AddRolesTable.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Migrations\\20260521031344_AddRolesTable.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260521031344_AddRolesTable.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Migrations\\20260521031344_AddRolesTable.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T03:13:44.61Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Services\\AuthService.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Services\\AuthService.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Services\\AuthService.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAYwC8AAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T03:08:25.955Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Models\\User.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Models\\User.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Models\\User.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAA9wAoAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-19T10:30:02.567Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "Role.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Models\\Role.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Models\\Role.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Models\\Role.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Models\\Role.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T02:59:47.218Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "EmployeeManagement.api.http",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\EmployeeManagement.api.http",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\EmployeeManagement.api.http",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\EmployeeManagement.api.http",
+              "RelativeToolTip": "EmployeeManagement.api\\EmployeeManagement.api.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2026-05-20T09:25:02.368Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "IEmployeeService.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Interfaces\\IEmployeeService.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Interfaces\\IEmployeeService.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Interfaces\\IEmployeeService.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Interfaces\\IEmployeeService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T08:39:54.808Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "20260520090133_UpdationCreate.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260520090133_UpdationCreate.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Migrations\\20260520090133_UpdationCreate.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260520090133_UpdationCreate.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Migrations\\20260520090133_UpdationCreate.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T09:01:33.74Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "EmployeeService.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Services\\EmployeeService.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Services\\EmployeeService.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Services\\EmployeeService.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Services\\EmployeeService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T08:32:51.419Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "EmployeeDto.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Employee\\EmployeeDto.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\DTOs\\Employee\\EmployeeDto.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Employee\\EmployeeDto.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\DTOs\\Employee\\EmployeeDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T08:13:08.659Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "EmployeeManagement.api.csproj",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\EmployeeManagement.api.csproj",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\EmployeeManagement.api.csproj",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\EmployeeManagement.api.csproj",
+              "RelativeToolTip": "EmployeeManagement.api\\EmployeeManagement.api.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-05-20T05:27:04.511Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "20260520085618_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260520085618_InitialCreate.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Migrations\\20260520085618_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260520085618_InitialCreate.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Migrations\\20260520085618_InitialCreate.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T08:56:18.97Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "20260520085535_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260520085535_InitialCreate.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\Migrations\\20260520085535_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\Migrations\\20260520085535_InitialCreate.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\Migrations\\20260520085535_InitialCreate.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T08:55:35.567Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "CreateLeaveRequestDto.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Leave\\CreateLeaveRequestDto.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\DTOs\\Leave\\CreateLeaveRequestDto.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Leave\\CreateLeaveRequestDto.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\DTOs\\Leave\\CreateLeaveRequestDto.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAwwA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T08:21:01.728Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "RegisterDto.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Auth\\RegisterDto.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\DTOs\\Auth\\RegisterDto.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Auth\\RegisterDto.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\DTOs\\Auth\\RegisterDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T08:19:50.889Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "LoginDto.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Auth\\LoginDto.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\DTOs\\Auth\\LoginDto.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Auth\\LoginDto.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\DTOs\\Auth\\LoginDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T08:16:23.879Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "CreateEmployeeDto.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Employee\\CreateEmployeeDto.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\DTOs\\Employee\\CreateEmployeeDto.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Employee\\CreateEmployeeDto.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\DTOs\\Employee\\CreateEmployeeDto.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAxwBgAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T08:10:09.999Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "UpdateEmployeeDto.cs",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Employee\\UpdateEmployeeDto.cs",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\DTOs\\Employee\\UpdateEmployeeDto.cs",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\DTOs\\Employee\\UpdateEmployeeDto.cs",
+              "RelativeToolTip": "EmployeeManagement.api\\DTOs\\Employee\\UpdateEmployeeDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T08:11:29.306Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 50,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\appsettings.json",
+              "RelativeDocumentMoniker": "EmployeeManagement.api\\appsettings.json",
+              "ToolTip": "C:\\Users\\logad\\Desktop\\Projects\\EmployeeManagement.api\\EmployeeManagement.api\\appsettings.json",
+              "RelativeToolTip": "EmployeeManagement.api\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-19T10:36:56.124Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

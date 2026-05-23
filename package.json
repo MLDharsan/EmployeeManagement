@@ -1,0 +1,12 @@
+{
+  "name": "employee-management-workspace",
+  "version": "1.0.0",
+  "description": "Root workspace for managing Employee Management backend and frontend together",
+  "scripts": {
+    "start": "npx -y concurrently --kill-others -n \"backend,frontend\" -c \"blue.bold,magenta.bold\" \"dotnet watch --project backend/EmployeeManagement.api --launch-profile https\" \"npm run start --prefix frontend/employee-management-ui\"",
+    "start:no-watch": "npx -y concurrently --kill-others -n \"backend,frontend\" -c \"blue.bold,magenta.bold\" \"dotnet run --project backend/EmployeeManagement.api --launch-profile https\" \"npm run start --prefix frontend/employee-management-ui\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
