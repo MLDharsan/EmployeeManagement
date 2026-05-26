@@ -1,0 +1,122 @@
+<div class="departments-wrapper animate-fade-in">
+  <!-- HEADER PANEL -->
+  <div class="page-header">
+    <div class="header-text">
+      <h2>Departments Directory</h2>
+      <p class="text-secondary">Manage and organize company division units, descriptions, and dynamic staff counts.</p>
+    </div>
+    <button mat-flat-button color="primary" class="add-dept-btn" (click)="openDeptDialog()">
+      <i class="bi bi-plus-lg"></i>
+      <span>Add Department</span>
+    </button>
+  </div>
+
+  <!-- STATS OVERVIEW CARDS -->
+  <div class="dept-stats-grid">
+    <div class="stats-card glass-panel">
+      <div class="stats-icon-box bg-primary-glow">
+        <i class="bi bi-building text-primary"></i>
+      </div>
+      <div class="stats-details">
+        <span class="stats-label">Total Divisions</span>
+        <span class="stats-value">{{ departments.length }}</span>
+      </div>
+    </div>
+    <div class="stats-card glass-panel">
+      <div class="stats-icon-box bg-success-glow">
+        <i class="bi bi-people-fill text-success"></i>
+      </div>
+      <div class="stats-details">
+        <span class="stats-label">Allocated Employees</span>
+        <span class="stats-value">{{ employees.length }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEPARTMENTS TABLE GRID -->
+  <mat-card class="table-container-card">
+    <mat-card-content class="p-0">
+      <table mat-table [dataSource]="departments" class="mat-elevation-z0 premium-table">
+
+        <!-- Department Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Division Name </th>
+          <td mat-cell *matCellDef="let element" class="font-display font-semibold text-primary-dark">
+            {{ element.departmentName }}
+          </td>
+        </ng-container>
+
+        <!-- Description Column -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef> Description </th>
+          <td mat-cell *matCellDef="let element" class="description-cell">
+            {{ element.description || 'No description provided.' }}
+          </td>
+        </ng-container>
+
+        <!-- Headcount Column -->
+        <ng-container matColumnDef="headcount">
+          <th mat-header-cell *matHeaderCellDef class="text-center"> Headcount </th>
+          <td mat-cell *matCellDef="let element" class="text-center">
+            <span class="headcount-badge" [class.empty]="getHeadcount(element.departmentId) === 0">
+              <i class="bi bi-person-fill"></i>
+              <span>{{ getHeadcount(element.departmentId) }} Staff</span>
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="text-right"> Actions </th>
+          <td mat-cell *matCellDef="let element" class="text-right">
+            <div class="table-actions">
+              <button mat-icon-button class="action-btn edit" matTooltip="Edit Department" (click)="openDeptDialog(element, $event)">
+                <i class="bi bi-pencil-square"></i>
+              </button>
+              <button mat-icon-button class="action-btn delete" matTooltip="Delete Department" (click)="deleteDepartment(element, $event)">
+                <i class="bi bi-trash3-fill"></i>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="interactive-row"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- POPUP ADD/EDIT DIALOG TEMPLATE -->
+  <ng-template #deptDialog>
+    <h2 mat-dialog-title class="dialog-header">
+      <i class="bi bi-building-add header-icon"></i>
+      <span>{{ isEditMode ? 'Modify Department Details' : 'Register New Department' }}</span>
+    </h2>
+    
+    <mat-dialog-content class="dialog-form-body">
+      <form [formGroup]="departmentForm" class="dept-form">
+        <!-- Division Name -->
+        <mat-form-field appearance="outline">
+          <mat-label>Division Name</mat-label>
+          <input matInput formControlName="departmentName" placeholder="e.g., Marketing Operations">
+          <mat-error *ngIf="departmentForm.get('departmentName')?.hasError('required')">Division name is required</mat-error>
+          <mat-error *ngIf="departmentForm.get('departmentName')?.hasError('maxlength')">Max 50 characters allowed</mat-error>
+        </mat-form-field>
+
+        <!-- Description -->
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description" rows="4" placeholder="Brief explanation of roles and duties..."></textarea>
+          <mat-error *ngIf="departmentForm.get('description')?.hasError('maxlength')">Max 150 characters allowed</mat-error>
+        </mat-form-field>
+      </form>
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="dialog-footer-actions">
+      <button mat-button class="cancel-btn" (click)="closeDialog()">Cancel</button>
+      <button mat-flat-button color="primary" class="save-btn" [disabled]="departmentForm.invalid" (click)="saveDepartment()">
+        <span>Save Division</span>
+      </button>
+    </mat-dialog-actions>
+  </ng-template>
+</div>

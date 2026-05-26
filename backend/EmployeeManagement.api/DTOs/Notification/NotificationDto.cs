@@ -15,5 +15,7 @@ namespace EmployeeManagement.api.DTOs.Notification
         public bool IsRead { get; set; }
 
         public DateTime CreatedAt { get; set; }
+
+        public string RecipientName { get; set; } = string.Empty;
     }
 }

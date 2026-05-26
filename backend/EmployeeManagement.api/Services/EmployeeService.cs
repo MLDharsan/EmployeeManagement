@@ -6,13 +6,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.api.Services
 {
-    public class EmployeeService : IEmployeeService
+    public class EmployeeService : IEmployeeService //implements the all the methods in the IEmployeeService
     {
-        private readonly AppDbContext _context;
+        private readonly AppDbContext _context; //injects the AppDbContext
+        private readonly IEmailService _emailService;
 
-        public EmployeeService(AppDbContext context)
+        public EmployeeService(AppDbContext context, IEmailService emailService) 
         {
             _context = context;
+            _emailService = emailService;
         }
 
         public async Task<List<EmployeeDto>> GetAllEmployees()
@@ -21,6 +23,10 @@ namespace EmployeeManagement.api.Services
                 .Include(e => e.Department)
                 .Include(e => e.Level)
                 .ToListAsync();
+
+            var userMap = await _context.Users
+                .GroupBy(u => u.EmployeeId)
+                .ToDictionaryAsync(g => g.Key, g => g.First().UserId);
 
             return employees.Select(e => new EmployeeDto
             {
@@ -36,11 +42,12 @@ namespace EmployeeManagement.api.Services
                 Gender = e.Gender,
                 JoiningDate = e.JoiningDate,
                 DepartmentId = e.DepartmentId,
-                DepartmentName = e.Department.DepartmentName,
+                DepartmentName = e.Department.DepartmentName, //navigational property database only stores DepartmentId
                 LevelId = e.LevelId,
-                LevelName = e.Level.LevelName,
+                LevelName = e.Level.LevelName, //navigational property 
                 RemainingLeaveDays = e.RemainingLeaveDays,
-                AllowedLeaveDays = e.Level.AllowedLeaveDays
+                AllowedLeaveDays = e.Level.AllowedLeaveDays,
+                UserId = userMap.TryGetValue(e.EmployeeId, out var uid) ? uid : null
             }).ToList();
         }
 
@@ -53,6 +60,8 @@ namespace EmployeeManagement.api.Services
 
             if (employee == null)
                 return null;
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.EmployeeId == id);
 
             return new EmployeeDto
             {
@@ -72,7 +81,8 @@ namespace EmployeeManagement.api.Services
                 LevelId = employee.LevelId,
                 LevelName = employee.Level.LevelName,
                 RemainingLeaveDays = employee.RemainingLeaveDays,
-                AllowedLeaveDays = employee.Level.AllowedLeaveDays
+                AllowedLeaveDays = employee.Level.AllowedLeaveDays,
+                UserId = user?.UserId
             };
         }
 
@@ -84,6 +94,14 @@ namespace EmployeeManagement.api.Services
                 if (usernameExists)
                 {
                     throw new InvalidOperationException("Username is already taken by another employee.");
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(dto.Password))
+            {
+                if (!Helpers.PasswordHelper.IsValid(dto.Password, out string passwordError))
+                {
+                    throw new InvalidOperationException(passwordError);
                 }
             }
 
@@ -117,7 +135,7 @@ namespace EmployeeManagement.api.Services
                     var user = new User
                     {
                         Username = dto.Username,
-                        PasswordHash = dto.Password,
+                        PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
                         RoleId = employeeRole.RoleId,
                         EmployeeId = employee.EmployeeId
                     };
@@ -126,7 +144,7 @@ namespace EmployeeManagement.api.Services
 
                     // Print beautiful SMTP simulation log to the console
                     Console.WriteLine("\n========================================================================\n" +
-                                      "[EMAIL DISPATCH SYSTEM - SIMULATION]\n" +
+                                      "[EMAIL DISPATCH SYSTEM]\n" +
                                       $"Recipient: {employee.Email}\n" +
                                       "Subject: Welcome to the Organization! Your UNIC HR Login Credentials\n" +
                                       "------------------------------------------------------------------------\n" +
@@ -138,6 +156,60 @@ namespace EmployeeManagement.api.Services
                                       $"  Password:   {dto.Password}\n\n" +
                                       "Please log in and update your contact information immediately.\n" +
                                       "========================================================================\n");
+
+                    string emailSubject = "Welcome to the Organization! Your UNIC HR Login Credentials";
+                    string emailBody = $@"
+<div style=""font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 12px; background-color: #ffffff; box-shadow: 0 4px 10px rgba(0,0,0,0.05);"">
+    <div style=""text-align: center; padding-bottom: 20px; border-bottom: 2px solid #f0f0f0;"">
+        <h2 style=""color: #4f46e5; margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px;"">UNIC HR PORTAL</h2>
+        <p style=""color: #6b7280; font-size: 14px; margin: 5px 0 0 0;"">Welcome to the Organization</p>
+    </div>
+    <div style=""padding: 30px 20px; color: #374151; line-height: 1.6;"">
+        <p style=""font-size: 16px; margin-top: 0;"">Hello <strong>{employee.FirstName} {employee.LastName}</strong>,</p>
+        <p style=""font-size: 15px;"">Welcome to the team! An administrator has created your employee account. You can now access the UNIC HR Portal using the credentials below:</p>
+        
+        <div style=""background-color: #f9fafb; border: 1px solid #f3f4f6; border-radius: 8px; padding: 20px; margin: 25px 0;"">
+            <table style=""width: 100%; border-collapse: collapse;"">
+                <tr>
+                    <td style=""padding: 6px 0; color: #6b7280; font-size: 14px; width: 35%;"">Portal URL</td>
+                    <td style=""padding: 6px 0; font-size: 14px; font-weight: 600;""><a href=""http://localhost:4200/login"" style=""color: #4f46e5; text-decoration: none;"">http://localhost:4200/login</a></td>
+                </tr>
+                <tr>
+                    <td style=""padding: 6px 0; color: #6b7280; font-size: 14px;"">Username</td>
+                    <td style=""padding: 6px 0; font-size: 14px; font-weight: 600; color: #111827;"">{dto.Username}</td>
+                </tr>
+                <tr>
+                    <td style=""padding: 6px 0; color: #6b7280; font-size: 14px;"">Temporary Password</td>
+                    <td style=""padding: 6px 0; font-size: 14px; font-weight: 600; color: #111827;""><code>{dto.Password}</code></td>
+                </tr>
+            </table>
+        </div>
+        
+        <p style=""font-size: 14px; color: #ef4444; font-weight: 500;"">Important: Please log in and update your password and contact information immediately.</p>
+        
+        <div style=""text-align: center; margin-top: 30px;"">
+            <a href=""http://localhost:4200/login"" style=""background-color: #4f46e5; color: #ffffff; padding: 12px 30px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 14px; display: inline-block; box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);"">Log In to Portal</a>
+        </div>
+    </div>
+    <div style=""text-align: center; padding-top: 20px; border-top: 1px solid #f0f0f0; color: #9ca3af; font-size: 12px; line-height: 1.4;"">
+        <p style=""margin: 0;"">This is an automated system email. Please do not reply directly to this message.</p>
+        <p style=""margin: 5px 0 0 0;"">&copy; 2026 UNIC HR Portal. All rights reserved.</p>
+    </div>
+</div>";
+
+                    // Send email in a fire-and-forget background task so it doesn't block the HTTP request thread.
+                    // This ensures the employee is created immediately and the UI success notification is instant.
+                    _ = Task.Run(async () =>
+                    {
+                        try
+                        {
+                            await _emailService.SendEmailAsync(employee.Email, emailSubject, emailBody);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"[EMAIL SYSTEM ERROR] Failed to send email to {employee.Email}: {ex}");
+                        }
+                    });
                 }
             }
 

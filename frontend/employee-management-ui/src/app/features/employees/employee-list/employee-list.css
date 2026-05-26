@@ -1,0 +1,209 @@
+.employees-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.list-header-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.header-text h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  letter-spacing: -0.5px;
+}
+
+.header-text p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.register-btn {
+  height: 46px !important;
+  border-radius: var(--border-radius) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  box-shadow: var(--primary-glow) 0 4px 12px !important;
+}
+
+/* Filter Toolbar */
+.filter-toolbar-card {
+  border-radius: var(--border-radius) !important;
+  border: 1px solid var(--surface-border) !important;
+}
+
+.toolbar-content {
+  padding: 16px 24px !important;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.search-field {
+  flex: 2;
+  min-width: 260px;
+}
+
+.dept-filter-field {
+  flex: 1;
+  min-width: 180px;
+}
+
+.search-icon {
+  color: var(--text-muted);
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+/* Table Card Container */
+.table-container-card {
+  border-radius: var(--border-radius-lg) !important;
+  border: 1px solid var(--surface-border) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.table-content-body {
+  padding: 0 !important;
+}
+
+.table-scroll-wrapper {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.custom-mat-table {
+  width: 100%;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+.clickable-table-row {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.font-code {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* User Profile cell */
+.user-meta-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar-cell {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--surface-border);
+}
+
+.user-name-cell {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Level indicator badge */
+.level-indicator-badge {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.15);
+}
+
+/* Actions cell */
+.actions-buttons-cell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.action-btn {
+  width: 34px !important;
+  height: 34px !important;
+  line-height: 34px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 8px !important;
+  transition: var(--transition) !important;
+}
+
+.view-btn {
+  color: var(--primary) !important;
+}
+
+.view-btn:hover {
+  background-color: var(--primary-light) !important;
+}
+
+.edit-btn {
+  color: var(--warning) !important;
+}
+
+.edit-btn:hover {
+  background-color: var(--warning-glow) !important;
+}
+
+.delete-btn {
+  color: var(--danger) !important;
+}
+
+.delete-btn:hover {
+  background-color: var(--danger-glow) !important;
+}
+
+/* Custom Paginator */
+.custom-mat-paginator {
+  background-color: transparent !important;
+  border-top: 1px solid var(--surface-border);
+}
+
+/* Table Empty state styling */
+.table-empty-state {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.table-empty-state i {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.table-empty-state h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.table-empty-state p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .toolbar-content {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

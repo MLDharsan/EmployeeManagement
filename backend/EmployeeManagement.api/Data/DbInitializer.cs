@@ -14,8 +14,10 @@ namespace EmployeeManagement.api.Data
                 // Auto-apply Entity Framework migrations if any are pending
                 context.Database.Migrate();
 
+                bool wasEmpty = !context.Roles.Any();
+
                 // 1. Seed Roles if empty
-                if (!context.Roles.Any())
+                if (wasEmpty)
                 {
                     context.Roles.AddRange(
                         new Role { RoleName = "HR" },
@@ -131,80 +133,101 @@ namespace EmployeeManagement.api.Data
 
                 Console.WriteLine($"[SEED-DEBUG] Final check: hrRole={hrRole != null}, empRole={empRole != null}, adminEmployee={adminEmployee != null}, johnEmployee={johnEmployee != null}");
 
-                // 5. Seed Users linked to employees and roles
+                // 5. Seed / Update Users linked to employees and roles
                 if (hrRole != null && empRole != null && adminEmployee != null && johnEmployee != null)
                 {
-                    Console.WriteLine("[SEED-DEBUG] Starting to seed users...");
-                    var usersToSeed = new List<User>();
+                    Console.WriteLine("[SEED-DEBUG] Seeding and updating users...");
 
-                    if (!context.Users.Any(u => u.Username == "admin@company.com"))
+                    // admin@company.com
+                    var userAdminEmail = context.Users.FirstOrDefault(u => u.Username == "admin@company.com");
+                    if (userAdminEmail != null)
                     {
-                        usersToSeed.Add(new User
+                        if (!IsBCryptHashOf(userAdminEmail.PasswordHash, "Admin@1234"))
                         {
-                            Username = "admin@company.com",
-                            PasswordHash = "password",
-                            Role = hrRole,
-                            Employee = adminEmployee
-                        });
-                    }
-
-                    if (!context.Users.Any(u => u.Username == "admin"))
-                    {
-                        usersToSeed.Add(new User
-                        {
-                            Username = "admin",
-                            PasswordHash = "admin123",
-                            Role = hrRole,
-                            Employee = adminEmployee
-                        });
-                    }
-
-                    if (!context.Users.Any(u => u.Username == "employee@company.com"))
-                    {
-                        usersToSeed.Add(new User
-                        {
-                            Username = "employee@company.com",
-                            PasswordHash = "password",
-                            Role = empRole,
-                            Employee = johnEmployee
-                        });
-                    }
-
-                    if (!context.Users.Any(u => u.Username == "employee"))
-                    {
-                        usersToSeed.Add(new User
-                        {
-                            Username = "employee",
-                            PasswordHash = "emp123",
-                            Role = empRole,
-                            Employee = johnEmployee
-                        });
-                    }
-
-                    Console.WriteLine($"[SEED-DEBUG] Number of users to seed: {usersToSeed.Count}");
-                    foreach (var u in usersToSeed)
-                    {
-                        Console.WriteLine($"[SEED-DEBUG] Seeding user: {u.Username}");
-                    }
-
-                    if (usersToSeed.Count > 0)
-                    {
-                        context.Users.AddRange(usersToSeed);
-                        context.SaveChanges();
-                        Console.WriteLine("[SEED-DEBUG] Users seeded successfully and changes saved.");
+                            userAdminEmail.PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin@1234");
+                        }
                     }
                     else
                     {
-                        Console.WriteLine("[SEED-DEBUG] All target users already present in database.");
+                        context.Users.Add(new User
+                        {
+                            Username = "admin@company.com",
+                            PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin@1234"),
+                            RoleId = hrRole.RoleId,
+                            EmployeeId = adminEmployee.EmployeeId
+                        });
                     }
+
+                    // admin
+                    var userAdmin = context.Users.FirstOrDefault(u => u.Username == "admin");
+                    if (userAdmin != null)
+                    {
+                        if (!IsBCryptHashOf(userAdmin.PasswordHash, "Admin@1234"))
+                        {
+                            userAdmin.PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin@1234");
+                        }
+                    }
+                    else
+                    {
+                        context.Users.Add(new User
+                        {
+                            Username = "admin",
+                            PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin@1234"),
+                            RoleId = hrRole.RoleId,
+                            EmployeeId = adminEmployee.EmployeeId
+                        });
+                    }
+
+                    // employee@company.com
+                    var userEmpEmail = context.Users.FirstOrDefault(u => u.Username == "employee@company.com");
+                    if (userEmpEmail != null)
+                    {
+                        if (!IsBCryptHashOf(userEmpEmail.PasswordHash, "Employee@1234"))
+                        {
+                            userEmpEmail.PasswordHash = BCrypt.Net.BCrypt.HashPassword("Employee@1234");
+                        }
+                    }
+                    else
+                    {
+                        context.Users.Add(new User
+                        {
+                            Username = "employee@company.com",
+                            PasswordHash = BCrypt.Net.BCrypt.HashPassword("Employee@1234"),
+                            RoleId = empRole.RoleId,
+                            EmployeeId = johnEmployee.EmployeeId
+                        });
+                    }
+
+                    // employee
+                    var userEmp = context.Users.FirstOrDefault(u => u.Username == "employee");
+                    if (userEmp != null)
+                    {
+                        if (!IsBCryptHashOf(userEmp.PasswordHash, "Employee@1234"))
+                        {
+                            userEmp.PasswordHash = BCrypt.Net.BCrypt.HashPassword("Employee@1234");
+                        }
+                    }
+                    else
+                    {
+                        context.Users.Add(new User
+                        {
+                            Username = "employee",
+                            PasswordHash = BCrypt.Net.BCrypt.HashPassword("Employee@1234"),
+                            RoleId = empRole.RoleId,
+                            EmployeeId = johnEmployee.EmployeeId
+                        });
+                    }
+
+                    context.SaveChanges();
+                    Console.WriteLine("[SEED-DEBUG] Seeded and updated users successfully.");
                 }
                 else
                 {
                     Console.WriteLine("[SEED-DEBUG] Skipping user seeding because final check failed.");
                 }
 
-                // 6. Seed Announcements if empty
-                if (!context.Announcements.Any())
+                // 6. Seed Announcements if empty and we are seeding for the first time
+                if (wasEmpty && !context.Announcements.Any())
                 {
                     context.Announcements.AddRange(
                         new Announcement
@@ -228,6 +251,19 @@ namespace EmployeeManagement.api.Data
                     );
                     context.SaveChanges();
                 }
+            }
+        }
+
+        private static bool IsBCryptHashOf(string hash, string password)
+        {
+            if (string.IsNullOrEmpty(hash)) return false;
+            try
+            {
+                return BCrypt.Net.BCrypt.Verify(password, hash);
+            }
+            catch
+            {
+                return false;
             }
         }
     }

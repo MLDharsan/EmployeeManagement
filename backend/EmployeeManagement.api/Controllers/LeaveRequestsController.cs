@@ -11,8 +11,7 @@ namespace EmployeeManagement.API.Controllers
     {
         private readonly ILeaveRequestService _service;
 
-        public LeaveRequestsController(
-            ILeaveRequestService service)
+        public LeaveRequestsController(ILeaveRequestService service)
         {
             _service = service;
         }
@@ -32,8 +31,7 @@ namespace EmployeeManagement.API.Controllers
         public async Task<IActionResult>
             GetEmployeeLeaves(int employeeId)
         {
-            var leaveRequests =
-                await _service
+            var leaveRequests =await _service
                     .GetEmployeeLeaveRequests(employeeId);
 
             return Ok(leaveRequests);

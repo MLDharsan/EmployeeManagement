@@ -1,0 +1,271 @@
+<div class="attendance-wrapper animate-fade-in">
+  
+  <!-- ==========================================
+       EMPLOYEE VIEW: INTERACTIVE CLOCK-IN SCREEN
+       ========================================== -->
+  <div *ngIf="!isHR" class="employee-attendance-container">
+    
+    <!-- DYNAMIC CONTROL PANEL -->
+    <div class="clock-control-grid">
+      
+      <!-- INTERACTIVE TRIGGER CARD -->
+      <mat-card class="interactive-clock-card glass-panel">
+        <mat-card-content class="clock-card-body">
+          <div class="status-indicator" [class.active]="todayLog && !todayLog.checkOutTime" [class.completed]="todayLog && todayLog.checkOutTime">
+            <span class="pulse-dot" *ngIf="todayLog && !todayLog.checkOutTime"></span>
+            <span class="status-text">
+              {{ !todayLog ? 'Not Clocked In' : (todayLog.checkOutTime ? 'Shift Completed' : 'Active: On Duty') }}
+            </span>
+          </div>
+
+          <!-- TIME STAMP DISPLAY -->
+          <div class="time-display-box">
+            <i class="bi bi-clock-fill clock-icon"></i>
+            <span class="time-stamp">Today's Entry</span>
+          </div>
+
+          <!-- ACTION BUTTON TOGGLES -->
+          <div class="action-trigger-area">
+            <!-- 1. CLOCK IN ACTION -->
+            <button mat-flat-button class="trigger-btn clock-in-btn" *ngIf="!todayLog" (click)="onClockIn()">
+              <i class="bi bi-play-circle-fill"></i>
+              <span>Clock In (Start Shift)</span>
+            </button>
+
+            <!-- 2. CLOCK OUT ACTION -->
+            <button mat-flat-button class="trigger-btn clock-out-btn pulse-button" *ngIf="todayLog && !todayLog.checkOutTime" (click)="onClockOut()">
+              <i class="bi bi-stop-circle-fill"></i>
+              <span>Clock Out (End Shift)</span>
+            </button>
+
+            <!-- 3. COMPLETED STATE -->
+            <div class="completed-state-badge" *ngIf="todayLog && todayLog.checkOutTime">
+              <i class="bi bi-patch-check-fill text-success"></i>
+              <span>Shift logged successfully!</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- TODAY'S METRIC DETAILS PANEL -->
+      <mat-card class="metrics-details-card">
+        <mat-card-content class="metrics-card-body">
+          <h3>Today's Shift Log</h3>
+          <mat-divider class="my-3"></mat-divider>
+          
+          <div class="shift-details-list">
+            <div class="shift-item">
+              <span class="shift-lbl">Date</span>
+              <span class="shift-val">{{ (todayLog?.date | date:'longDate') || 'N/A' }}</span>
+            </div>
+            <div class="shift-item">
+              <span class="shift-lbl">Clocked In</span>
+              <span class="shift-val text-primary font-semibold">
+                {{ todayLog?.checkInTime ? (todayLog?.checkInTime | date:'shortTime') : '--:--' }}
+              </span>
+            </div>
+            <div class="shift-item">
+              <span class="shift-lbl">Clocked Out</span>
+              <span class="shift-val text-danger font-semibold">
+                {{ todayLog?.checkOutTime ? (todayLog?.checkOutTime | date:'shortTime') : '--:--' }}
+              </span>
+            </div>
+            <div class="shift-item">
+              <span class="shift-lbl">Working Hours</span>
+              <span class="shift-val text-success font-semibold">
+                {{ todayLog?.workingHours ? todayLog?.workingHours + ' hrs' : '--' }}
+              </span>
+            </div>
+            <div class="shift-item">
+              <span class="shift-lbl">Status</span>
+              <span class="shift-val" *ngIf="todayLog">
+                <span class="badge" [class.badge-success]="todayLog.status === 'Present'" [class.badge-warning]="todayLog.status === 'Late'">
+                  {{ todayLog.status }}
+                </span>
+              </span>
+              <span class="shift-val text-muted" *ngIf="!todayLog">Not Logged</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- PERSONAL ATTENDANCE LOG TABLE -->
+    <h3 class="section-title mt-4">Personal Attendance History</h3>
+    <mat-card class="table-container-card mt-3">
+      <mat-card-content class="p-0">
+        <table mat-table [dataSource]="personalHistory" class="mat-elevation-z0 premium-table">
+
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <td mat-cell *matCellDef="let element"> {{ element.date | date:'mediumDate' }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="checkIn">
+            <th mat-header-cell *matHeaderCellDef> Clock-In </th>
+            <td mat-cell *matCellDef="let element" class="font-semibold text-primary">
+              {{ element.checkInTime | date:'shortTime' }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="checkOut">
+            <th mat-header-cell *matHeaderCellDef> Clock-Out </th>
+            <td mat-cell *matCellDef="let element" class="font-semibold text-danger">
+              {{ element.checkOutTime ? (element.checkOutTime | date:'shortTime') : '--:--' }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="hours">
+            <th mat-header-cell *matHeaderCellDef> Hours Worked </th>
+            <td mat-cell *matCellDef="let element" class="font-display font-semibold text-success">
+              {{ element.workingHours ? element.workingHours + ' hrs' : '--' }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef class="text-right"> Status </th>
+            <td mat-cell *matCellDef="let element" class="text-right">
+              <span class="badge" [class.badge-success]="element.status === 'Present'" [class.badge-warning]="element.status === 'Late'">
+                {{ element.status }}
+              </span>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="personalColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: personalColumns;"></tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- ==========================================
+       HR ADMIN VIEW: ENTERPRISE OVERVIEW SCREEN
+       ========================================== -->
+  <div *ngIf="isHR" class="hr-attendance-container">
+    
+    <!-- HEADER PANELS -->
+    <div class="page-header">
+      <div class="header-text">
+        <h2>Enterprise Attendance Monitor</h2>
+        <p class="text-secondary">Verify employee check-in timelines, working hours, and daily attendance logs.</p>
+      </div>
+    </div>
+
+    <!-- DAILY ATTENDANCE KPIS -->
+    <div class="attendance-kpi-grid">
+      <div class="kpi-card glass-panel text-center">
+        <div class="icon-bubble present">
+          <i class="bi bi-check2-circle text-success"></i>
+        </div>
+        <span class="kpi-num text-success">{{ totalPresent }}</span>
+        <span class="kpi-lbl">On Time Today</span>
+      </div>
+      
+      <div class="kpi-card glass-panel text-center">
+        <div class="icon-bubble late">
+          <i class="bi bi-clock-history text-warning"></i>
+        </div>
+        <span class="kpi-num text-warning">{{ totalLate }}</span>
+        <span class="kpi-lbl">Late Arrivals</span>
+      </div>
+
+      <div class="kpi-card glass-panel text-center">
+        <div class="icon-bubble absent">
+          <i class="bi bi-x-circle text-danger"></i>
+        </div>
+        <span class="kpi-num text-danger">{{ totalAbsent }}</span>
+        <span class="kpi-lbl">Not Checked In</span>
+      </div>
+    </div>
+
+    <!-- INTERACTIVE FILTER PANEL -->
+    <mat-card class="filter-panel-card my-4">
+      <mat-card-content class="filter-card-body">
+        <div class="filters-layout">
+          <!-- 1. Name query filter -->
+          <div class="filter-input-wrapper">
+            <i class="bi bi-search search-lens"></i>
+            <input type="text" [(ngModel)]="searchQuery" (input)="applyHrFilters()" placeholder="Search staff name..." class="filter-text-input">
+          </div>
+
+          <!-- 2. Date select filter -->
+          <div class="filter-input-wrapper date-selector">
+            <i class="bi bi-calendar-event-fill calendar-addon"></i>
+            <input type="date" [(ngModel)]="filterDate" (change)="applyHrFilters()" class="filter-date-input">
+          </div>
+
+          <!-- 3. Clear button -->
+          <button mat-button class="reset-filter-btn" (click)="resetFilters()">
+            <i class="bi bi-arrow-counterclockwise"></i> Reset
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- ENTERPRISE LOG GRID -->
+    <mat-card class="table-container-card">
+      <mat-card-content class="p-0">
+        <table mat-table [dataSource]="hrFilteredLogs" class="mat-elevation-z0 premium-table">
+
+          <!-- Employee Name -->
+          <ng-container matColumnDef="employeeName">
+            <th mat-header-cell *matHeaderCellDef> Employee </th>
+            <td mat-cell *matCellDef="let element" class="font-display font-semibold text-primary-dark">
+              {{ element.employeeName }}
+            </td>
+          </ng-container>
+
+          <!-- Date -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <td mat-cell *matCellDef="let element"> {{ element.date | date:'mediumDate' }} </td>
+          </ng-container>
+
+          <!-- Clock In -->
+          <ng-container matColumnDef="checkIn">
+            <th mat-header-cell *matHeaderCellDef> Clock-In </th>
+            <td mat-cell *matCellDef="let element" class="font-semibold text-primary">
+              {{ element.checkInTime | date:'shortTime' }}
+            </td>
+          </ng-container>
+
+          <!-- Clock Out -->
+          <ng-container matColumnDef="checkOut">
+            <th mat-header-cell *matHeaderCellDef> Clock-Out </th>
+            <td mat-cell *matCellDef="let element" class="font-semibold text-danger">
+              {{ element.checkOutTime ? (element.checkOutTime | date:'shortTime') : '--:--' }}
+            </td>
+          </ng-container>
+
+          <!-- Hours -->
+          <ng-container matColumnDef="hours">
+            <th mat-header-cell *matHeaderCellDef> Shift Hours </th>
+            <td mat-cell *matCellDef="let element" class="font-display font-semibold text-success">
+              {{ element.workingHours ? element.workingHours + ' hrs' : '--' }}
+            </td>
+          </ng-container>
+
+          <!-- Status -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef class="text-right"> Status </th>
+            <td mat-cell *matCellDef="let element" class="text-right">
+              <span class="badge" [class.badge-success]="element.status === 'Present'" [class.badge-warning]="element.status === 'Late'">
+                {{ element.status }}
+              </span>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="hrColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: hrColumns;" class="interactive-row"></tr>
+        </table>
+
+        <!-- Table empty state placeholder -->
+        <div class="table-empty-state" *ngIf="hrFilteredLogs.length === 0">
+          <i class="bi bi-calendar-x"></i>
+          <p>No check-in logs found matching your selection.</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+</div>

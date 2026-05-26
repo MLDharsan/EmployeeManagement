@@ -1,0 +1,26 @@
+# Users/IDE-specific files
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.git_backup/
+
+# Compiled source / Build outputs
+bin/
+obj/
+[Bb]in/
+[Oo]bj/
+backend/EmployeeManagement.api/bin/
+backend/EmployeeManagement.api/obj/
+frontend/employee-management-ui/dist/
+frontend/employee-management-ui/.angular/
+
+# Packages / Dependencies
+node_modules/
+frontend/employee-management-ui/node_modules/
+
+# OS-specific files
+.DS_Store
+Thumbs.db

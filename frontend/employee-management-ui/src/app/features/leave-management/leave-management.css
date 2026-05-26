@@ -1,0 +1,374 @@
+/* ==========================================================================
+   LEAVE MANAGEMENT STYLE SHEET
+   ========================================================================== */
+
+.leaves-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* Page Header styling */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  gap: 16px;
+}
+
+.header-text h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+  color: var(--text-primary);
+}
+
+.header-text p {
+  font-size: 14px;
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.apply-leave-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  font-family: var(--font-display) !important;
+}
+
+.apply-leave-btn i {
+  font-size: 16px;
+}
+
+/* Leave balance allowance card grid */
+.leave-balance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.balance-card {
+  padding: 20px;
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--surface-border);
+  transition: var(--transition);
+}
+
+.balance-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-lg);
+}
+
+.balance-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.type-name {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.my-2 {
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+  border-color: var(--surface-border) !important;
+}
+
+.balance-values {
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0 4px 0;
+}
+
+.val-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.val-num {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.val-lbl {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.font-bold {
+  font-weight: 800 !important;
+}
+
+/* History logs title banner */
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.mt-4 {
+  margin-top: 1.5rem !important;
+}
+
+.mt-3 {
+  margin-top: 1rem !important;
+}
+
+.p-0 {
+  padding: 0 !important;
+}
+
+/* Premium Card wrapper for Table */
+.table-container-card {
+  border-radius: var(--border-radius-lg) !important;
+  border: 1px solid var(--surface-border) !important;
+  overflow: hidden;
+}
+
+.premium-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.font-semibold {
+  font-weight: 600 !important;
+}
+
+.text-primary-dark {
+  color: var(--primary) !important;
+}
+
+.reason-cell {
+  max-width: 320px;
+  color: var(--text-secondary);
+  white-space: normal;
+  word-wrap: break-word;
+  line-height: 1.5;
+}
+
+/* Align cell alignments */
+.text-center {
+  text-align: center !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+/* Interactive Table Row highlighting */
+.interactive-row {
+  transition: var(--transition);
+}
+
+/* HR approval queue highlighted left bar for Pending */
+.interactive-row.pending-row {
+  position: relative;
+  background-color: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.03);
+}
+
+.interactive-row.pending-row td {
+  border-bottom: 1px solid hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.15) !important;
+}
+
+/* Action button configurations for HR */
+.hr-action-triggers {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.review-btn {
+  font-family: var(--font-display) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 4px 12px !important;
+  min-width: 72px !important;
+  height: 32px !important;
+  border-radius: 6px !important;
+}
+
+.approve-btn {
+  background-color: var(--success) !important;
+  color: #ffffff !important;
+}
+
+.approve-btn:hover {
+  background-color: hsl(142, 72%, 35%) !important;
+  box-shadow: 0 4px 12px var(--success-glow) !important;
+}
+
+.reject-btn {
+  color: var(--danger) !important;
+  background-color: var(--danger-glow) !important;
+  border: 1px solid hsla(350, 89%, 55%, 0.15) !important;
+}
+
+.reject-btn:hover {
+  background-color: hsla(350, 89%, 55%, 0.25) !important;
+  color: hsl(350, 89%, 50%) !important;
+}
+
+.hr-completed-badge {
+  display: inline-block;
+}
+
+/* Dialog form layout parameter */
+.dialog-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--surface-border);
+  padding: 20px 24px !important;
+  margin: 0 !important;
+}
+
+.header-icon {
+  font-size: 24px;
+  color: var(--primary);
+}
+
+.dialog-form-body {
+  padding: 24px !important;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.leave-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-top: 8px;
+}
+
+.w-100 {
+  width: 100% !important;
+}
+
+/* Dynamic native Date Input styles */
+.form-dates-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.native-date-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-lbl {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.date-input-ui {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--surface-border);
+  background-color: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  transition: var(--transition);
+}
+
+.date-input-ui:focus {
+  outline: none;
+  border-color: var(--primary);
+  background-color: var(--surface);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+.dialog-footer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 16px 24px 20px 24px !important;
+  border-top: 1px solid var(--surface-border);
+}
+
+.cancel-btn {
+  color: var(--text-secondary) !important;
+  font-weight: 500 !important;
+  padding: 8px 16px !important;
+  border-radius: 8px !important;
+}
+
+.cancel-btn:hover {
+  background-color: var(--background) !important;
+}
+
+.save-btn {
+  font-weight: 600 !important;
+  padding: 8px 20px !important;
+  border-radius: 8px !important;
+}
+
+/* Empty logs banner */
+.table-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 24px;
+  text-align: center;
+  background-color: var(--surface);
+}
+
+.table-empty-state i {
+  font-size: 36px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.table-empty-state p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Responsive configurations */
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .apply-leave-btn {
+    width: 100%;
+  }
+
+  .leave-balance-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .form-dates-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .reason-cell {
+    max-width: 150px;
+  }
+}

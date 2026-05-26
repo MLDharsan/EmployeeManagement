@@ -64,5 +64,16 @@ namespace EmployeeManagement.API.Controllers
 
             return Ok("All notifications marked as read");
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult>
+            Delete(int id)
+        {
+            var result = await _service.DeleteNotification(id);
+            if (!result)
+                return NotFound();
+
+            return Ok("Notification deleted successfully");
+        }
     }
 }

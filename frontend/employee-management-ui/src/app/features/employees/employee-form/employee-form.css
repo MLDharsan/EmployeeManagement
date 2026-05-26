@@ -1,0 +1,58 @@
+.dialog-title-accent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--primary) !important;
+  font-family: var(--font-display) !important;
+  font-weight: 700 !important;
+}
+
+.form-dialog-content {
+  max-width: 650px;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-top: 10px !important;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.full-width-field {
+  grid-column: span 2;
+}
+
+.dialog-actions-panel {
+  padding: 16px 24px 24px 24px !important;
+  display: flex;
+  gap: 10px;
+}
+
+.cancel-dialog-btn {
+  height: 42px !important;
+  border: 1px solid var(--surface-border) !important;
+  border-radius: 8px !important;
+  color: var(--text-secondary) !important;
+}
+
+.cancel-dialog-btn:hover {
+  background-color: var(--surface-hover) !important;
+}
+
+.save-dialog-btn {
+  height: 42px !important;
+  border-radius: 8px !important;
+  box-shadow: var(--primary-glow) 0 4px 10px !important;
+}
+
+@media (max-width: 576px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .full-width-field {
+    grid-column: span 1;
+  }
+}

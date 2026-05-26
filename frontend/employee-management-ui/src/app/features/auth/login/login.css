@@ -1,0 +1,465 @@
+/* WorkSphere Premium Login Split Layout */
+
+.login-split-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+/* ==========================================
+   LEFT PANE: Showcase & Branding
+   ========================================== */
+.login-left-pane {
+  flex: 1.15;
+  background: linear-gradient(135deg, #071f46 0%, #0d4682 50%, #037c8e 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 80px;
+  position: relative;
+  overflow: hidden;
+  color: #ffffff;
+}
+
+/* Luxury glow circles */
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.orb-1 {
+  top: -10%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(3, 124, 142, 0.3) 0%, transparent 70%);
+  filter: blur(40px);
+}
+
+.orb-2 {
+  bottom: -15%;
+  left: -15%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(13, 70, 130, 0.4) 0%, transparent 70%);
+  filter: blur(50px);
+}
+
+.pane-content-wrapper {
+  max-width: 500px;
+  width: 100%;
+  z-index: 5;
+}
+
+.brand-logo-section {
+  margin-bottom: 48px;
+}
+
+.logo-box-styled {
+  width: 56px;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.logo-icon {
+  font-size: 26px;
+  color: #ffffff;
+}
+
+.brand-title {
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  margin: 0 0 16px 0;
+  line-height: 1.1;
+  color: #ffffff;
+}
+
+.brand-accent {
+  color: #03cbd9;
+  text-shadow: 0 0 15px rgba(3, 203, 217, 0.3);
+}
+
+.brand-tagline {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Feature Showcase Pills */
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.feature-item-pill {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feature-item-pill:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateX(6px);
+}
+
+.item-icon-box {
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #03cbd9;
+  font-size: 16px;
+}
+
+.item-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: -0.1px;
+}
+
+/* ==========================================
+   RIGHT PANE: Login Form panel
+   ========================================== */
+.login-right-pane {
+  flex: 0.85;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 40px;
+  box-sizing: border-box;
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.greeting-header {
+  margin-bottom: 28px;
+}
+
+.greeting-header h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.75px;
+}
+
+.greeting-header p {
+  font-size: 15px;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Demo Selectors */
+.quick-login-section {
+  margin-bottom: 24px;
+}
+
+.quick-login-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.quick-login-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.demo-role-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 42px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  border-radius: 8px;
+  color: #64748b;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.demo-role-btn i {
+  font-size: 14px;
+}
+
+.demo-role-btn:hover {
+  border-color: #cbd5e1;
+  color: #334155;
+  background: #f8fafc;
+}
+
+.demo-role-btn.active.admin-theme-btn {
+  border-color: #0f5cbf;
+  color: #0f5cbf;
+  background: rgba(15, 92, 191, 0.05);
+}
+
+.demo-role-btn.active.employee-theme-btn {
+  border-color: #037c8e;
+  color: #037c8e;
+  background: rgba(3, 124, 142, 0.05);
+}
+
+/* Divider styling */
+.manually-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  color: #94a3b8;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background-color: #f1f5f9;
+}
+
+.divider-text {
+  padding: 0 14px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: lowercase;
+}
+
+/* Form controls styling */
+.login-form-element {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.worksphere-input-field {
+  width: 100%;
+}
+
+.input-prefix-icon {
+  margin-right: 8px;
+  color: #64748b;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-visibility-toggle {
+  color: #64748b !important;
+}
+
+/* Custom Styled Checkbox */
+.form-options-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2px;
+  margin-bottom: 6px;
+}
+
+.remember-me-checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.custom-checkbox-ui {
+  width: 16px;
+  height: 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  cursor: pointer;
+  accent-color: #0f5cbf;
+}
+
+.custom-checkbox-label {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #475569;
+  cursor: pointer;
+  user-select: none;
+}
+
+.forgot-password-link {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #0f5cbf;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.forgot-password-link:hover {
+  color: #0b4592;
+  text-decoration: underline;
+}
+
+/* Worksphere Action Button */
+.worksphere-sign-in-btn {
+  width: 100%;
+  height: 48px;
+  background-color: #0f5cbf !important;
+  color: #ffffff !important;
+  font-size: 14.5px !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(15, 92, 191, 0.25) !important;
+  transition: all 0.25s ease !important;
+}
+
+.worksphere-sign-in-btn:hover:not(:disabled) {
+  background-color: #0b4592 !important;
+  box-shadow: 0 6px 20px rgba(15, 92, 191, 0.4) !important;
+  transform: translateY(-1px);
+}
+
+.worksphere-sign-in-btn:disabled {
+  opacity: 0.7;
+}
+
+.btn-text-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sign-in-btn-icon {
+  font-size: 16px;
+}
+
+.spinner-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Footer layout */
+.worksphere-login-footer {
+  margin-top: 48px;
+  text-align: center;
+}
+
+.worksphere-login-footer p {
+  font-size: 11px;
+  color: #94a3b8;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* ==========================================
+   Animations Setup
+   ========================================== */
+.animate-fade-in-up {
+  opacity: 0;
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in-up-delayed {
+  opacity: 0;
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================
+   Responsive Adaptations
+   ========================================== */
+@media (max-width: 992px) {
+  .login-left-pane {
+    display: none;
+  }
+  
+  .login-right-pane {
+    flex: 1;
+    width: 100%;
+    min-height: 100vh;
+    padding: 60px 24px;
+    background-color: #ffffff;
+  }
+}
+
+/* Dialog Styles (Matches recovery flow) */
+.dialog-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.header-icon {
+  color: #0f5cbf;
+  font-size: 22px;
+}
+
+.dialog-form-body {
+  padding: 16px 0;
+}
+
+.dialog-info-text {
+  font-size: 13.5px;
+  color: #64748b;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.dialog-footer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 8px 0 0 0;
+}

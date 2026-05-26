@@ -1,0 +1,187 @@
+<div class="login-split-container">
+
+  <!-- LEFT COLUMN: WorkSphere Branding & Feature Showcase -->
+  <div class="login-left-pane">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
+    <div class="pane-content-wrapper">
+      <!-- Logo and Brand -->
+      <div class="brand-logo-section animate-fade-in-up">
+        <div class="logo-box-styled">
+          <i class="bi bi-stack logo-icon"></i>
+        </div>
+        <h1 class="brand-title">UNIC <span class="brand-accent">HR</span></h1>
+        <p class="brand-tagline">
+          {{ activeRole === 'admin' ? 'HR Portal - Sign in to manage your workspace' : 'Employee Portal - Sign in to
+          view your profile' }}
+        </p>
+      </div>
+
+      <!-- Feature Lists with Transparent Blur panels -->
+      <div class="feature-item-pill">
+        <div class="item-icon-box">
+          <i class="bi bi-graph-up-arrow"></i>
+        </div>
+        <span class="item-text">Real-time HR Analytics</span>
+      </div>
+
+
+      <div class="features-list animate-fade-in-up-delayed">
+        <div class="feature-item-pill">
+          <div class="item-icon-box">
+            <i class="bi bi-people-fill"></i>
+          </div>
+          <span class="item-text">Employee Lifecycle Management</span>
+        </div>
+
+        <div class="feature-item-pill">
+          <div class="item-icon-box">
+            <i class="bi bi-calendar-check-fill"></i>
+          </div>
+          <span class="item-text">Attendance & Leave Tracking</span>
+        </div>
+
+        <div class="feature-item-pill">
+          <div class="item-icon-box">
+            <i class="bi bi-shield-lock-fill"></i>
+          </div>
+          <span class="item-text">Role-Based Access Control</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN: Sign In form -->
+  <div class="login-right-pane">
+    <div class="form-wrapper">
+
+      <!-- Greeting Header -->
+      <div class="greeting-header">
+        <h2>Welcome Back</h2>
+        <p>Sign in to your UNIC HR account</p>
+      </div>
+
+      <!-- Quick Login Selectors -->
+      <div class="quick-login-section">
+        <span class="quick-login-label">Quick login with demo accounts:</span>
+        <div class="quick-login-buttons">
+          <button type="button" class="demo-role-btn admin-theme-btn" [class.active]="activeRole === 'admin'"
+            (click)="selectRole('admin')">
+            <i class="bi bi-shield-fill-check"></i>
+            <span>HR Admin</span>
+          </button>
+
+          <button type="button" class="demo-role-btn employee-theme-btn" [class.active]="activeRole === 'employee'"
+            (click)="selectRole('employee')">
+            <i class="bi bi-person-fill"></i>
+            <span>Employee</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="manually-divider">
+        <span class="divider-line"></span>
+        <span class="divider-text">or enter manually</span>
+        <span class="divider-line"></span>
+      </div>
+
+      <!-- Main Login Form -->
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form-element">
+
+        <!-- Username/Email Field -->
+        <mat-form-field appearance="outline" class="worksphere-input-field">
+          <mat-label>Email Address</mat-label>
+          <span matPrefix class="input-prefix-icon">
+            <i class="bi bi-envelope"></i>
+          </span>
+          <input matInput formControlName="username" type="text" placeholder="employee@unichr.com"
+            autocomplete="username">
+          <mat-error *ngIf="loginForm.get('username')?.hasError('required')">Email Address or Username is
+            required</mat-error>
+          <mat-error *ngIf="loginForm.get('username')?.hasError('minlength')">Must be at least 3 characters</mat-error>
+        </mat-form-field>
+
+        <!-- Password Field -->
+        <mat-form-field appearance="outline" class="worksphere-input-field">
+          <mat-label>Password</mat-label>
+          <span matPrefix class="input-prefix-icon">
+            <i class="bi bi-lock"></i>
+          </span>
+          <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" placeholder="••••••"
+            autocomplete="current-password">
+          <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()"
+            class="password-visibility-toggle" matTooltip="Toggle password visibility">
+            <i class="bi" [ngClass]="hidePassword ? 'bi-eye' : 'bi-eye-slash'"></i>
+          </button>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Password is required</mat-error>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">Must be at least 4 characters</mat-error>
+        </mat-form-field>
+
+        <!-- Form Options Row (Remember Me & Forgot Password) -->
+        <div class="form-options-flex">
+          <div class="remember-me-checkbox-wrapper">
+            <input type="checkbox" id="rememberMeInput" class="custom-checkbox-ui">
+            <label for="rememberMeInput" class="custom-checkbox-label">Remember me</label>
+          </div>
+          <a href="#" (click)="openForgotPasswordDialog($event)" class="forgot-password-link">Forgot password?</a>
+        </div>
+
+        <!-- Submit Sign In Button -->
+        <button mat-flat-button type="submit" class="worksphere-sign-in-btn" [disabled]="isLoading">
+          <div class="spinner-wrapper" *ngIf="isLoading">
+            <mat-spinner diameter="20" color="accent"></mat-spinner>
+          </div>
+          <span class="btn-text-content" *ngIf="!isLoading">
+            <i class="bi bi-box-arrow-in-right sign-in-btn-icon"></i>
+            <span>Sign In</span>
+          </span>
+        </button>
+
+      </form>
+
+      <!-- Footer Copy -->
+      <footer class="worksphere-login-footer">
+        <p>UNIC HR © 2026 — All rights reserved.</p>
+      </footer>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- Password Recovery Dialog Template -->
+<ng-template #forgotPasswordDialog>
+  <h2 mat-dialog-title class="dialog-header">
+    <i class="bi bi-key-fill header-icon"></i>
+    <span>Password Recovery</span>
+  </h2>
+
+  <form [formGroup]="forgotPasswordForm" (ngSubmit)="sendRecoveryLink()">
+    <mat-dialog-content class="dialog-form-body">
+      <p class="dialog-info-text">
+        Enter the email address registered with your employee profile. We will dispatch a secure simulated password
+        recovery link.
+      </p>
+
+      <!-- Email Address -->
+      <mat-form-field appearance="outline" class="full-width-field">
+        <mat-label>Email Address</mat-label>
+        <span matPrefix class="input-prefix-icon" style="margin-right: 8px; color: var(--text-secondary);">
+          <i class="bi bi-envelope"></i>
+        </span>
+        <input matInput formControlName="email" type="email" placeholder="e.g. employee@company.com">
+        <mat-error *ngIf="forgotPasswordForm.get('email')?.hasError('required')">Email is required</mat-error>
+        <mat-error *ngIf="forgotPasswordForm.get('email')?.hasError('email')">Invalid email format</mat-error>
+      </mat-form-field>
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="dialog-footer-actions">
+      <button mat-button type="button" class="cancel-btn" (click)="closeForgotPasswordDialog()">Cancel</button>
+      <button mat-flat-button color="primary" type="submit" [disabled]="forgotPasswordForm.invalid" class="save-btn">
+        Submit Request
+      </button>
+    </mat-dialog-actions>
+  </form>
+</ng-template>

@@ -19,8 +19,25 @@ namespace EmployeeManagement.api.Services
         public async Task<IEnumerable<NotificationDto>>
             GetUserNotifications(int userId)
         {
-            return await _context.Notifications
-                .Where(n => n.UserId == userId)
+            var user = await _context.Users
+                .Include(u => u.Role)
+                .FirstOrDefaultAsync(u => u.UserId == userId);
+
+            if (user == null)
+                return Enumerable.Empty<NotificationDto>();
+
+            IQueryable<Notification> query = _context.Notifications
+                .Include(n => n.User)
+                .ThenInclude(u => u.Employee);
+
+            // If the user is HR, return all notifications so they can see sent private communications!
+            // Otherwise, filter by their UserId.
+            if (user.Role.RoleName != "HR")
+            {
+                query = query.Where(n => n.UserId == userId);
+            }
+
+            return await query
                 .OrderByDescending(n => n.CreatedAt)
                 .Select(n => new NotificationDto
                 {
@@ -29,7 +46,8 @@ namespace EmployeeManagement.api.Services
                     Title = n.Title,
                     Message = n.Message,
                     IsRead = n.IsRead,
-                    CreatedAt = n.CreatedAt
+                    CreatedAt = n.CreatedAt,
+                    RecipientName = n.User.Employee != null ? (n.User.Employee.FirstName + " " + n.User.Employee.LastName) : n.User.Username
                 })
                 .ToListAsync();
         }
@@ -37,11 +55,36 @@ namespace EmployeeManagement.api.Services
         public async Task<NotificationDto>
             CreateNotification(CreateNotificationDto dto)
         {
+            // Find the employee ID of the target user
+            var targetUser = await _context.Users.FirstOrDefaultAsync(u => u.UserId == dto.UserId);
+            if (targetUser != null)
+            {
+                // Find all sibling user accounts linked to this EmployeeId
+                var siblingUsers = await _context.Users
+                    .Where(u => u.EmployeeId == targetUser.EmployeeId && u.UserId != targetUser.UserId)
+                    .ToListAsync();
+
+                foreach (var sibling in siblingUsers)
+                {
+                    var siblingNotif = new Notification
+                    {
+                        UserId = sibling.UserId,
+                        Title = dto.Title,
+                        Message = dto.Message,
+                        IsRead = false,
+                        CreatedAt = DateTime.Now
+                    };
+                    _context.Notifications.Add(siblingNotif);
+                }
+            }
+
             var notification = new Notification
             {
                 UserId = dto.UserId,
                 Title = dto.Title,
-                Message = dto.Message
+                Message = dto.Message,
+                IsRead = false,
+                CreatedAt = DateTime.Now
             };
 
             _context.Notifications.Add(notification);
@@ -55,7 +98,8 @@ namespace EmployeeManagement.api.Services
                 Title = notification.Title,
                 Message = notification.Message,
                 IsRead = notification.IsRead,
-                CreatedAt = notification.CreatedAt
+                CreatedAt = notification.CreatedAt,
+                RecipientName = targetUser != null && targetUser.Employee != null ? (targetUser.Employee.FirstName + " " + targetUser.Employee.LastName) : (targetUser?.Username ?? string.Empty)
             };
         }
 
@@ -91,6 +135,35 @@ namespace EmployeeManagement.api.Services
 
             await _context.SaveChangesAsync();
 
+            return true;
+        }
+
+        public async Task<bool> DeleteNotification(int notificationId)
+        {
+            var notification = await _context.Notifications.FindAsync(notificationId);
+            if (notification == null)
+                return false;
+
+            // Find all matching notifications with the same title, message, and created at roughly the same time
+            var minTime = notification.CreatedAt.AddSeconds(-5);
+            var maxTime = notification.CreatedAt.AddSeconds(5);
+            var siblings = await _context.Notifications
+                .Where(n => n.Title == notification.Title &&
+                            n.Message == notification.Message &&
+                            n.CreatedAt >= minTime &&
+                            n.CreatedAt <= maxTime)
+                .ToListAsync();
+
+            if (siblings.Any())
+            {
+                _context.Notifications.RemoveRange(siblings);
+            }
+            else
+            {
+                _context.Notifications.Remove(notification);
+            }
+
+            await _context.SaveChangesAsync();
             return true;
         }
     }

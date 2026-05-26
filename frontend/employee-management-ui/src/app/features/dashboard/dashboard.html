@@ -1,0 +1,221 @@
+<div class="dashboard-wrapper">
+  <!-- Greeting Header -->
+  <div class="dashboard-header-panel">
+    <div class="greeting-text">
+      <h2>Welcome Back, {{ userName | titlecase }}!</h2>
+      <p>Here is an overview of today's activities and system analytics</p>
+    </div>
+    <div class="quick-actions" *ngIf="userRole === 'HR'">
+      <button mat-flat-button color="primary" routerLink="/employees" class="header-action-btn">
+        <i class="bi bi-person-plus-fill"></i>
+        <span>Manage Employees</span>
+      </button>
+    </div>
+    <div class="quick-actions" *ngIf="userRole !== 'HR'">
+      <button mat-flat-button color="primary" routerLink="/attendance" class="header-action-btn">
+        <i class="bi bi-clock-fill"></i>
+        <span>Clock In / Out</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- KPI SUMMARY CARDS GRID (HR Only) -->
+  <div class="kpi-grid" *ngIf="userRole === 'HR'">
+    <!-- Card 1: Total Employees -->
+    <mat-card class="kpi-card glass-panel border-left-primary">
+      <mat-card-content class="kpi-card-content">
+        <div class="kpi-meta">
+          <span class="kpi-title">Total Employees</span>
+          <h3 class="kpi-value">{{ totalEmployees }}</h3>
+          <span class="kpi-footer text-primary"><i class="bi bi-arrow-up-short"></i> Active Staff</span>
+        </div>
+        <div class="kpi-icon-box bg-primary-light text-primary">
+          <i class="bi bi-people-fill"></i>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Card 2: Departments -->
+    <mat-card class="kpi-card glass-panel border-left-success">
+      <mat-card-content class="kpi-card-content">
+        <div class="kpi-meta">
+          <span class="kpi-title">Total Departments</span>
+          <h3 class="kpi-value">{{ totalDepartments }}</h3>
+          <span class="kpi-footer text-success"><i class="bi bi-building"></i> Enterprise Groups</span>
+        </div>
+        <div class="kpi-icon-box bg-success-glow text-success">
+          <i class="bi bi-building-fill"></i>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Card 3: Pending Leaves -->
+    <mat-card class="kpi-card glass-panel border-left-warning">
+      <mat-card-content class="kpi-card-content">
+        <div class="kpi-meta">
+          <span class="kpi-title">Pending Leaves</span>
+          <h3 class="kpi-value">{{ pendingLeaves }}</h3>
+          <span class="kpi-footer text-warning"><i class="bi bi-exclamation-triangle"></i> Review Required</span>
+        </div>
+        <div class="kpi-icon-box bg-warning-glow text-warning">
+          <i class="bi bi-calendar-range-fill"></i>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Card 4: Clocked In Today -->
+    <mat-card class="kpi-card glass-panel border-left-info">
+      <mat-card-content class="kpi-card-content">
+        <div class="kpi-meta">
+          <span class="kpi-title">Present Today</span>
+          <h3 class="kpi-value">{{ presentToday }}</h3>
+          <span class="kpi-footer text-info"><i class="bi bi-check-circle"></i> On Premises</span>
+        </div>
+        <div class="kpi-icon-box bg-info-glow text-info">
+          <i class="bi bi-clock-history"></i>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- EMPLOYEE WORKSPACE PANEL (Employee Only) -->
+  <div class="employee-workspace" *ngIf="userRole !== 'HR'">
+    <!-- Welcome Glassmorphic Banner -->
+    <mat-card class="employee-welcome-banner glass-panel">
+      <mat-card-content class="banner-body">
+        <div class="banner-icon">
+          <i class="bi bi-rocket-takeoff-fill animate-pulse-slow"></i>
+        </div>
+        <div class="banner-text">
+          <h3>Your Digital Workspace</h3>
+          <p>Access your personal operational tools, submit time-off requests, check-in for attendance, and stay aligned with company-wide communications.</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Quick Shortcuts Menu -->
+    <div class="employee-shortcuts-title">
+      <h4>Operational Shortcuts</h4>
+      <p>Quick access to your active employee features</p>
+    </div>
+
+    <div class="employee-menu-grid">
+      <!-- Card 1: Attendance -->
+      <mat-card class="emp-menu-card glass-panel hover-card" routerLink="/attendance">
+        <mat-card-content class="emp-card-body">
+          <div class="emp-card-icon-box bg-success-glow text-success">
+            <i class="bi bi-clock-fill"></i>
+          </div>
+          <div class="emp-card-meta">
+            <h4>Clock In / Out</h4>
+            <p>Log your daily attendance logs and track check-in timing records.</p>
+          </div>
+          <i class="bi bi-chevron-right emp-card-arrow"></i>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Card 2: Leave Request -->
+      <mat-card class="emp-menu-card glass-panel hover-card" routerLink="/leave-management">
+        <mat-card-content class="emp-card-body">
+          <div class="emp-card-icon-box bg-warning-glow text-warning">
+            <i class="bi bi-calendar2-check-fill"></i>
+          </div>
+          <div class="emp-card-meta">
+            <h4>Time-Off Requests</h4>
+            <p>Apply for leaves and monitor approval status.</p>
+          </div>
+          <i class="bi bi-chevron-right emp-card-arrow"></i>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Card 3: Announcements -->
+      <mat-card class="emp-menu-card glass-panel hover-card" routerLink="/announcements">
+        <mat-card-content class="emp-card-body">
+          <div class="emp-card-icon-box bg-info-glow text-info">
+            <i class="bi bi-megaphone-fill"></i>
+          </div>
+          <div class="emp-card-meta">
+            <h4>Company Board</h4>
+            <p>Stay informed with all official department notices and announcements.</p>
+          </div>
+          <i class="bi bi-chevron-right emp-card-arrow"></i>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Card 4: View Profile -->
+      <mat-card class="emp-menu-card glass-panel hover-card" routerLink="/employees/profile">
+        <mat-card-content class="emp-card-body">
+          <div class="emp-card-icon-box bg-primary-light text-primary">
+            <i class="bi bi-person-bounding-box"></i>
+          </div>
+          <div class="emp-card-meta">
+            <h4>My Profile Hub</h4>
+            <p>View your professional status, edit contact data, and manage documents.</p>
+          </div>
+          <i class="bi bi-chevron-right emp-card-arrow"></i>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- ANALYTICS CHARTS GRID (HR Only) -->
+  <div class="charts-grid" *ngIf="userRole === 'HR'">
+    <!-- Chart 1: Employees by Department -->
+    <mat-card class="chart-card">
+      <div class="chart-header">
+        <h4>Department Distribution</h4>
+        <span>Employees by sector</span>
+      </div>
+      <mat-card-content class="chart-content-body">
+        <apx-chart
+          *ngIf="deptChartOptions"
+          [series]="deptChartOptions.series!"
+          [chart]="deptChartOptions.chart!"
+          [labels]="deptChartOptions.labels!"
+          [colors]="deptChartOptions.colors!"
+          [legend]="deptChartOptions.legend!"
+          [responsive]="deptChartOptions.responsive!"
+        ></apx-chart>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Chart 2: Weekly Attendance stats -->
+    <mat-card class="chart-card large-chart">
+      <div class="chart-header">
+        <h4>Weekly Attendance Trend</h4>
+        <span>Staff present vs late vs absent logs</span>
+      </div>
+      <mat-card-content class="chart-content-body">
+        <apx-chart
+          *ngIf="attendanceChartOptions"
+          [series]="attendanceChartOptions.series!"
+          [chart]="attendanceChartOptions.chart!"
+          [xaxis]="attendanceChartOptions.xaxis!"
+          [colors]="attendanceChartOptions.colors!"
+          [stroke]="attendanceChartOptions.stroke!"
+          [plotOptions]="attendanceChartOptions.plotOptions!"
+          [grid]="attendanceChartOptions.grid!"
+          [legend]="attendanceChartOptions.legend!"
+        ></apx-chart>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Chart 3: Leave Request distribution -->
+    <mat-card class="chart-card">
+      <div class="chart-header">
+        <h4>Leave Allocations</h4>
+        <span>Approved leaves overview</span>
+      </div>
+      <mat-card-content class="chart-content-body">
+        <apx-chart
+          *ngIf="leaveChartOptions"
+          [series]="leaveChartOptions.series!"
+          [chart]="leaveChartOptions.chart!"
+          [plotOptions]="leaveChartOptions.plotOptions!"
+          [labels]="leaveChartOptions.labels!"
+          [colors]="leaveChartOptions.colors!"
+        ></apx-chart>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

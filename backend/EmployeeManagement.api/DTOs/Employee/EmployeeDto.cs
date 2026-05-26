@@ -38,5 +38,6 @@ namespace EmployeeManagement.api.DTOs.Employee
 
         public int AllowedLeaveDays { get; set; }
 
+        public int? UserId { get; set; }
     }
 }

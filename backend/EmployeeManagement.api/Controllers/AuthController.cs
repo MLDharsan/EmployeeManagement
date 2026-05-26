@@ -1,4 +1,4 @@
-﻿using EmployeeManagement.api.DTOs.Auth;
+using EmployeeManagement.api.DTOs.Auth;
 using EmployeeManagement.api.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +8,7 @@ namespace EmployeeManagement.api.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthService _authService;
+        private readonly IAuthService _authService; // The authentication service, which is an abstraction that provides methods for handling user authentication and related operations. This service typically includes methods for logging in users, handling password recovery, and resetting passwords. By using an interface (IAuthService), the controller can depend on an abstraction rather than a concrete implementation, allowing for better separation of concerns and easier testing.
 
         public AuthController(IAuthService authService)
         {
@@ -27,6 +27,33 @@ namespace EmployeeManagement.api.Controllers
             {
                 Token = token
             });
+        }
+
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto dto)
+        {
+            var result = await _authService.ForgotPassword(dto);
+            if (!result)
+                return NotFound(new { message = "Email address not found." });
+
+            return Ok(new { message = "Password recovery link has been simulated & dispatched to your email." });
+        }
+
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto dto)
+        {
+            try
+            {
+                var result = await _authService.ResetPassword(dto);
+                if (!result)
+                    return BadRequest(new { message = "Invalid or expired reset token." });
+
+                return Ok(new { message = "Password updated successfully." });
+            }
+            catch (System.InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 }

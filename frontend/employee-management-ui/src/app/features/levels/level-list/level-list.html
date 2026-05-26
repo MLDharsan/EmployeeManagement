@@ -1,0 +1,128 @@
+<div class="levels-wrapper">
+  <!-- Header Section -->
+  <div class="page-header">
+    <div class="header-text">
+      <h2>Employee Levels</h2>
+      <p>Configure organizational professional tiers and manage their respective leave days capacity.</p>
+    </div>
+    <button mat-flat-button color="primary" class="add-level-btn" (click)="openLevelDialog()">
+      <i class="bi bi-plus-lg"></i>
+      <span>Add New Level</span>
+    </button>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="level-stats-grid">
+    <div class="stats-card bg-surface glass-panel">
+      <div class="stats-icon-box bg-primary-glow">
+        <i class="bi bi-sliders text-primary-dark"></i>
+      </div>
+      <div class="stats-details">
+        <span class="stats-label">Total Levels</span>
+        <span class="stats-value">{{ levels.length }}</span>
+      </div>
+    </div>
+
+    <div class="stats-card bg-surface glass-panel">
+      <div class="stats-icon-box bg-success-glow">
+        <i class="bi bi-calendar2-check text-success"></i>
+      </div>
+      <div class="stats-details">
+        <span class="stats-label">Active Headcount</span>
+        <span class="stats-value">{{ employees.length }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table Container Card -->
+  <mat-card class="table-container-card bg-surface p-0 glass-panel">
+    <table mat-table [dataSource]="levels" class="premium-table">
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="font-semibold text-primary-dark">Level Name</th>
+        <td mat-cell *matCellDef="let lvl" class="font-semibold">{{ lvl.levelName }}</td>
+      </ng-container>
+
+      <!-- Allowed Leave Days Column -->
+      <ng-container matColumnDef="allowedLeaveDays">
+        <th mat-header-cell *matHeaderCellDef class="text-center font-semibold text-primary-dark">Allowed Leaves</th>
+        <td mat-cell *matCellDef="let lvl" class="text-center">
+          <span class="leave-badge">{{ lvl.allowedLeaveDays }} Days</span>
+        </td>
+      </ng-container>
+
+      <!-- Headcount Column -->
+      <ng-container matColumnDef="headcount">
+        <th mat-header-cell *matHeaderCellDef class="text-center font-semibold text-primary-dark">Active Employees</th>
+        <td mat-cell *matCellDef="let lvl" class="text-center">
+          <span class="headcount-badge" [ngClass]="{'empty': getHeadcount(lvl.levelId) === 0}">
+            <i class="bi" [ngClass]="getHeadcount(lvl.levelId) > 0 ? 'bi-people-fill' : 'bi-people'"></i>
+            <span>{{ getHeadcount(lvl.levelId) }} Assigned</span>
+          </span>
+        </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="text-right font-semibold text-primary-dark" style="padding-right: 24px;">Actions</th>
+        <td mat-cell *matCellDef="let lvl" class="text-right" style="padding-right: 24px;">
+          <div class="table-actions">
+            <button mat-icon-button class="action-btn edit" (click)="openLevelDialog(lvl, $event)" matTooltip="Edit Level">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <button mat-icon-button class="action-btn delete" (click)="deleteLevel(lvl, $event)" matTooltip="Delete Level">
+              <i class="bi bi-trash-fill"></i>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="interactive-row"></tr>
+    </table>
+
+    <div *ngIf="levels.length === 0" class="empty-table-placeholder">
+      <i class="bi bi-sliders text-muted"></i>
+      <h3>No Employee Levels Configured</h3>
+      <p>Click "Add New Level" above to setup your first corporate tier.</p>
+    </div>
+  </mat-card>
+</div>
+
+<!-- Add/Edit MatDialog Template -->
+<ng-template #levelDialog>
+  <h2 mat-dialog-title class="dialog-header">
+    <i class="bi" [ngClass]="isEditMode ? 'bi-pencil-square' : 'bi-plus-circle-fill'" class="header-icon"></i>
+    <span class="font-semibold">{{ isEditMode ? 'Modify Employee Level' : 'Create New Employee Level' }}</span>
+  </h2>
+
+  <form [formGroup]="levelForm" (ngSubmit)="saveLevel()">
+    <mat-dialog-content class="dialog-form-body">
+      <div class="level-form">
+        <!-- Level Name -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Level / Role Name</mat-label>
+          <input matInput formControlName="levelName" placeholder="e.g. Associate Software Engineer">
+          <mat-error *ngIf="levelForm.get('levelName')?.hasError('required')">Level name is required</mat-error>
+          <mat-error *ngIf="levelForm.get('levelName')?.hasError('maxlength')">Name cannot exceed 50 characters</mat-error>
+        </mat-form-field>
+
+        <!-- Allowed Leave Days -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Allowed Leave Days per Year</mat-label>
+          <input matInput type="number" formControlName="allowedLeaveDays" min="0" max="100">
+          <mat-error *ngIf="levelForm.get('allowedLeaveDays')?.hasError('required')">Allowed leave days are required</mat-error>
+          <mat-error *ngIf="levelForm.get('allowedLeaveDays')?.hasError('min')">Leave days cannot be negative</mat-error>
+          <mat-error *ngIf="levelForm.get('allowedLeaveDays')?.hasError('max')">Leave days cannot exceed 100 days</mat-error>
+        </mat-form-field>
+      </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="dialog-footer-actions">
+      <button mat-button type="button" class="cancel-btn" (click)="closeDialog()">Cancel</button>
+      <button mat-flat-button color="primary" type="submit" [disabled]="levelForm.invalid" class="save-btn">
+        {{ isEditMode ? 'Save Changes' : 'Register Level' }}
+      </button>
+    </mat-dialog-actions>
+  </form>
+</ng-template>

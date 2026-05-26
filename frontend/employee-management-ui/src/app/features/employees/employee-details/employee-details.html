@@ -1,0 +1,314 @@
+<div class="profile-details-wrapper" *ngIf="employee">
+  <!-- Back Button (For HR directory navigation) -->
+  <div class="back-navigation" *ngIf="isHR">
+    <button mat-button class="back-btn" routerLink="/employees">
+      <i class="bi bi-arrow-left"></i>
+      <span>Back to Employees Directory</span>
+    </button>
+  </div>
+
+  <!-- MAIN COLUMN LAYOUT -->
+  <div class="profile-grid-layout">
+    
+    <!-- LEFT SIDEBAR: AVATAR & CV UPLOAD PANEL -->
+    <div class="left-avatar-column">
+      <mat-card class="avatar-card glass-panel text-center">
+        <mat-card-content class="avatar-card-body">
+          <div class="avatar-picker-wrapper">
+            <img [src]="employee.profileImage || (isHRProfile ? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150' : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150')" alt="Employee Avatar" class="big-avatar">
+            
+            <!-- Picture Upload Button (Self or HR only) -->
+            <label class="picture-picker-overlay" *ngIf="isSelf || isHR">
+              <input type="file" (change)="onImageSelected($event)" accept="image/*" class="d-none">
+              <i class="bi bi-camera-fill camera-icon"></i>
+            </label>
+          </div>
+
+          <!-- Picture Upload Progress Indicator -->
+          <div class="upload-progress-box" *ngIf="isImageUploading">
+            <span class="progress-label">Uploading Profile Photo...</span>
+            <mat-progress-bar mode="determinate" [value]="imageUploadProgress" class="progress-bar-custom"></mat-progress-bar>
+          </div>
+
+          <h3>{{ employee.fullName }}</h3>
+          <span class="badge badge-info mb-1" *ngIf="!isHRProfile">{{ employee.levelName }}</span>
+          <span class="badge badge-primary mb-1 text-glow-primary" *ngIf="isHRProfile">HR Manager & Administrator</span>
+          <p class="text-muted font-display text-sm">{{ employee.employeeCode }}</p>
+
+          <mat-divider class="my-4"></mat-divider>
+
+          <!-- Core details -->
+          <div class="meta-info-list text-left">
+            <div class="meta-item">
+              <i class="bi bi-building-fill text-primary"></i>
+              <div class="meta-data">
+                <span class="meta-label">Department</span>
+                <span class="meta-val">{{ employee.departmentName }}</span>
+              </div>
+            </div>
+            <div class="meta-item">
+              <i class="bi bi-calendar-check-fill text-success"></i>
+              <div class="meta-data">
+                <span class="meta-label">Joining Date</span>
+                <span class="meta-val">{{ employee.joiningDate | date:'mediumDate' }}</span>
+              </div>
+            </div>
+          </div>
+
+          <mat-divider class="my-4"></mat-divider>
+
+          <!-- CV UPLOAD / DOWNLOAD SECTION -->
+          <div class="cv-document-box text-left">
+            <h4>Curriculum Vitae (CV)</h4>
+            
+            <div class="cv-status" *ngIf="employee.cvPath">
+              <div class="cv-icon-box">
+                <i class="bi bi-file-earmark-pdf-fill pdf-icon"></i>
+              </div>
+              <div class="cv-meta">
+                <span class="cv-filename">{{ employee.cvPath }}</span>
+                <a [href]="'#'" class="cv-download-link" (click)="$event.preventDefault()" matTooltip="Download PDF">
+                  <i class="bi bi-download"></i> Download CV
+                </a>
+              </div>
+            </div>
+
+            <div class="cv-empty-state" *ngIf="!employee.cvPath">
+              <i class="bi bi-file-earmark-arrow-up text-muted"></i>
+              <p>No CV document uploaded yet</p>
+            </div>
+
+            <!-- CV Upload triggers (restricted to Self profile or HR Admin) -->
+            <div class="cv-upload-trigger" *ngIf="isSelf || isHR">
+              <label class="cv-file-label">
+                <input type="file" (change)="onCvSelected($event)" accept="application/pdf" class="d-none">
+                <div class="upload-btn-ui">
+                  <i class="bi bi-upload"></i>
+                  <span>{{ employee.cvPath ? 'Upload New CV' : 'Upload CV (PDF)' }}</span>
+                </div>
+              </label>
+
+              <!-- CV Upload Progress -->
+              <div class="upload-progress-box mt-3" *ngIf="isCvUploading">
+                <div class="progress-details">
+                  <span class="progress-label">Uploading CV...</span>
+                  <span class="progress-pct">{{ cvUploadProgress }}%</span>
+                </div>
+                <mat-progress-bar mode="determinate" [value]="cvUploadProgress" class="progress-bar-custom"></mat-progress-bar>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- RIGHT CONTENT COLUMN: DETAILED INFOS & FORMS -->
+    <div class="right-details-column">
+      
+      <!-- CARD 1: PERSONAL INFORMATION -->
+      <mat-card class="details-section-card">
+        <div class="section-card-header">
+          <h3>Personal Details</h3>
+          <i class="bi bi-person-badge section-icon"></i>
+        </div>
+        <mat-divider></mat-divider>
+        <mat-card-content class="section-content-body">
+          <div class="details-grid">
+            <div class="data-group">
+              <label>First Name</label>
+              <span>{{ employee.firstName }}</span>
+            </div>
+            <div class="data-group">
+              <label>Last Name</label>
+              <span>{{ employee.lastName }}</span>
+            </div>
+            <div class="data-group">
+              <label>Gender</label>
+              <span>{{ employee.gender }}</span>
+            </div>
+            <div class="data-group">
+              <label>Date of Birth</label>
+              <span>{{ employee.dob | date:'mediumDate' }}</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- CARD 2: CONTACT DETAILS WITH INLINE EDIT SYSTEM -->
+      <mat-card class="details-section-card">
+        <div class="section-card-header">
+          <h3>Contact Information</h3>
+          
+          <!-- Edit buttons restricted to self or HR admin -->
+          <div class="header-action-triggers" *ngIf="isSelf || isHR">
+            <button mat-button class="edit-profile-btn" *ngIf="!isEditMode" (click)="toggleEditMode()">
+              <i class="bi bi-pencil-square"></i> Edit Details
+            </button>
+            <div class="edit-actions-panel" *ngIf="isEditMode">
+              <button mat-button class="cancel-edit-btn" (click)="toggleEditMode()">Cancel</button>
+              <button mat-flat-button color="primary" class="save-edit-btn" [disabled]="profileForm.invalid || isSaving" (click)="saveProfileChanges()">
+                <span>{{ isSaving ? 'Saving...' : 'Save' }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        
+        <!-- Standard Display Mode -->
+        <mat-card-content class="section-content-body" *ngIf="!isEditMode">
+          <div class="details-grid">
+            <div class="data-group">
+              <label>Email Address</label>
+              <span>{{ employee.email }}</span>
+            </div>
+            <div class="data-group">
+              <label>Phone Number</label>
+              <span>{{ employee.phone }}</span>
+            </div>
+            <div class="data-group full-width-group">
+              <label>Residential Address</label>
+              <span>{{ employee.address }}</span>
+            </div>
+          </div>
+        </mat-card-content>
+
+        <!-- Inline Form Edit Mode -->
+        <mat-card-content class="section-content-body" *ngIf="isEditMode">
+          <form [formGroup]="profileForm" class="inline-edit-form">
+            <div class="details-grid">
+              <!-- Email Input -->
+              <mat-form-field appearance="outline">
+                <mat-label>Email Address</mat-label>
+                <input matInput formControlName="email" type="email">
+                <mat-error *ngIf="profileForm.get('email')?.hasError('required')">Email is required</mat-error>
+                <mat-error *ngIf="profileForm.get('email')?.hasError('email')">Invalid format</mat-error>
+              </mat-form-field>
+
+              <!-- Phone Input -->
+              <mat-form-field appearance="outline">
+                <mat-label>Phone Number</mat-label>
+                <input matInput formControlName="phone">
+                <mat-error *ngIf="profileForm.get('phone')?.hasError('required')">Phone is required</mat-error>
+                <mat-error *ngIf="profileForm.get('phone')?.hasError('pattern')">Invalid format (7-15 digits)</mat-error>
+              </mat-form-field>
+
+              <!-- Address Area -->
+              <mat-form-field appearance="outline" class="full-width-group">
+                <mat-label>Residential Address</mat-label>
+                <textarea matInput formControlName="address" rows="3"></textarea>
+                <mat-error *ngIf="profileForm.get('address')?.hasError('required')">Address is required</mat-error>
+                <mat-error *ngIf="profileForm.get('address')?.hasError('maxlength')">Max 100 characters</mat-error>
+              </mat-form-field>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- CARD 3: LEAVE BALANCES GRID (For standard employees only) -->
+      <mat-card class="details-section-card" *ngIf="!isHRProfile">
+        <div class="section-card-header">
+          <h3>Leave Balances</h3>
+          <i class="bi bi-calendar-range section-icon"></i>
+        </div>
+        <mat-divider></mat-divider>
+        <mat-card-content class="section-content-body">
+          <div class="leave-cards-grid">
+            <div class="leave-balance-mini-card" *ngFor="let item of leaveBalances">
+              <span class="balance-type">{{ item.leaveType }}</span>
+              <div class="balance-numbers">
+                <div class="num-box">
+                  <span class="num-val text-primary">{{ item.totalDays }}</span>
+                  <span class="num-lbl">Total</span>
+                </div>
+                <mat-divider [vertical]="true" class="mini-divider"></mat-divider>
+                <div class="num-box">
+                  <span class="num-val text-warning">{{ item.usedDays }}</span>
+                  <span class="num-lbl">Used</span>
+                </div>
+                <mat-divider [vertical]="true" class="mini-divider"></mat-divider>
+                <div class="num-box">
+                  <span class="num-val text-success">{{ item.remainingDays }}</span>
+                  <span class="num-lbl">Left</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- CARD 3 (ALTERNATIVE): HR OVERSIGHT & SYSTEM ACTIONS (For HR Administrator only) -->
+      <mat-card class="details-section-card glass-panel" *ngIf="isHRProfile">
+        <div class="section-card-header">
+          <h3>HR Administrative & Operations Oversight</h3>
+          <i class="bi bi-shield-check section-icon text-primary animate-pulse"></i>
+        </div>
+        <mat-divider></mat-divider>
+        <mat-card-content class="section-content-body">
+          <div class="hr-oversight-grid">
+            
+            <div class="oversight-mini-card">
+              <div class="oversight-icon text-primary">
+                <i class="bi bi-people-fill"></i>
+              </div>
+              <div class="oversight-info">
+                <span class="oversight-label">Management Scope</span>
+                <span class="oversight-value text-primary font-bold">Enterprise-Wide</span>
+              </div>
+            </div>
+
+            <div class="oversight-mini-card">
+              <div class="oversight-icon text-success">
+                <i class="bi bi-check2-square"></i>
+              </div>
+              <div class="oversight-info">
+                <span class="oversight-label">Oversight Headcount</span>
+                <span class="oversight-value text-success font-bold">5 Active Staff</span>
+              </div>
+            </div>
+
+            <div class="oversight-mini-card">
+              <div class="oversight-icon text-warning">
+                <i class="bi bi-sliders"></i>
+              </div>
+              <div class="oversight-info">
+                <span class="oversight-label">Oversight Sectors</span>
+                <span class="oversight-value text-warning font-bold">All Departments</span>
+              </div>
+            </div>
+
+            <div class="oversight-mini-card">
+              <div class="oversight-icon text-info">
+                <i class="bi bi-safe-fill"></i>
+              </div>
+              <div class="oversight-info">
+                <span class="oversight-label">Security Access</span>
+                <span class="oversight-value text-glow-info font-bold">Full Administrator</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- HR Quick Actions Panel -->
+          <div class="hr-quick-actions-panel mt-4">
+            <h4 class="text-sm font-semibold text-secondary uppercase tracking-wider mb-3">Administrative Shortcuts</h4>
+            <div class="quick-action-buttons">
+              <a mat-flat-button color="primary" routerLink="/employees" class="qa-btn mr-2 mb-2">
+                <i class="bi bi-person-plus-fill"></i>
+                <span>Employees Directory</span>
+              </a>
+              <a mat-flat-button color="accent" routerLink="/leave-management" class="qa-btn mr-2 mb-2">
+                <i class="bi bi-calendar-range-fill"></i>
+                <span>Review Pending Leaves</span>
+              </a>
+              <a mat-stroked-button routerLink="/dashboard" class="qa-btn mb-2">
+                <i class="bi bi-grid-1x2-fill"></i>
+                <span>Oversight Analytics</span>
+              </a>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
+</div>

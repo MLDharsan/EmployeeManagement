@@ -1,0 +1,126 @@
+<h2 mat-dialog-title class="dialog-title-accent">
+  <i class="bi" [ngClass]="isEditMode ? 'bi-person-gear' : 'bi-person-plus'"></i>
+  <span>{{ isEditMode ? 'Modify Employee Profile' : 'Register New Employee' }}</span>
+</h2>
+
+<form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content class="form-dialog-content">
+    <div class="form-grid">
+      <!-- Employee Code -->
+      <mat-form-field appearance="outline">
+        <mat-label>Employee Code</mat-label>
+        <input matInput formControlName="employeeCode" placeholder="e.g. EMP105">
+        <mat-error *ngIf="employeeForm.get('employeeCode')?.hasError('required')">Code is required</mat-error>
+        <mat-error *ngIf="employeeForm.get('employeeCode')?.hasError('pattern')">Format must match "EMP" followed by 3+ numbers (e.g. EMP105)</mat-error>
+      </mat-form-field>
+
+      <!-- First Name -->
+      <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" placeholder="e.g. Jane">
+        <mat-error *ngIf="employeeForm.get('firstName')?.hasError('required')">First name is required</mat-error>
+      </mat-form-field>
+
+      <!-- Last Name -->
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" placeholder="e.g. Smith">
+        <mat-error *ngIf="employeeForm.get('lastName')?.hasError('required')">Last name is required</mat-error>
+      </mat-form-field>
+
+      <!-- Email Address -->
+      <mat-form-field appearance="outline">
+        <mat-label>Email Address</mat-label>
+        <input matInput formControlName="email" type="email" placeholder="e.g. j.smith@company.com">
+        <mat-error *ngIf="employeeForm.get('email')?.hasError('required')">Email is required</mat-error>
+        <mat-error *ngIf="employeeForm.get('email')?.hasError('email')">Invalid email format</mat-error>
+      </mat-form-field>
+
+      <!-- Phone Number -->
+      <mat-form-field appearance="outline">
+        <mat-label>Phone Number</mat-label>
+        <input matInput formControlName="phone" placeholder="e.g. +1 (555) 012-3456">
+        <mat-error *ngIf="employeeForm.get('phone')?.hasError('required')">Phone is required</mat-error>
+        <mat-error *ngIf="employeeForm.get('phone')?.hasError('pattern')">Invalid phone format (7-15 digits)</mat-error>
+      </mat-form-field>
+
+      <!-- Gender Selector -->
+      <mat-form-field appearance="outline">
+        <mat-label>Gender</mat-label>
+        <mat-select formControlName="gender">
+          <mat-option value="Male">Male</mat-option>
+          <mat-option value="Female">Female</mat-option>
+          <mat-option value="Other">Other</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Date of Birth -->
+      <mat-form-field appearance="outline">
+        <mat-label>Date of Birth</mat-label>
+        <input matInput formControlName="dob" type="date">
+        <mat-error *ngIf="employeeForm.get('dob')?.hasError('required')">Date of birth is required</mat-error>
+      </mat-form-field>
+
+      <!-- Joining Date -->
+      <mat-form-field appearance="outline">
+        <mat-label>Joining Date</mat-label>
+        <input matInput formControlName="joiningDate" type="date">
+        <mat-error *ngIf="employeeForm.get('joiningDate')?.hasError('required')">Joining date is required</mat-error>
+      </mat-form-field>
+
+      <!-- Department Selector -->
+      <mat-form-field appearance="outline">
+        <mat-label>Department</mat-label>
+        <mat-select formControlName="departmentId">
+          <mat-option *ngFor="let dept of departments" [value]="dept.id">
+            {{ dept.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Employee Level Selector -->
+      <mat-form-field appearance="outline">
+        <mat-label>Employee Level</mat-label>
+        <mat-select formControlName="levelId">
+          <mat-option *ngFor="let lvl of levels" [value]="lvl.levelId">
+            {{ lvl.levelName }} (Allowed Leaves: {{ lvl.allowedLeaveDays }} days)
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Credentials Section (Only on Register) -->
+      <ng-container *ngIf="!isEditMode">
+        <mat-form-field appearance="outline">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" placeholder="e.g. alice.smith">
+          <mat-error *ngIf="employeeForm.get('username')?.hasError('required')">Username is required</mat-error>
+          <mat-error *ngIf="employeeForm.get('username')?.hasError('minlength')">Username must be at least 3 characters</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password" placeholder="Enter login password">
+          <mat-error *ngIf="employeeForm.get('password')?.hasError('required')">Password is required</mat-error>
+          <mat-error *ngIf="employeeForm.get('password')?.hasError('pattern')">
+            Must contain 8+ characters, including 1 uppercase, 1 lowercase, 1 number, and 1 special symbol.
+          </mat-error>
+        </mat-form-field>
+      </ng-container>
+
+      <!-- Residential Address (Takes full width in CSS grid) -->
+      <mat-form-field appearance="outline" class="full-width-field">
+        <mat-label>Residential Address</mat-label>
+        <textarea matInput formControlName="address" rows="3" placeholder="Enter home address..."></textarea>
+        <mat-error *ngIf="employeeForm.get('address')?.hasError('required')">Address is required</mat-error>
+        <mat-error *ngIf="employeeForm.get('address')?.hasError('maxlength')">Cannot exceed 100 characters</mat-error>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end" class="dialog-actions-panel">
+    <button mat-button type="button" (click)="onCancel()" class="cancel-dialog-btn">Cancel</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="employeeForm.invalid" class="save-dialog-btn">
+      {{ isEditMode ? 'Update Profile' : 'Register' }}
+    </button>
+  </mat-dialog-actions>
+</form>

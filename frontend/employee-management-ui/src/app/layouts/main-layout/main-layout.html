@@ -1,0 +1,148 @@
+<mat-sidenav-container class="sidenav-container">
+  <!-- Sidenav Navigation -->
+  <mat-sidenav #sidenav [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile" class="app-sidenav">
+    <div class="sidenav-brand">
+      <div class="brand-logo">
+        <i class="bi bi-briefcase-fill brand-icon"></i>
+      </div>
+      <div class="brand-text">
+        <h3>UNIC HR</h3>
+        <span>Enterprise Portal</span>
+      </div>
+    </div>
+
+    <!-- Active User Profile Section in Sidebar -->
+    <div class="sidenav-profile" *ngIf="currentUser" routerLink="/employees/profile" style="cursor: pointer;">
+      <div class="profile-avatar-container">
+        <img
+          [src]="currentUser.role === 'HR' ? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100' : 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100'"
+          alt="User Avatar" class="profile-avatar">
+        <span class="online-indicator"></span>
+      </div>
+      <div class="profile-meta">
+        <h4>{{ currentUser.username | titlecase }}</h4>
+        <span class="user-role-badge" [ngClass]="currentUser.role === 'HR' ? 'badge-hr' : 'badge-emp'">
+          {{ currentUser.role === 'HR' ? 'HR Manager' : 'Employee' }}
+        </span>
+      </div>
+    </div>
+
+    <mat-nav-list class="sidenav-menu-list">
+      <a mat-list-item *ngFor="let item of filteredNavItems" [routerLink]="item.route" routerLinkActive="active-link"
+        (click)="isMobile ? sidenav.close() : null" class="menu-item-link">
+        <div class="menu-item-content">
+          <i class="bi {{ item.icon }} menu-icon"></i>
+          <span class="menu-label">{{ item.label }}</span>
+        </div>
+      </a>
+
+      <!-- Specific user Profile Edit route which links to details -->
+      <a mat-list-item routerLink="/employees/profile" routerLinkActive="active-link"
+        (click)="isMobile ? sidenav.close() : null" class="menu-item-link"
+        *ngIf="currentUser && currentUser.role === 'Employee'">
+        <div class="menu-item-content">
+          <i class="bi bi-person-bounding-box menu-icon"></i>
+          <span class="menu-label">My Profile</span>
+        </div>
+      </a>
+    </mat-nav-list>
+
+    <div class="sidenav-footer">
+      <button mat-button class="logout-btn" (click)="logout()">
+        <i class="bi bi-box-arrow-left"></i>
+        <span>Logout</span>
+      </button>
+    </div>
+  </mat-sidenav>
+
+  <!-- Sidenav Content Area -->
+  <mat-sidenav-content class="sidenav-content">
+    <!-- Navbar Header -->
+    <mat-toolbar class="app-toolbar glass-panel">
+      <button mat-icon-button (click)="sidenav.toggle()" class="menu-toggle-btn">
+        <i class="bi bi-justify"></i>
+      </button>
+
+      <span class="page-title">UNIC HR</span>
+      <span class="toolbar-spacer"></span>
+
+      <!-- Theme Toggle -->
+      <button mat-icon-button (click)="toggleTheme()" class="toolbar-action-btn" matTooltip="Toggle Dark/Light Mode">
+        <i class="bi" [ngClass]="isDarkMode ? 'bi-sun-fill sun-icon' : 'bi-moon-stars-fill moon-icon'"></i>
+      </button>
+
+      <!-- Notification Bell with Dropdown Menu -->
+      <button mat-icon-button [matMenuTriggerFor]="notificationMenu" class="toolbar-action-btn">
+        <div class="bell-container">
+          <i class="bi bi-bell-fill"></i>
+          <span class="notif-badge" *ngIf="unreadCount > 0">{{ unreadCount }}</span>
+        </div>
+      </button>
+
+      <mat-menu #notificationMenu="matMenu" xPosition="before" class="notification-dropdown">
+        <div class="notif-header">
+          <h3>Notifications</h3>
+          <button mat-button class="mark-all-read-btn" (click)="markAllAsRead()" *ngIf="unreadCount > 0">
+            Mark all read
+          </button>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="notif-list-container">
+          <div *ngIf="notifications.length === 0" class="empty-notifs">
+            <i class="bi bi-bell-slash text-muted"></i>
+            <p>No notifications yet</p>
+          </div>
+
+          <button mat-menu-item *ngFor="let notif of notifications" class="notif-item"
+            [ngClass]="{'unread': !notif.isRead}"
+            (click)="markAsRead(notif.notificationId, $event)">
+            <div class="notif-item-content">
+              <div class="notif-body">
+                <div class="notif-title-row">
+                  <span class="notif-title">{{ notif.title }}</span>
+                  <span class="status-badge" [ngClass]="notif.isRead ? 'badge-seen' : 'badge-new'">
+                    {{ notif.isRead ? 'Seen' : 'New' }}
+                  </span>
+                </div>
+                <p class="notif-desc">{{ notif.message }}</p>
+                <span class="notif-time">{{ notif.createdAt | date:'MMM d, h:mm a' }}</span>
+              </div>
+            </div>
+          </button>
+        </div>
+      </mat-menu>
+
+      <!-- Active User Profile Dropdown -->
+      <button mat-button [matMenuTriggerFor]="profileMenu" class="user-profile-menu-trigger" *ngIf="currentUser">
+        <img
+          [src]="currentUser.role === 'HR' ? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=80' : 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=80'"
+          alt="User Avatar" class="user-avatar">
+        <span class="user-name-display">{{ currentUser.username | titlecase }}</span>
+        <i class="bi bi-chevron-down caret-icon"></i>
+      </button>
+
+      <mat-menu #profileMenu="matMenu" xPosition="before" class="profile-dropdown-menu">
+        <div class="profile-menu-header" *ngIf="currentUser">
+          <h4>{{ currentUser.username | titlecase }}</h4>
+          <p>{{ currentUser.role === 'HR' ? 'HR / Administrator' : 'Staff Employee' }}</p>
+        </div>
+        <mat-divider></mat-divider>
+        <button mat-menu-item routerLink="/employees/profile">
+          <i class="bi bi-person-circle profile-menu-icon"></i>
+          <span>View Profile</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <i class="bi bi-box-arrow-left profile-menu-icon logout-text"></i>
+          <span class="logout-text">Logout</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+
+    <!-- Main Content Dynamic Viewport -->
+    <main class="main-content-wrapper">
+      <div class="content-container animate-fade-in">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

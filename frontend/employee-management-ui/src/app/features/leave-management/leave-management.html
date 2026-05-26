@@ -1,0 +1,262 @@
+<div class="leaves-wrapper animate-fade-in">
+  
+  <!-- ==========================================
+       EMPLOYEE VIEW: BALANCES & APPLICATIONS
+       ========================================== -->
+  <div *ngIf="!isHR" class="employee-portal-container">
+    
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <div class="header-text">
+        <h2>Leave Management</h2>
+        <p class="text-secondary">Track your paid leave allowances, check application statuses, or apply for dynamic absences.</p>
+      </div>
+      <button mat-flat-button color="primary" class="apply-leave-btn" (click)="openApplyDialog()">
+        <i class="bi bi-calendar-plus-fill"></i>
+        <span>Apply Leave</span>
+      </button>
+    </div>
+
+    <!-- LEAVE BALANCE CARD GRID -->
+    <div class="leave-balance-grid">
+      <div class="balance-card glass-panel" *ngFor="let balance of leaveBalances">
+        <div class="balance-card-header">
+          <span class="type-name">{{ balance.leaveType }}</span>
+          <span class="badge badge-success">
+            Allowance
+          </span>
+        </div>
+        <mat-divider class="my-2"></mat-divider>
+        <div class="balance-values">
+          <div class="val-box">
+            <span class="val-num">{{ balance.totalDays }}</span>
+            <span class="val-lbl">Total</span>
+          </div>
+          <div class="val-box">
+            <span class="val-num text-warning">{{ balance.usedDays }}</span>
+            <span class="val-lbl">Used</span>
+          </div>
+          <div class="val-box">
+            <span class="val-num text-success font-bold">{{ balance.remainingDays }}</span>
+            <span class="val-lbl">Left</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEAVE HISTORY LOGS -->
+    <h3 class="section-title mt-4">My Leave Requests History</h3>
+    <mat-card class="table-container-card mt-3">
+      <mat-card-content class="p-0">
+        <table mat-table [dataSource]="employeeHistory" class="mat-elevation-z0 premium-table">
+
+          <!-- Leave Type -->
+          <ng-container matColumnDef="leaveType">
+            <th mat-header-cell *matHeaderCellDef> Type </th>
+            <td mat-cell *matCellDef="let element" class="font-display font-semibold text-primary">
+              {{ element.leaveType }}
+            </td>
+          </ng-container>
+
+          <!-- Start Date -->
+          <ng-container matColumnDef="startDate">
+            <th mat-header-cell *matHeaderCellDef> Start Date </th>
+            <td mat-cell *matCellDef="let element"> {{ element.startDate | date:'mediumDate' }} </td>
+          </ng-container>
+
+          <!-- End Date -->
+          <ng-container matColumnDef="endDate">
+            <th mat-header-cell *matHeaderCellDef> End Date </th>
+            <td mat-cell *matCellDef="let element"> {{ element.endDate | date:'mediumDate' }} </td>
+          </ng-container>
+
+          <!-- Days Count -->
+          <ng-container matColumnDef="days">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> Duration </th>
+            <td mat-cell *matCellDef="let element" class="text-center font-semibold text-primary-dark">
+              {{ element.daysCount || 1 }} day(s)
+            </td>
+          </ng-container>
+
+          <!-- Reason -->
+          <ng-container matColumnDef="reason">
+            <th mat-header-cell *matHeaderCellDef> Reason </th>
+            <td mat-cell *matCellDef="let element" class="reason-cell"> {{ element.reason }} </td>
+          </ng-container>
+
+          <!-- Status -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef class="text-right"> Status </th>
+            <td mat-cell *matCellDef="let element" class="text-right">
+              <span class="badge" [class.badge-success]="element.status === 'Approved'" [class.badge-warning]="element.status === 'Pending'" [class.badge-danger]="element.status === 'Rejected'">
+                {{ element.status }}
+              </span>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="employeeColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: employeeColumns;" class="interactive-row"></tr>
+        </table>
+
+        <!-- Empty status -->
+        <div class="table-empty-state" *ngIf="employeeHistory.length === 0">
+          <i class="bi bi-calendar-x"></i>
+          <p>You have not filed any leave requests yet.</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- ==========================================
+       HR ADMIN VIEW: REQUESTS PIPELINE QUEUE
+       ========================================== -->
+  <div *ngIf="isHR" class="hr-portal-container">
+    
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <div class="header-text">
+        <h2>Absence Requests Pipeline</h2>
+        <p class="text-secondary">Review employee leave applications. Approvals automatically deduct allocations in profiles.</p>
+      </div>
+    </div>
+
+    <!-- PENDING LIST -->
+    <mat-card class="table-container-card">
+      <mat-card-content class="p-0">
+        <table mat-table [dataSource]="hrPendingQueue" class="mat-elevation-z0 premium-table">
+
+          <!-- Employee Name -->
+          <ng-container matColumnDef="employeeName">
+            <th mat-header-cell *matHeaderCellDef> Applicant </th>
+            <td mat-cell *matCellDef="let element" class="font-display font-semibold text-primary-dark">
+              {{ element.employeeName }}
+            </td>
+          </ng-container>
+
+          <!-- Leave Type -->
+          <ng-container matColumnDef="leaveType">
+            <th mat-header-cell *matHeaderCellDef> Type </th>
+            <td mat-cell *matCellDef="let element">
+              <span class="badge" [class.badge-success]="element.leaveType === 'Annual' || element.leaveType === 'Leaves'" [class.badge-info]="element.leaveType === 'Sick'" [class.badge-warning]="element.leaveType === 'Casual'">
+                {{ element.leaveType }}
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- Start Date -->
+          <ng-container matColumnDef="startDate">
+            <th mat-header-cell *matHeaderCellDef> Start </th>
+            <td mat-cell *matCellDef="let element"> {{ element.startDate | date:'mediumDate' }} </td>
+          </ng-container>
+
+          <!-- End Date -->
+          <ng-container matColumnDef="endDate">
+            <th mat-header-cell *matHeaderCellDef> End </th>
+            <td mat-cell *matCellDef="let element"> {{ element.endDate | date:'mediumDate' }} </td>
+          </ng-container>
+
+          <!-- Days Count -->
+          <ng-container matColumnDef="days">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> Duration </th>
+            <td mat-cell *matCellDef="let element" class="text-center font-semibold">
+              {{ element.daysCount || 1 }} day(s)
+            </td>
+          </ng-container>
+
+          <!-- Reason -->
+          <ng-container matColumnDef="reason">
+            <th mat-header-cell *matHeaderCellDef> Reason </th>
+            <td mat-cell *matCellDef="let element" class="reason-cell"> {{ element.reason }} </td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="text-right"> Actions </th>
+            <td mat-cell *matCellDef="let element" class="text-right">
+              <!-- If pending, show review controls -->
+              <div class="hr-action-triggers" *ngIf="element.status === 'Pending'">
+                <button mat-flat-button class="review-btn approve-btn" (click)="approveLeave(element.leaveRequestId)">
+                  Approve
+                </button>
+                <button mat-button class="review-btn reject-btn" (click)="rejectLeave(element.leaveRequestId)">
+                  Reject
+                </button>
+              </div>
+
+              <!-- If completed, show status badge -->
+              <div class="hr-completed-badge" *ngIf="element.status !== 'Pending'">
+                <span class="badge" [class.badge-success]="element.status === 'Approved'" [class.badge-danger]="element.status === 'Rejected'">
+                  {{ element.status }}
+                </span>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="hrColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: hrColumns;" class="interactive-row" [class.pending-row]="row.status === 'Pending'"></tr>
+        </table>
+
+        <!-- Empty status -->
+        <div class="table-empty-state" *ngIf="hrPendingQueue.length === 0">
+          <i class="bi bi-mailbox"></i>
+          <p>No active leave requests queued for review.</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- ==========================================
+       POPUP APPLY LEAVE DIALOG TEMPLATE
+       ========================================== -->
+  <ng-template #applyLeaveDialog>
+    <h2 mat-dialog-title class="dialog-header">
+      <i class="bi bi-calendar-plus header-icon"></i>
+      <span>File Leave Application</span>
+    </h2>
+
+    <mat-dialog-content class="dialog-form-body">
+      <form [formGroup]="leaveForm" class="leave-form">
+        <!-- Leave Type Dropdown -->
+        <mat-form-field appearance="outline">
+          <mat-label>Absence Classification</mat-label>
+          <mat-select formControlName="leaveType">
+            <mat-option value="Leaves">Leaves</mat-option>
+            <mat-option value="Unpaid">Unpaid Leave</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Dates Grid -->
+        <div class="form-dates-grid">
+          <!-- Start Date -->
+          <div class="native-date-field">
+            <label class="field-lbl">Start Date</label>
+            <input type="date" formControlName="startDate" class="date-input-ui">
+          </div>
+
+          <!-- End Date -->
+          <div class="native-date-field">
+            <label class="field-lbl">End Date</label>
+            <input type="date" formControlName="endDate" class="date-input-ui">
+          </div>
+        </div>
+
+        <!-- Reason details -->
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Absence Justification</mat-label>
+          <textarea matInput formControlName="reason" rows="3" placeholder="Explain the purpose of your leave request..."></textarea>
+          <mat-error *ngIf="leaveForm.get('reason')?.hasError('required')">Explanation details required</mat-error>
+          <mat-error *ngIf="leaveForm.get('reason')?.hasError('minlength')">Must contain at least 5 characters</mat-error>
+          <mat-error *ngIf="leaveForm.get('reason')?.hasError('maxlength')">Max 150 characters allowed</mat-error>
+        </mat-form-field>
+      </form>
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="dialog-footer-actions">
+      <button mat-button class="cancel-btn" (click)="closeDialog()">Cancel</button>
+      <button mat-flat-button color="primary" class="save-btn" [disabled]="leaveForm.invalid" (click)="submitLeaveApplication()">
+        <span>Submit Request</span>
+      </button>
+    </mat-dialog-actions>
+  </ng-template>
+
+</div>

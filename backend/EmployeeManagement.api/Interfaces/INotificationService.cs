@@ -15,5 +15,8 @@ namespace EmployeeManagement.api.Interfaces
 
         Task<bool>
             MarkAllAsRead(int userId);
+
+        Task<bool>
+            DeleteNotification(int notificationId);
     }
 }
