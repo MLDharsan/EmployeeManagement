@@ -42,6 +42,11 @@ export class EmployeeDetailsComponent implements OnInit {
   isEditMode = false;
   isSaving = false;
 
+  // Change password variables
+  changePasswordForm!: FormGroup;
+  isChangingPassword = false;
+  isPasswordFormExpanded = false;
+
   // Role status checkers
   isHR = false;
   isSelf = false;
@@ -103,6 +108,7 @@ export class EmployeeDetailsComponent implements OnInit {
         );
         this.isHRProfile = emp.departmentName === 'Human Resources' || emp.levelName === 'Senior Manager' || emp.employeeCode === 'EMP001';
         this.initProfileForm(emp);
+        this.initChangePasswordForm();
         this.cdr.markForCheck();
       } else {
         this.toastService.error('Employee details not found.');
@@ -117,6 +123,24 @@ export class EmployeeDetailsComponent implements OnInit {
       address: [emp.address, [Validators.required, Validators.maxLength(100)]],
       email: [emp.email, [Validators.required, Validators.email]]
     });
+  }
+
+  initChangePasswordForm(): void {
+    this.changePasswordForm = this.fb.group({
+      currentPassword: ['', [Validators.required]],
+      newPassword: ['', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&()\-#_+=/\\\[\]{}])[A-Za-z\d@$!%*?&()\-#_+=/\\\[\]{}]{8,}$/)
+      ]],
+      confirmPassword: ['', [Validators.required]]
+    }, { validators: this.passwordMatchValidator });
+  }
+
+  passwordMatchValidator(g: FormGroup) {
+    const newPassword = g.get('newPassword')?.value;
+    const confirmPassword = g.get('confirmPassword')?.value;
+    return newPassword === confirmPassword ? null : { mismatch: true };
   }
 
   toggleEditMode(): void {
@@ -243,5 +267,78 @@ export class EmployeeDetailsComponent implements OnInit {
     const parts = fullName.trim().split(/[.\s_-]+/);
     const initials = parts.filter(p => p.length > 0).map(p => p[0]).join('').toUpperCase();
     return initials.substring(0, 2);
+  }
+
+  canChangePassword(): boolean {
+    if (!this.employee || !this.employee.lastPasswordChangedAt) {
+      return true;
+    }
+    const lastChange = new Date(this.employee.lastPasswordChangedAt);
+    const now = new Date();
+    const diffTime = now.getTime() - lastChange.getTime();
+    const diffDays = diffTime / (1000 * 60 * 60 * 24);
+    return diffDays >= 30;
+  }
+
+  getPasswordChangeRemainingDays(): number {
+    if (!this.employee || !this.employee.lastPasswordChangedAt) {
+      return 0;
+    }
+    const lastChange = new Date(this.employee.lastPasswordChangedAt);
+    const nextAllowedDate = new Date(lastChange.getTime() + 30 * 24 * 60 * 60 * 1000);
+    const now = new Date();
+    const diffTime = nextAllowedDate.getTime() - now.getTime();
+    if (diffTime <= 0) return 0;
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  }
+
+  getNextAllowedPasswordChangeDate(): Date | null {
+    if (!this.employee || !this.employee.lastPasswordChangedAt) {
+      return null;
+    }
+    const lastChange = new Date(this.employee.lastPasswordChangedAt);
+    return new Date(lastChange.getTime() + 30 * 24 * 60 * 60 * 1000);
+  }
+
+  togglePasswordForm(): void {
+    this.isPasswordFormExpanded = !this.isPasswordFormExpanded;
+    if (!this.isPasswordFormExpanded) {
+      this.changePasswordForm.reset();
+    }
+  }
+
+  onChangePassword(): void {
+    if (this.changePasswordForm.invalid) {
+      this.toastService.warning('Please satisfy all password complexity rules and ensure they match.');
+      return;
+    }
+
+    if (!this.canChangePassword()) {
+      const remainingDays = this.getPasswordChangeRemainingDays();
+      this.toastService.error(`You can only change your password once a month. Please wait ${remainingDays} more day(s).`);
+      return;
+    }
+
+    this.isChangingPassword = true;
+    const { currentPassword, newPassword } = this.changePasswordForm.value;
+
+    this.authService.changePassword({ currentPassword, newPassword }).subscribe({
+      next: (res: any) => {
+        this.isChangingPassword = false;
+        this.isPasswordFormExpanded = false;
+        this.toastService.success(res.message || 'Password updated successfully!');
+        this.changePasswordForm.reset();
+        
+        // Reload details to lock the form immediately
+        if (this.employee) {
+          this.loadEmployeeDetails(this.employee.employeeId);
+        }
+      },
+      error: (err) => {
+        this.isChangingPassword = false;
+        const errMsg = err?.error?.message || 'Failed to change password. Please check your current password.';
+        this.toastService.error(errMsg);
+      }
+    });
   }
 }

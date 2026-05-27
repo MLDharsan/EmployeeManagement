@@ -11,7 +11,8 @@
         <mat-label>Employee Code</mat-label>
         <input matInput formControlName="employeeCode" placeholder="e.g. EMP105">
         <mat-error *ngIf="employeeForm.get('employeeCode')?.hasError('required')">Code is required</mat-error>
-        <mat-error *ngIf="employeeForm.get('employeeCode')?.hasError('pattern')">Format must match "EMP" followed by 3+ numbers (e.g. EMP105)</mat-error>
+        <mat-error *ngIf="employeeForm.get('employeeCode')?.hasError('pattern')">Format must match "EMP" followed by 3+
+          numbers (e.g. EMP105)</mat-error>
       </mat-form-field>
 
       <!-- First Name -->
@@ -43,16 +44,16 @@
           <i class="bi bi-shield-lock"></i>
         </span>
         <input matInput formControlName="recoveryEmail" type="email" placeholder="e.g. personal@gmail.com">
-        <mat-hint>Password reset links will be sent here. If empty, primary email is used.</mat-hint>
+        <!-- <mat-hint>Password reset links will be sent here. If empty, primary email is used.</mat-hint> -->
         <mat-error *ngIf="employeeForm.get('recoveryEmail')?.hasError('email')">Invalid email format</mat-error>
       </mat-form-field>
 
       <!-- Phone Number -->
       <mat-form-field appearance="outline">
         <mat-label>Phone Number</mat-label>
-        <input matInput formControlName="phone" placeholder="e.g. +1 (555) 012-3456">
+        <input matInput formControlName="phone" placeholder="e.g. +94 77 123 4567">
         <mat-error *ngIf="employeeForm.get('phone')?.hasError('required')">Phone is required</mat-error>
-        <mat-error *ngIf="employeeForm.get('phone')?.hasError('pattern')">Invalid phone format (7-15 digits)</mat-error>
+        <mat-error *ngIf="employeeForm.get('phone')?.hasError('pattern')">Invalid phone format (11 digits)</mat-error>
       </mat-form-field>
 
       <!-- Gender Selector -->
@@ -94,7 +95,7 @@
         <mat-label>Employee Level</mat-label>
         <mat-select formControlName="levelId">
           <mat-option *ngFor="let lvl of levels" [value]="lvl.levelId">
-            {{ lvl.levelName }} (Allowed Leaves: {{ lvl.allowedLeaveDays }} days)
+            {{ lvl.levelName }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -105,7 +106,8 @@
           <mat-label>Username</mat-label>
           <input matInput formControlName="username" placeholder="e.g. alice.smith">
           <mat-error *ngIf="employeeForm.get('username')?.hasError('required')">Username is required</mat-error>
-          <mat-error *ngIf="employeeForm.get('username')?.hasError('minlength')">Username must be at least 3 characters</mat-error>
+          <mat-error *ngIf="employeeForm.get('username')?.hasError('minlength')">Username must be at least 3
+            characters</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">

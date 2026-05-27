@@ -53,7 +53,7 @@ export class EmployeeFormComponent implements OnInit {
       lastName: [emp?.lastName || '', [Validators.required, Validators.minLength(2)]],
       email: [emp?.email || '', [Validators.required, Validators.email]],
       recoveryEmail: [emp?.recoveryEmail || '', [Validators.email]],
-      phone: [emp?.phone || '', [Validators.required, Validators.pattern(/^\+?[\d\s\-()]{7,15}$/)]],
+      phone: [emp?.phone || '', [Validators.required, Validators.pattern(/^\+94\s?\d{2}\s?\d{7}$/)]],
       address: [emp?.address || '', [Validators.required, Validators.maxLength(100)]],
       dob: [emp?.dob ? emp.dob.split('T')[0] : '', [Validators.required]],
       gender: [emp?.gender || 'Male', [Validators.required]],

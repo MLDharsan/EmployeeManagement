@@ -24,3 +24,5 @@ frontend/employee-management-ui/node_modules/
 # OS-specific files
 .DS_Store
 Thumbs.db
+
+uploads

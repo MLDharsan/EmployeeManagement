@@ -45,5 +45,7 @@ namespace EmployeeManagement.api.DTOs.Employee
         public string? ProfileImage { get; set; }
 
         public string? CvPath { get; set; }
+
+        public DateTime? LastPasswordChangedAt { get; set; }
     }
 }

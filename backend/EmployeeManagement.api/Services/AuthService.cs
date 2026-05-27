@@ -176,5 +176,49 @@ namespace EmployeeManagement.api.Services
 
             return true;
         }
+
+        public async Task<ChangePasswordResult> ChangePassword(int userId, ChangePasswordDto dto)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+            if (user == null)
+            {
+                return new ChangePasswordResult { IsSuccess = false, Message = "User not found." };
+            }
+
+            // 1. Verify current password
+            if (!BCrypt.Net.BCrypt.Verify(dto.CurrentPassword, user.PasswordHash))
+            {
+                return new ChangePasswordResult { IsSuccess = false, Message = "Incorrect current password." };
+            }
+
+            // 2. Enforce once a month constraint (30 days)
+            if (user.LastPasswordChangedAt.HasValue)
+            {
+                var timeSinceLastChange = DateTime.Now - user.LastPasswordChangedAt.Value;
+                if (timeSinceLastChange.TotalDays < 30)
+                {
+                    var nextAllowedDate = user.LastPasswordChangedAt.Value.AddDays(30);
+                    var remainingDays = Math.Ceiling((nextAllowedDate - DateTime.Now).TotalDays);
+                    return new ChangePasswordResult
+                    {
+                        IsSuccess = false,
+                        Message = $"You can only change your password once a month. You can change it again in {remainingDays} day(s) (on {nextAllowedDate:yyyy-MM-dd})."
+                    };
+                }
+            }
+
+            // 3. Validate new password strength
+            if (!Helpers.PasswordHelper.IsValid(dto.NewPassword, out string validationError))
+            {
+                return new ChangePasswordResult { IsSuccess = false, Message = validationError };
+            }
+
+            // 4. Update password and timestamp
+            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
+            user.LastPasswordChangedAt = DateTime.Now;
+            await _context.SaveChangesAsync();
+
+            return new ChangePasswordResult { IsSuccess = true, Message = "Password updated successfully." };
+        }
     }
 }

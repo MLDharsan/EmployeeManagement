@@ -31,7 +31,7 @@ namespace EmployeeManagement.api.Services
 
             var userMap = await _context.Users
                 .GroupBy(u => u.EmployeeId)
-                .ToDictionaryAsync(g => g.Key, g => g.First().UserId);
+                .ToDictionaryAsync(g => g.Key, g => new { UserId = g.First().UserId, LastPasswordChangedAt = g.First().LastPasswordChangedAt });
 
             return employees.Select(e => new EmployeeDto
             {
@@ -53,9 +53,10 @@ namespace EmployeeManagement.api.Services
                 LevelName = e.Level.LevelName,
                 RemainingLeaveDays = e.RemainingLeaveDays,
                 AllowedLeaveDays = e.Level.AllowedLeaveDays,
-                UserId = userMap.TryGetValue(e.EmployeeId, out var uid) ? uid : null,
+                UserId = userMap.TryGetValue(e.EmployeeId, out var userInfo) ? userInfo.UserId : null,
                 ProfileImage = e.ProfileImage,
-                CvPath = e.CvPath
+                CvPath = e.CvPath,
+                LastPasswordChangedAt = userMap.TryGetValue(e.EmployeeId, out var ui) ? ui.LastPasswordChangedAt : null
             }).ToList();
         }
 
@@ -93,7 +94,8 @@ namespace EmployeeManagement.api.Services
                 AllowedLeaveDays = employee.Level.AllowedLeaveDays,
                 UserId = user?.UserId,
                 ProfileImage = employee.ProfileImage,
-                CvPath = employee.CvPath
+                CvPath = employee.CvPath,
+                LastPasswordChangedAt = user?.LastPasswordChangedAt
             };
         }
 

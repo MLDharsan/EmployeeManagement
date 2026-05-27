@@ -1,6 +1,7 @@
 using EmployeeManagement.api.DTOs.Auth;
 using EmployeeManagement.api.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeManagement.api.Controllers
 {
@@ -53,6 +54,30 @@ namespace EmployeeManagement.api.Controllers
             catch (System.InvalidOperationException ex)
             {
                 return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [Authorize]
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto dto)
+        {
+            var userIdClaim = User.FindFirst("UserId")?.Value;
+            if (userIdClaim == null || !int.TryParse(userIdClaim, out var userId))
+                return Unauthorized();
+
+            try
+            {
+                var result = await _authService.ChangePassword(userId, dto);
+                if (!result.IsSuccess)
+                {
+                    return BadRequest(new { message = result.Message });
+                }
+
+                return Ok(new { message = result.Message });
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, new { message = "An error occurred: " + ex.Message });
             }
         }
     }

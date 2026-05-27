@@ -73,6 +73,10 @@ export class AuthService {
     return this.http.post(`${environment.apiUrl}/auth/reset-password`, { token, password });
   }
 
+  changePassword(dto: any): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/auth/change-password`, dto);
+  }
+
   getToken(): string | null {
     return localStorage.getItem(this.tokenKey);
   }

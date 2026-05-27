@@ -760,3 +760,177 @@
 .avatar-picker-wrapper:hover .big-avatar-fallback {
   transform: scale(1.08);
 }
+
+/* ==========================================
+   PASSWORD SECURITY & LOCKED STATE STYLING
+   ========================================== */
+.password-complexity-guide {
+  background-color: var(--surface-hover);
+  border: 1px solid var(--surface-border);
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 13px;
+}
+
+.guide-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.guide-title i {
+  color: var(--primary);
+  font-size: 15px;
+}
+
+.guide-list {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--text-secondary);
+}
+
+.guide-list li {
+  margin-bottom: 4px;
+}
+
+.password-locked-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 24px;
+  background-color: var(--surface-hover);
+  border: 1.5px dashed var(--surface-border);
+  border-radius: var(--border-radius-lg);
+  animation: fadeIn 0.4s ease;
+}
+
+.lock-icon-container {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background-color: var(--warning-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.lock-icon {
+  font-size: 26px;
+  color: var(--warning);
+}
+
+.lock-details {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.lock-details h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+  color: var(--text-primary);
+}
+
+.lock-desc {
+  font-size: 13.5px;
+  margin: 0 0 16px 0;
+}
+
+.lock-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background-color: var(--surface);
+  border-radius: 8px;
+  border: 1px solid var(--surface-border);
+}
+
+.lock-status-text {
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.lock-status-text strong {
+  color: var(--primary);
+}
+
+.text-glow-warning {
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
+}
+
+/* Collapsed state styling */
+.password-collapsed-state {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  gap: 16px;
+}
+
+.collapsed-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.key-icon-large {
+  font-size: 24px;
+  background-color: var(--primary-glow);
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(37, 99, 235, 0.15);
+}
+
+.info-text h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+  color: var(--text-primary);
+}
+
+.info-text p {
+  font-size: 13px;
+  margin: 0;
+}
+
+.expand-password-btn {
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  padding: 8px 20px !important;
+  border-radius: 8px !important;
+  height: 40px !important;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition) !important;
+}
+
+.d-flex.gap-2 {
+  gap: 8px;
+}
+
+@media (max-width: 576px) {
+  .password-collapsed-state {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .expand-password-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+

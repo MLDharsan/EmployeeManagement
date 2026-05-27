@@ -215,6 +215,119 @@
         </mat-card-content>
       </mat-card>
 
+      <!-- CARD 2.5: SECURITY & PASSWORD CHANGE (Only visible on own profile) -->
+      <mat-card class="details-section-card" *ngIf="isSelf">
+        <div class="section-card-header">
+          <h3>Security & Password</h3>
+          <i class="bi bi-shield-lock section-icon text-glow-primary"></i>
+        </div>
+        <mat-divider></mat-divider>
+
+        <!-- Case 1: Can change password -->
+        <mat-card-content class="section-content-body" *ngIf="canChangePassword()">
+          
+          <!-- Collapsed State: Show only prompt and action button -->
+          <div class="password-collapsed-state" *ngIf="!isPasswordFormExpanded">
+            <div class="collapsed-info">
+              <div class="key-icon-large">
+                <i class="bi bi-key-fill text-primary"></i>
+              </div>
+              <div class="info-text">
+                <h4>Update Your Password</h4>
+                <p class="text-muted">It's a good practice to use a strong password that you don't use elsewhere.</p>
+              </div>
+            </div>
+            <button mat-flat-button color="primary" (click)="togglePasswordForm()" class="expand-password-btn">
+              <i class="bi bi-pencil-square"></i>
+              <span>Change Password</span>
+            </button>
+          </div>
+
+          <!-- Expanded State: Show inputs, guides, and save/cancel buttons -->
+          <form [formGroup]="changePasswordForm" (ngSubmit)="onChangePassword()" class="inline-edit-form animate-fade-in" *ngIf="isPasswordFormExpanded">
+            <div class="details-grid">
+              
+              <!-- Current Password -->
+              <mat-form-field appearance="outline">
+                <mat-label>Current Password</mat-label>
+                <input matInput formControlName="currentPassword" type="password" placeholder="Enter current password">
+                <mat-error *ngIf="changePasswordForm.get('currentPassword')?.hasError('required')">
+                  Current password is required.
+                </mat-error>
+              </mat-form-field>
+
+              <!-- Empty space for grid alignment -->
+              <div class="d-none d-md-block"></div>
+
+              <!-- New Password -->
+              <mat-form-field appearance="outline">
+                <mat-label>New Password</mat-label>
+                <input matInput formControlName="newPassword" type="password" placeholder="Enter new password">
+                <mat-error *ngIf="changePasswordForm.get('newPassword')?.hasError('required')">
+                  New password is required.
+                </mat-error>
+                <mat-error *ngIf="changePasswordForm.get('newPassword')?.hasError('minlength')">
+                  Password must be at least 8 characters.
+                </mat-error>
+                <mat-error *ngIf="changePasswordForm.get('newPassword')?.hasError('pattern')">
+                  A-Z, a-z, 0-9 and a special character required.
+                </mat-error>
+              </mat-form-field>
+
+              <!-- Confirm Password -->
+              <mat-form-field appearance="outline">
+                <mat-label>Confirm New Password</mat-label>
+                <input matInput formControlName="confirmPassword" type="password" placeholder="Confirm new password">
+                <mat-error *ngIf="changePasswordForm.get('confirmPassword')?.hasError('required')">
+                  Confirm password is required.
+                </mat-error>
+                <mat-error *ngIf="changePasswordForm.hasError('mismatch') && changePasswordForm.get('confirmPassword')?.touched">
+                  Passwords do not match.
+                </mat-error>
+              </mat-form-field>
+
+            </div>
+
+            <div class="password-complexity-guide mb-4">
+              <span class="guide-title"><i class="bi bi-info-circle-fill"></i> Password Security Requirements:</span>
+              <ul class="guide-list">
+                <li>At least <strong>8 characters</strong> in length</li>
+                <li>At least one <strong>uppercase letter</strong> (A-Z) and one <strong>lowercase letter</strong> (a-z)</li>
+                <li>At least one <strong>number</strong> (0-9) and one <strong>special character</strong> (e.g., @, $, !, %, *, ?)</li>
+              </ul>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2" style="gap: 8px;">
+              <button mat-button type="button" (click)="togglePasswordForm()" class="cancel-edit-btn">
+                <span>Cancel</span>
+              </button>
+              <button mat-flat-button color="primary" type="submit" [disabled]="changePasswordForm.invalid || isChangingPassword" class="save-edit-btn">
+                <span>{{ isChangingPassword ? 'Updating...' : 'Update Password' }}</span>
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+
+        <!-- Case 2: Locked / Once a month limit reached -->
+        <mat-card-content class="section-content-body" *ngIf="!canChangePassword()">
+          <div class="password-locked-banner">
+            <div class="lock-icon-container text-glow-warning">
+              <i class="bi bi-clock-history lock-icon"></i>
+            </div>
+            <div class="lock-details">
+              <h4>Password Change Restricted</h4>
+              <p class="lock-desc text-muted">To keep your account secure, you can only change your password <strong>once a month</strong>.</p>
+              <div class="lock-status-badge glass-panel">
+                <i class="bi bi-calendar2-x text-warning"></i>
+                <span class="lock-status-text">
+                  Next Change Allowed: <strong>{{ getNextAllowedPasswordChangeDate() | date:'mediumDate' }}</strong> (in <strong>{{ getPasswordChangeRemainingDays() }}</strong> days)
+                </span>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
       <!-- CARD 3: LEAVE BALANCES GRID (For standard employees only) -->
       <mat-card class="details-section-card" *ngIf="!isHRProfile">
         <div class="section-card-header">

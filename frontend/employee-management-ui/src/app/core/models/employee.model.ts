@@ -33,6 +33,7 @@ export interface Employee {
   profileImage?: string;
   cvPath?: string;
   userId?: number;
+  lastPasswordChangedAt?: string;
 }
 
 export interface CreateEmployeeDto {

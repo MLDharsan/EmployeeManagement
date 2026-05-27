@@ -7,5 +7,6 @@ namespace EmployeeManagement.api.Interfaces
         Task<string?> Login(LoginDto dto);
         Task<bool> ForgotPassword(ForgotPasswordDto dto);
         Task<bool> ResetPassword(ResetPasswordDto dto);
+        Task<ChangePasswordResult> ChangePassword(int userId, ChangePasswordDto dto);
     }
 }

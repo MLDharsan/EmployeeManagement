@@ -1,4 +1,4 @@
-﻿namespace EmployeeManagement.api.Models
+namespace EmployeeManagement.api.Models
 {
     public class User
     {
@@ -15,5 +15,7 @@
         public int EmployeeId { get; set; }
 
         public Employee Employee { get; set; } = null!;
+
+        public DateTime? LastPasswordChangedAt { get; set; }
     }
 }
