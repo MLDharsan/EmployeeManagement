@@ -36,6 +36,17 @@
         <mat-error *ngIf="employeeForm.get('email')?.hasError('email')">Invalid email format</mat-error>
       </mat-form-field>
 
+      <!-- Recovery Email (optional) -->
+      <mat-form-field appearance="outline">
+        <mat-label>Recovery Email <span style="font-weight:400; color: #9ca3af;">(optional)</span></mat-label>
+        <span matPrefix class="input-prefix-icon" style="margin-right:6px;">
+          <i class="bi bi-shield-lock"></i>
+        </span>
+        <input matInput formControlName="recoveryEmail" type="email" placeholder="e.g. personal@gmail.com">
+        <mat-hint>Password reset links will be sent here. If empty, primary email is used.</mat-hint>
+        <mat-error *ngIf="employeeForm.get('recoveryEmail')?.hasError('email')">Invalid email format</mat-error>
+      </mat-form-field>
+
       <!-- Phone Number -->
       <mat-form-field appearance="outline">
         <mat-label>Phone Number</mat-label>

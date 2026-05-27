@@ -64,7 +64,8 @@
 
       <!-- Quick Login Selectors -->
       <div class="quick-login-section">
-        <span class="quick-login-label">Quick login with demo accounts:</span>
+        <span class="quick-login-label">{{ activeRole === 'admin' ? 'HR Portal - Sign in to manage your workspace' : 'Employee Portal - Sign in to
+          view your profile' }}</span>
         <div class="quick-login-buttons">
           <button type="button" class="demo-role-btn admin-theme-btn" [class.active]="activeRole === 'admin'"
             (click)="selectRole('admin')">
@@ -83,7 +84,7 @@
       <!-- Divider -->
       <div class="manually-divider">
         <span class="divider-line"></span>
-        <span class="divider-text">or enter manually</span>
+        <span class="divider-text"></span>
         <span class="divider-line"></span>
       </div>
 
@@ -92,11 +93,11 @@
 
         <!-- Username/Email Field -->
         <mat-form-field appearance="outline" class="worksphere-input-field">
-          <mat-label>Email Address</mat-label>
+          <mat-label>User Name</mat-label>
           <span matPrefix class="input-prefix-icon">
             <i class="bi bi-envelope"></i>
           </span>
-          <input matInput formControlName="username" type="text" placeholder="employee@unichr.com"
+          <input matInput formControlName="username" type="text" placeholder="employee.unichr"
             autocomplete="username">
           <mat-error *ngIf="loginForm.get('username')?.hasError('required')">Email Address or Username is
             required</mat-error>

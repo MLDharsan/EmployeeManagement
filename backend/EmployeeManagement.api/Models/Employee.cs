@@ -14,6 +14,9 @@ namespace EmployeeManagement.api.Models
 
         public string Email { get; set; } = string.Empty;
 
+        // Optional separate email for password reset links. Falls back to Email if not set.
+        public string? RecoveryEmail { get; set; }
+
         public string Phone { get; set; } = string.Empty;
 
         public string Address { get; set; } = string.Empty;
@@ -37,6 +40,9 @@ namespace EmployeeManagement.api.Models
 
         public int RemainingLeaveDays { get; set; } = 14;
 
+        public string? ProfileImage { get; set; }
+
+        public string? CvPath { get; set; }
 
         public ICollection<LeaveRequest> LeaveRequests
         { get; set; } = new List<LeaveRequest>();

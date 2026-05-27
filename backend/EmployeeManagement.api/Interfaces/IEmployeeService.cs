@@ -1,4 +1,5 @@
-﻿using EmployeeManagement.api.DTOs.Employee;
+using EmployeeManagement.api.DTOs.Employee;
+using Microsoft.AspNetCore.Http;
 
 namespace EmployeeManagement.api.Interfaces
 {
@@ -13,6 +14,10 @@ namespace EmployeeManagement.api.Interfaces
         Task<bool> UpdateEmployee(int id, UpdateEmployeeDto dto);
 
         Task<bool> DeleteEmployee(int id);
+
+        Task<string> UploadProfilePhoto(int employeeId, IFormFile file);
+
+        Task<string> UploadCv(int employeeId, IFormFile file);
     }
 }
 

@@ -6,6 +6,7 @@ using EmployeeManagement.api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer; //JWT Authentication middleware
 using Microsoft.IdentityModel.Tokens; //For token validation parameters
 using System.Text; //For encoding the secret key
+using System.IO;
 
 
 
@@ -117,6 +118,19 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseHttpsRedirection();
 }
+
+var uploadsPath = Path.Combine(app.Environment.ContentRootPath, "uploads");
+if (!Directory.Exists(uploadsPath))
+{
+    Directory.CreateDirectory(uploadsPath);
+}
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(uploadsPath),
+    RequestPath = "/uploads"
+});
+
 app.UseCors("AllowAngular");
 
 app.UseAuthentication();

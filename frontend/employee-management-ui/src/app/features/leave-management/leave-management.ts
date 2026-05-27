@@ -66,7 +66,7 @@ export class LeaveManagementComponent implements OnInit {
     if (currentUser) {
       this.isHR = currentUser.role === 'HR';
       this.currentUserId = currentUser.employeeId || 101;
-      this.currentUserName = (currentUser.username === 'admin' || currentUser.username.startsWith('admin@')) ? 'Admin User' : 'John Doe';
+      this.currentUserName = (currentUser.username === 'admin' || currentUser.username.startsWith('admin@')) ? 'Admin User' : `${currentUser.username}`;
     }
     this.initForm();
   }

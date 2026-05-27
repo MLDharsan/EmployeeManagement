@@ -14,6 +14,7 @@ import { EmployeeService } from '../../../core/services/employee.service';
 import { DepartmentService } from '../../../core/services/department.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { Employee } from '../../../core/models/employee.model';
+import { environment } from '../../../../environments/environment';
 import { EmployeeFormComponent } from '../employee-form/employee-form';
 import { CredentialsDialogComponent } from '../credentials-dialog/credentials-dialog';
 
@@ -196,5 +197,21 @@ export class EmployeeListComponent implements OnInit {
       event.stopPropagation();
     }
     this.router.navigate(['/employees', employeeId]);
+  }
+
+  getProfileImageUrl(profileImage: string | undefined): string {
+    if (!profileImage) {
+      return 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=60';
+    }
+    if (profileImage.startsWith('http://') || profileImage.startsWith('https://')) return profileImage;
+    const baseUrl = environment.apiUrl.replace('/api', '');
+    return `${baseUrl}${profileImage.startsWith('/') ? '' : '/'}${profileImage}`;
+  }
+
+  getInitials(fullName: string | undefined): string {
+    if (!fullName) return '??';
+    const parts = fullName.trim().split(/[.\s_-]+/);
+    const initials = parts.filter(p => p.length > 0).map(p => p[0]).join('').toUpperCase();
+    return initials.substring(0, 2);
   }
 }

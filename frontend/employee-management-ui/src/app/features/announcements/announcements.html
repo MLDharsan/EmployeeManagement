@@ -75,7 +75,7 @@
 
     <!-- RIGHT COLUMN: MULTI-TAB COMMUNICATOR INBOX -->
     <div class="feed-column">
-      <mat-tab-group class="custom-tabs glass-panel" color="primary">
+      <mat-tab-group class="custom-tabs glass-panel" color="primary" (selectedIndexChange)="activeTab = $event">
         
         <!-- TAB 1: CORPORATE BULLETIN BOARD -->
         <mat-tab>
@@ -148,9 +148,9 @@
             <div class="feed-header-wrapper">
               <h3 class="feed-title">Personal Direct Inbox</h3>
               
-              <div class="d-flex align-items-center gap-3">
+              <div class="feed-filter-wrapper">
                 <!-- Search Filter -->
-                <mat-form-field appearance="outline" class="search-field" style="width: 240px; margin-bottom: 0; font-size: 13px;">
+                <mat-form-field appearance="outline" class="search-field" style="width: 240px; margin-bottom: 0; font-size: 13px;" subscriptSizing="dynamic">
                   <mat-label>Filter by recipient...</mat-label>
                   <input matInput [(ngModel)]="dmSearchQuery" placeholder="Search name...">
                   <mat-icon matSuffix>search</mat-icon>
@@ -186,7 +186,11 @@
                   <mat-divider class="my-3"></mat-divider>
                   
                   <div class="bulletin-meta-footer">
-                    <span *ngIf="notif.recipientName" class="meta-author">
+                    <span *ngIf="notif.senderName" class="meta-author text-primary" style="font-weight: 700;">
+                      <i class="bi bi-person-badge-fill text-primary"></i>
+                      <span>From: {{ notif.senderName }}</span>
+                    </span>
+                    <span *ngIf="!notif.senderName && notif.recipientName" class="meta-author">
                       <i class="bi bi-person-fill text-muted"></i>
                       <span>To: {{ notif.recipientName }}</span>
                     </span>
@@ -217,129 +221,189 @@
   </div>
 
   <!-- ==========================================
-       EMPLOYEE VIEW: SINGLE COLUMN MULTI-TAB FEED
+       EMPLOYEE VIEW: COMPOSER + TABS FEED
        ========================================== -->
-  <div *ngIf="!isHR" class="employee-single-layout">
-    <mat-tab-group class="custom-tabs glass-panel w-100" color="primary">
-      
-      <!-- TAB 1: CORPORATE BULLETIN BOARD -->
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <i class="bi bi-megaphone-fill mr-2" style="font-size: 16px;"></i>
-          <span>Notice Board</span>
-        </ng-template>
-
-        <div class="tab-content bulletins-feed centered-feed mt-3">
-          <div class="feed-header-wrapper mb-3">
-            <h3 class="feed-title">Corporate Bulletins</h3>
-            <button mat-button color="warn" class="clear-all-btn" (click)="clearAllNotices()" *ngIf="announcements.length > 0">
-              <i class="bi bi-trash3 mr-1"></i>
-              <span>Clear Feed</span>
-            </button>
-          </div>
-
-          <!-- CARD LIST -->
-          <mat-card class="bulletin-card" *ngFor="let notice of announcements; let i = index" [style.animation-delay]="(i * 0.1) + 's'">
-            <mat-card-content class="bulletin-body">
-              <div class="bulletin-icon-box bg-primary-glow">
-                <i class="bi bi-megaphone text-primary"></i>
-              </div>
-              <div class="bulletin-content">
-                <div class="bulletin-header">
-                  <h4>{{ notice.title }}</h4>
-                  <div class="bulletin-actions">
-                    <button mat-icon-button class="dismiss-btn" (click)="dismissNotice(notice.announcementId, $event)" matTooltip="Dismiss">
-                      <i class="bi bi-x-lg"></i>
-                    </button>
-                  </div>
-                </div>
-                <p class="bulletin-message">{{ notice.message }}</p>
-                
-                <mat-divider class="my-3"></mat-divider>
-                
-                <div class="bulletin-meta-footer">
-                  <span class="meta-author">
-                    <i class="bi bi-person-fill text-muted"></i>
-                    <span>{{ notice.authorName }}</span>
-                  </span>
-                  <span class="meta-date">
-                    <i class="bi bi-clock-fill text-muted"></i>
-                    <span>{{ notice.createdAt | date:'mediumDate' }}</span>
-                  </span>
-                </div>
-              </div>
-            </mat-card-content>
-          </mat-card>
-
-          <!-- EMPTY STATE -->
-          <div class="feed-empty-state animate-fade-in" *ngIf="announcements.length === 0">
-            <i class="bi bi-journal-x text-muted"></i>
-            <p>No corporate notices published yet.</p>
-          </div>
+  <div *ngIf="!isHR" [ngClass]="activeTab === 1 ? 'hr-split-layout' : 'employee-single-layout'">
+    
+    <!-- LEFT COLUMN: MESSAGE COMPOSER FOR HR -->
+    <div class="composer-column animate-fade-in" *ngIf="activeTab === 1">
+      <mat-card class="composer-card glass-panel">
+        <div class="composer-header">
+          <h3>Message HR Support</h3>
+          <i class="bi bi-chat-right-quote-fill text-primary"></i>
         </div>
-      </mat-tab>
+        <mat-divider class="my-3"></mat-divider>
+        <mat-card-content class="composer-body">
+          <form [formGroup]="announcementForm" (ngSubmit)="publishNotice()" class="notice-form">
+            
+            <!-- Info Text -->
+            <p class="text-secondary mb-3" style="font-size: 13.5px; line-height: 1.5;">
+              Need to submit an operational query or feedback? Composing a message below will route it directly to the HR administration's inbox feed in real-time.
+            </p>
 
-      <!-- TAB 2: DIRECT PRIVATE MESSAGES INBOX -->
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <i class="bi bi-envelope-fill mr-2" style="font-size: 16px;"></i>
-          <span>Direct Messages</span>
-        </ng-template>
+            <!-- Title -->
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Subject / Topic</mat-label>
+              <input matInput formControlName="title" placeholder="e.g., Leave policy clarification">
+              <mat-error *ngIf="announcementForm.get('title')?.hasError('required')">Topic subject is required</mat-error>
+              <mat-error *ngIf="announcementForm.get('title')?.hasError('minlength')">Must be at least 5 characters</mat-error>
+              <mat-error *ngIf="announcementForm.get('title')?.hasError('maxlength')">Max 80 characters</mat-error>
+            </mat-form-field>
 
-        <div class="tab-content private-inbox-feed centered-feed mt-3">
-          <div class="feed-header-wrapper mb-3">
-            <h3 class="feed-title">Personal Direct Inbox</h3>
-            <button mat-button color="warn" class="clear-all-btn" (click)="clearAllDMs()" *ngIf="privateNotifications.length > 0">
-              <i class="bi bi-trash3 mr-1"></i>
-              <span>Clear Inbox</span>
+            <!-- Message Body -->
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Message Details / Request Body</mat-label>
+              <textarea matInput formControlName="message" rows="6" placeholder="Describe instructions or details..."></textarea>
+              <mat-error *ngIf="announcementForm.get('message')?.hasError('required')">Description content is required</mat-error>
+              <mat-error *ngIf="announcementForm.get('message')?.hasError('minlength')">Must be at least 10 characters</mat-error>
+              <mat-error *ngIf="announcementForm.get('message')?.hasError('maxlength')">Max 500 characters</mat-error>
+            </mat-form-field>
+
+            <!-- Submit Button -->
+            <button mat-flat-button color="primary" type="submit" class="publish-btn w-100" [disabled]="announcementForm.invalid || isPublishing">
+              <span>{{ isPublishing ? 'Sending Message...' : 'Send Message to HR' }}</span>
             </button>
-          </div>
-          
-          <!-- PRIVATE INBOX LIST -->
-          <mat-card class="bulletin-card private-card" *ngFor="let notif of privateNotifications; let idx = index" [class.unread]="!notif.isRead">
-            <mat-card-content class="bulletin-body">
-              <div class="bulletin-icon-box bg-accent-glow">
-                <i class="bi bi-chat-right-text text-accent"></i>
-              </div>
-              <div class="bulletin-content">
-                <div class="bulletin-header">
-                  <h4 [class.unread-text]="!notif.isRead">{{ notif.title }}</h4>
-                  <div class="bulletin-actions">
-                    <button *ngIf="!notif.isRead" mat-icon-button class="read-btn text-success" (click)="markNotificationAsRead(notif.notificationId, $event)" matTooltip="Mark as read">
-                      <i class="bi bi-check-circle-fill"></i>
-                    </button>
-                    <button mat-icon-button color="warn" class="delete-btn" (click)="deleteNotification(notif.notificationId, $event)" matTooltip="Delete message">
-                      <i class="bi bi-trash"></i>
-                    </button>
-                  </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- RIGHT COLUMN: MULTI-TAB COMMUNICATOR INBOX -->
+    <div class="feed-column">
+      <mat-tab-group class="custom-tabs glass-panel w-100" color="primary" (selectedIndexChange)="activeTab = $event">
+        
+        <!-- TAB 1: CORPORATE BULLETIN BOARD -->
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <i class="bi bi-megaphone-fill mr-2" style="font-size: 16px;"></i>
+            <span>Notice Board</span>
+          </ng-template>
+
+          <div class="tab-content bulletins-feed mt-3">
+            <div class="feed-header-wrapper mb-3">
+              <h3 class="feed-title">Corporate Bulletins</h3>
+              <button mat-button color="warn" class="clear-all-btn" (click)="clearAllNotices()" *ngIf="announcements.length > 0">
+                <i class="bi bi-trash3 mr-1"></i>
+                <span>Clear Feed</span>
+              </button>
+            </div>
+
+            <!-- CARD LIST -->
+            <mat-card class="bulletin-card" *ngFor="let notice of announcements; let i = index" [style.animation-delay]="(i * 0.1) + 's'">
+              <mat-card-content class="bulletin-body">
+                <div class="bulletin-icon-box bg-primary-glow">
+                  <i class="bi bi-megaphone text-primary"></i>
                 </div>
-                <p class="bulletin-message">{{ notif.message }}</p>
-                
-                <mat-divider class="my-3"></mat-divider>
-                
-                <div class="bulletin-meta-footer">
-                  <span class="meta-status">
-                    <span class="badge" [class.bg-success]="notif.isRead" [class.bg-warning]="!notif.isRead">
-                      {{ notif.isRead ? 'Read' : 'Unread' }}
+                <div class="bulletin-content">
+                  <div class="bulletin-header">
+                    <h4>{{ notice.title }}</h4>
+                    <div class="bulletin-actions">
+                      <button mat-icon-button class="dismiss-btn" (click)="dismissNotice(notice.announcementId, $event)" matTooltip="Dismiss">
+                        <i class="bi bi-x-lg"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <p class="bulletin-message">{{ notice.message }}</p>
+                  
+                  <mat-divider class="my-3"></mat-divider>
+                  
+                  <div class="bulletin-meta-footer">
+                    <span class="meta-author">
+                      <i class="bi bi-person-fill text-muted"></i>
+                      <span>{{ notice.authorName }}</span>
                     </span>
-                  </span>
-                  <span class="meta-date">
-                    <i class="bi bi-clock-fill text-muted"></i>
-                    <span>{{ notif.createdAt | date:'mediumDate' }}</span>
-                  </span>
+                    <span class="meta-date">
+                      <i class="bi bi-clock-fill text-muted"></i>
+                      <span>{{ notice.createdAt | date:'mediumDate' }}</span>
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </mat-card-content>
-          </mat-card>
+              </mat-card-content>
+            </mat-card>
 
-          <!-- EMPTY PRIVATE INBOX STATE -->
-          <div class="feed-empty-state animate-fade-in" *ngIf="privateNotifications.length === 0">
-            <i class="bi bi-inbox text-muted"></i>
-            <p>Your direct message inbox is empty.</p>
+            <!-- EMPTY STATE -->
+            <div class="feed-empty-state animate-fade-in" *ngIf="announcements.length === 0">
+              <i class="bi bi-journal-x text-muted"></i>
+              <p>No corporate notices published yet.</p>
+            </div>
           </div>
-        </div>
-      </mat-tab>
-    </mat-tab-group>
-  </div>
+        </mat-tab>
+
+        <!-- TAB 2: DIRECT PRIVATE MESSAGES INBOX -->
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <i class="bi bi-envelope-fill mr-2" style="font-size: 16px;"></i>
+            <span>Direct Messages</span>
+          </ng-template>
+
+          <div class="tab-content private-inbox-feed mt-3">
+            <div class="feed-header-wrapper mb-3">
+              <h3 class="feed-title">Personal Direct Inbox</h3>
+              
+              <div class="feed-filter-wrapper">
+                <!-- Search Filter -->
+                <mat-form-field appearance="outline" class="search-field" style="width: 240px; margin-bottom: 0; font-size: 13px;" subscriptSizing="dynamic">
+                  <mat-label>Filter messages...</mat-label>
+                  <input matInput [(ngModel)]="dmSearchQuery" placeholder="Search...">
+                  <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+
+                <button mat-button color="warn" class="clear-all-btn" (click)="clearAllDMs()" *ngIf="privateNotifications.length > 0">
+                  <i class="bi bi-trash3 mr-1"></i>
+                  <span>Clear Inbox</span>
+                </button>
+              </div>
+            </div>
+            
+            <!-- PRIVATE INBOX LIST -->
+            <mat-card class="bulletin-card private-card" *ngFor="let notif of filteredPrivateNotifications; let idx = index" [class.unread]="!notif.isRead">
+              <mat-card-content class="bulletin-body">
+                <div class="bulletin-icon-box bg-accent-glow">
+                  <i class="bi bi-chat-right-text text-accent"></i>
+                </div>
+                <div class="bulletin-content">
+                  <div class="bulletin-header">
+                    <h4 [class.unread-text]="!notif.isRead">{{ notif.title }}</h4>
+                    <div class="bulletin-actions">
+                      <button *ngIf="!notif.isRead" mat-icon-button class="read-btn text-success" (click)="markNotificationAsRead(notif.notificationId, $event)" matTooltip="Mark as read">
+                        <i class="bi bi-check-circle-fill"></i>
+                      </button>
+                      <button mat-icon-button color="warn" class="delete-btn" (click)="deleteNotification(notif.notificationId, $event)" matTooltip="Delete message">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <p class="bulletin-message">{{ notif.message }}</p>
+                  
+                  <mat-divider class="my-3"></mat-divider>
+                  
+                  <div class="bulletin-meta-footer">
+                    <span *ngIf="notif.senderName" class="meta-author text-primary" style="font-weight: 700;">
+                      <i class="bi bi-person-badge-fill text-primary"></i>
+                      <span>From: {{ notif.senderName }}</span>
+                    </span>
+                    <span class="meta-status">
+                      <span class="badge" [class.bg-success]="notif.isRead" [class.bg-warning]="!notif.isRead">
+                        {{ notif.isRead ? 'Read' : 'Unread' }}
+                      </span>
+                    </span>
+                    <span class="meta-date">
+                      <i class="bi bi-clock-fill text-muted"></i>
+                      <span>{{ notif.createdAt | date:'mediumDate' }}</span>
+                    </span>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <!-- EMPTY PRIVATE INBOX STATE -->
+            <div class="feed-empty-state animate-fade-in" *ngIf="privateNotifications.length === 0">
+              <i class="bi bi-inbox text-muted"></i>
+              <p>Your direct message inbox is empty.</p>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
 
 </div>

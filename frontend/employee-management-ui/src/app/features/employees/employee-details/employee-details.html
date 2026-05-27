@@ -14,13 +14,24 @@
     <div class="left-avatar-column">
       <mat-card class="avatar-card glass-panel text-center">
         <mat-card-content class="avatar-card-body">
-          <div class="avatar-picker-wrapper">
-            <img [src]="employee.profileImage || (isHRProfile ? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150' : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150')" alt="Employee Avatar" class="big-avatar">
-            
-            <!-- Picture Upload Button (Self or HR only) -->
-            <label class="picture-picker-overlay" *ngIf="isSelf || isHR">
+          <div class="avatar-container-relative">
+            <div class="avatar-picker-wrapper">
+              <img *ngIf="employee.profileImage" [src]="getProfileImageUrl(employee.profileImage)" alt="Employee Avatar" class="big-avatar">
+              <div *ngIf="!employee.profileImage" class="big-avatar-fallback" [ngClass]="isHRProfile ? 'hr-fallback' : 'emp-fallback'">
+                {{ getInitials(employee.fullName) }}
+              </div>
+              
+              <!-- Hover Picture Overlay (Self or HR only) -->
+              <label class="picture-picker-overlay" *ngIf="isSelf || isHR">
+                <input type="file" (change)="onImageSelected($event)" accept="image/*" class="d-none">
+                <i class="bi bi-camera-fill camera-icon"></i>
+              </label>
+            </div>
+
+            <!-- Always-visible Edit Badge floating at bottom-right of circle (Self or HR only) -->
+            <label class="avatar-edit-badge" *ngIf="isSelf || isHR" matTooltip="Upload Profile Photo">
               <input type="file" (change)="onImageSelected($event)" accept="image/*" class="d-none">
-              <i class="bi bi-camera-fill camera-icon"></i>
+              <i class="bi bi-camera-fill"></i>
             </label>
           </div>
 
@@ -66,8 +77,8 @@
                 <i class="bi bi-file-earmark-pdf-fill pdf-icon"></i>
               </div>
               <div class="cv-meta">
-                <span class="cv-filename">{{ employee.cvPath }}</span>
-                <a [href]="'#'" class="cv-download-link" (click)="$event.preventDefault()" matTooltip="Download PDF">
+                <span class="cv-filename">{{ getCvFileName(employee.cvPath) }}</span>
+                <a [href]="getCvUrl(employee.cvPath)" target="_blank" class="cv-download-link" matTooltip="Download PDF">
                   <i class="bi bi-download"></i> Download CV
                 </a>
               </div>

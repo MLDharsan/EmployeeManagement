@@ -14,9 +14,12 @@
     <!-- Active User Profile Section in Sidebar -->
     <div class="sidenav-profile" *ngIf="currentUser" routerLink="/employees/profile" style="cursor: pointer;">
       <div class="profile-avatar-container">
-        <img
-          [src]="currentUser.role === 'HR' ? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100' : 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100'"
+        <img *ngIf="currentUser.profileImage"
+          [src]="getProfileImageUrl(currentUser.profileImage, currentUser.role)"
           alt="User Avatar" class="profile-avatar">
+        <div *ngIf="!currentUser.profileImage" class="profile-avatar-fallback">
+          {{ getInitials(currentUser.username) }}
+        </div>
         <span class="online-indicator"></span>
       </div>
       <div class="profile-meta">
@@ -114,9 +117,12 @@
 
       <!-- Active User Profile Dropdown -->
       <button mat-button [matMenuTriggerFor]="profileMenu" class="user-profile-menu-trigger" *ngIf="currentUser">
-        <img
-          [src]="currentUser.role === 'HR' ? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=80' : 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=80'"
+        <img *ngIf="currentUser.profileImage"
+          [src]="getProfileImageUrl(currentUser.profileImage, currentUser.role)"
           alt="User Avatar" class="user-avatar">
+        <div *ngIf="!currentUser.profileImage" class="user-avatar-fallback">
+          {{ getInitials(currentUser.username) }}
+        </div>
         <span class="user-name-display">{{ currentUser.username | titlecase }}</span>
         <i class="bi bi-chevron-down caret-icon"></i>
       </button>

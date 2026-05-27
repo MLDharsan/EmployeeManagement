@@ -6,4 +6,5 @@ export interface Notification {
   createdAt: string;
   userId?: number;
   recipientName?: string;
+  senderName?: string;
 }

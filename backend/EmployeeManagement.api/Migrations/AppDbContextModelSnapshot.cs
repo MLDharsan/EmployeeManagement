@@ -113,6 +113,9 @@ namespace EmployeeManagement.api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CvPath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("DOB")
                         .HasColumnType("datetime2");
 
@@ -147,6 +150,12 @@ namespace EmployeeManagement.api.Migrations
 
                     b.Property<string>("Phone")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfileImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RecoveryEmail")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RemainingLeaveDays")
@@ -236,6 +245,9 @@ namespace EmployeeManagement.api.Migrations
 
                     b.Property<string>("Message")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SenderName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")

@@ -74,6 +74,13 @@ namespace EmployeeManagement.api.Services
                 throw new InvalidOperationException($"Insufficient leave balance. Requested: {requestedDays} days, remaining: {emp.RemainingLeaveDays} days.");
             }
 
+            // Immediately deduct requested leave days from remaining balance upon creation (Pending status)
+            emp.RemainingLeaveDays -= requestedDays;
+            if (emp.RemainingLeaveDays < 0)
+            {
+                emp.RemainingLeaveDays = 0;
+            }
+
             var leaveRequest = new LeaveRequest
             {
                 EmployeeId = dto.EmployeeId,
@@ -141,18 +148,7 @@ namespace EmployeeManagement.api.Services
             {
                 leaveRequest.Status = "Approved";
 
-                if (leaveRequest.Employee != null)
-                {
-                    int days = (int)(leaveRequest.EndDate - leaveRequest.StartDate).TotalDays + 1;
-                    if (days > 0)
-                    {
-                        leaveRequest.Employee.RemainingLeaveDays -= days;
-                        if (leaveRequest.Employee.RemainingLeaveDays < 0)
-                        {
-                            leaveRequest.Employee.RemainingLeaveDays = 0;
-                        }
-                    }
-                }
+                // RemainingLeaveDays deduction is omitted here because it has already been deducted upon request creation (when status was Pending)
 
                 // Trigger Notification to Employee
                 try
@@ -195,7 +191,8 @@ namespace EmployeeManagement.api.Services
             string oldStatus = leaveRequest.Status;
             leaveRequest.Status = "Rejected";
 
-            if (oldStatus == "Approved" && leaveRequest.Employee != null)
+            // If the old status was not Rejected (i.e. Pending or Approved), we reverse the deduction and restore the leave balance
+            if (oldStatus != "Rejected" && leaveRequest.Employee != null)
             {
                 int days = (int)(leaveRequest.EndDate - leaveRequest.StartDate).TotalDays + 1;
                 if (days > 0)

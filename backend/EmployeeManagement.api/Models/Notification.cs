@@ -1,4 +1,4 @@
-﻿namespace EmployeeManagement.api.Models
+namespace EmployeeManagement.api.Models
 {
     public class Notification
     {
@@ -12,6 +12,8 @@
             = string.Empty;
 
         public string Message { get; set; } = string.Empty;
+
+        public string? SenderName { get; set; }
             
         public bool IsRead { get; set; } = false;
 

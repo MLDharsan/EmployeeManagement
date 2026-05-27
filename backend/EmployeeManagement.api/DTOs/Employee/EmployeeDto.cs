@@ -16,6 +16,8 @@ namespace EmployeeManagement.api.DTOs.Employee
 
         public string Email { get; set; } = string.Empty;
 
+        public string? RecoveryEmail { get; set; }
+
         public string Phone { get; set; } = string.Empty;
 
         public string Address { get; set; } = string.Empty;
@@ -39,5 +41,9 @@ namespace EmployeeManagement.api.DTOs.Employee
         public int AllowedLeaveDays { get; set; }
 
         public int? UserId { get; set; }
+
+        public string? ProfileImage { get; set; }
+
+        public string? CvPath { get; set; }
     }
 }

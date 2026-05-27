@@ -1,4 +1,4 @@
-﻿namespace EmployeeManagement.api.DTOs.Notification
+namespace EmployeeManagement.api.DTOs.Notification
 {
     public class CreateNotificationDto
     {
@@ -9,5 +9,7 @@
 
         public string Message { get; set; }
             = string.Empty;
+
+        public string? SenderName { get; set; }
     }
 }

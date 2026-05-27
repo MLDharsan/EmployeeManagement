@@ -698,3 +698,65 @@
 .qa-btn i {
   font-size: 14px;
 }
+
+.avatar-container-relative {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 20px auto;
+}
+
+.avatar-edit-badge {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 36px;
+  height: 36px;
+  background-color: var(--primary) !important;
+  color: #ffffff !important;
+  border-radius: 50%;
+  border: 3.5px solid var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition);
+  z-index: 10;
+}
+
+.avatar-edit-badge:hover {
+  background-color: var(--primary-hover) !important;
+  transform: scale(1.1);
+}
+
+.avatar-edit-badge i {
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.big-avatar-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 42px;
+  font-weight: 800;
+  color: #ffffff;
+  transition: var(--transition);
+  border-radius: 50%;
+}
+
+.big-avatar-fallback.emp-fallback {
+  background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
+}
+
+.big-avatar-fallback.hr-fallback {
+  background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+}
+
+.avatar-picker-wrapper:hover .big-avatar-fallback {
+  transform: scale(1.08);
+}

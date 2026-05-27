@@ -18,6 +18,7 @@ export interface Employee {
   lastName: string;
   fullName?: string; // Derived or mapped from EmployeeDto
   email: string;
+  recoveryEmail?: string;  // Optional separate email for password reset links
   phone: string;
   address: string;
   dob: string;
@@ -39,6 +40,7 @@ export interface CreateEmployeeDto {
   firstName: string;
   lastName: string;
   email: string;
+  recoveryEmail?: string;  // Optional separate email for password reset links
   phone: string;
   address: string;
   dob: string;
@@ -54,6 +56,7 @@ export interface UpdateEmployeeDto {
   firstName: string;
   lastName: string;
   email: string;
+  recoveryEmail?: string;  // Optional separate email for password reset links
   phone: string;
   address: string;
   departmentId: number;

@@ -14,6 +14,7 @@ import { AuthService, UserSession } from '../../core/services/auth.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { Notification } from '../../core/models/notification.model';
 import { ToastService } from '../../core/services/toast.service';
+import { environment } from '../../../environments/environment';
 
 interface NavItem {
   label: string;
@@ -41,7 +42,7 @@ interface NavItem {
 })
 export class MainLayoutComponent implements OnInit, OnDestroy {
   @ViewChild('sidenav') sidenav!: MatSidenav;
-  
+
   currentUser: UserSession | null = null;
   unreadCount = 0;
   notifications: Notification[] = [];
@@ -66,7 +67,7 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
     private notificationService: NotificationService,
     private toastService: ToastService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // 1. Subscribe to auth session changes
@@ -98,7 +99,7 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
     // Check responsive screen width
     this.checkViewport();
     window.addEventListener('resize', () => this.checkViewport());
-    
+
     // Check saved theme preference
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
@@ -162,8 +163,26 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
   // Filter items by active user role
   get filteredNavItems(): NavItem[] {
     if (!this.currentUser) return [];
-    return this.navigationItems.filter(item => 
+    return this.navigationItems.filter(item =>
       !item.roles || item.roles.includes(this.currentUser!.role)
     );
+  }
+
+  getProfileImageUrl(profileImage: string | undefined, role: string): string {
+    if (!profileImage) {
+      return role === 'HR'
+        ? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100'
+        : 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100';
+    }
+    if (profileImage.startsWith('http://') || profileImage.startsWith('https://')) return profileImage;
+    const baseUrl = environment.apiUrl.replace('/api', '');
+    return `${baseUrl}${profileImage.startsWith('/') ? '' : '/'}${profileImage}`;
+  }
+
+  getInitials(username: string | undefined): string {
+    if (!username) return '??';
+    const parts = username.trim().split(/[.\s_-]+/);
+    const initials = parts.filter(p => p.length > 0).map(p => p[0]).join('').toUpperCase();
+    return initials.substring(0, 2);
   }
 }

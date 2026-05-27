@@ -49,6 +49,7 @@ export class AnnouncementsComponent implements OnInit {
   privateNotifications: Notification[] = [];
   employees: Employee[] = [];
   dmSearchQuery = '';
+  activeTab = 0; // 0 for Notice Board, 1 for Direct Messages
 
   get filteredPrivateNotifications(): Notification[] {
     if (!this.dmSearchQuery) {
@@ -198,6 +199,27 @@ export class AnnouncementsComponent implements OnInit {
 
     const { title, message, recipientType, selectedUserIds } = this.announcementForm.value;
 
+    if (!this.isHR) {
+      // Standard Employee sending a message to HR Support
+      this.isPublishing = true;
+      const senderName = this.authService.currentUserValue?.username || 'Employee';
+      this.notificationService.createNotification(title, message, 0, senderName).subscribe({
+        next: () => {
+          this.isPublishing = false;
+          this.toastService.success('Your message has been sent directly to HR!');
+          this.announcementForm.reset({ recipientType: 'all', selectedUserIds: [] });
+          this.loadPrivateNotifications();
+          this.cdr.detectChanges();
+        },
+        error: () => {
+          this.isPublishing = false;
+          this.toastService.error('Failed to send message to HR.');
+        }
+      });
+      return;
+    }
+
+    // HR Admin Flow
     if (recipientType === 'specific') {
       if (!selectedUserIds || selectedUserIds.length === 0) {
         this.toastService.warning('Please select at least one employee.');
@@ -206,7 +228,7 @@ export class AnnouncementsComponent implements OnInit {
 
       this.isPublishing = true;
       const requests = selectedUserIds.map((userId: number) => 
-        this.notificationService.createNotification(title, message, userId)
+        this.notificationService.createNotification(title, message, userId, 'HR Administrator')
       );
 
       forkJoin(requests).subscribe({

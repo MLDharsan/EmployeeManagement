@@ -14,6 +14,7 @@ import { AuthService } from '../../../core/services/auth.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { Employee } from '../../../core/models/employee.model';
 import { LeaveBalance } from '../../../core/models/leave.model';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-employee-details',
@@ -159,19 +160,27 @@ export class EmployeeDetailsComponent implements OnInit {
     if (input.files && input.files[0] && this.employee) {
       const file = input.files[0];
       this.isImageUploading = true;
-      this.imageUploadProgress = 0;
+      this.imageUploadProgress = 20;
 
-      const interval = setInterval(() => {
-        this.imageUploadProgress += 20;
-        if (this.imageUploadProgress >= 100) {
-          clearInterval(interval);
-          this.employeeService.uploadProfileImage(this.employee!.employeeId, file).subscribe(() => {
+      this.employeeService.uploadProfileImage(this.employee.employeeId, file).subscribe({
+        next: (res) => {
+          this.imageUploadProgress = 100;
+          setTimeout(() => {
             this.isImageUploading = false;
             this.loadEmployeeDetails(this.employee!.employeeId);
+            
+            // Dynamic update of current user profile picture if editing self
+            if (this.isSelf) {
+              this.authService.updateCurrentUserProfileImage(res.imageUrl);
+            }
             this.toastService.success('Profile avatar uploaded successfully!');
-          });
+          }, 400);
+        },
+        error: () => {
+          this.isImageUploading = false;
+          this.toastService.error('Failed to upload profile photo.');
         }
-      }, 150);
+      });
     }
   }
 
@@ -187,19 +196,52 @@ export class EmployeeDetailsComponent implements OnInit {
       }
 
       this.isCvUploading = true;
-      this.cvUploadProgress = 0;
+      this.cvUploadProgress = 30;
 
-      const interval = setInterval(() => {
-        this.cvUploadProgress += 10;
-        if (this.cvUploadProgress >= 100) {
-          clearInterval(interval);
-          this.employeeService.uploadCV(this.employee!.employeeId, file).subscribe(() => {
+      this.employeeService.uploadCV(this.employee.employeeId, file).subscribe({
+        next: (res) => {
+          this.cvUploadProgress = 100;
+          setTimeout(() => {
             this.isCvUploading = false;
             this.loadEmployeeDetails(this.employee!.employeeId);
             this.toastService.success('CV file uploaded and bound to profile successfully!');
-          });
+          }, 400);
+        },
+        error: () => {
+          this.isCvUploading = false;
+          this.toastService.error('Failed to upload CV.');
         }
-      }, 100);
+      });
     }
+  }
+
+  getProfileImageUrl(profileImage: string | undefined): string {
+    if (!profileImage) {
+      return this.isHRProfile 
+        ? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150' 
+        : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150';
+    }
+    if (profileImage.startsWith('http://') || profileImage.startsWith('https://')) return profileImage;
+    const baseUrl = environment.apiUrl.replace('/api', '');
+    return `${baseUrl}${profileImage.startsWith('/') ? '' : '/'}${profileImage}`;
+  }
+
+  getCvUrl(cvPath: string | undefined): string {
+    if (!cvPath) return '#';
+    if (cvPath.startsWith('http://') || cvPath.startsWith('https://')) return cvPath;
+    const baseUrl = environment.apiUrl.replace('/api', '');
+    return `${baseUrl}${cvPath.startsWith('/') ? '' : '/'}${cvPath}`;
+  }
+
+  getCvFileName(cvPath: string | undefined): string {
+    if (!cvPath) return '';
+    return cvPath.substring(cvPath.lastIndexOf('/') + 1);
+  }
+
+  getInitials(fullName: string | undefined): string {
+    if (!fullName) return '??';
+    const parts = fullName.trim().split(/[.\s_-]+/);
+    const initials = parts.filter(p => p.length > 0).map(p => p[0]).join('').toUpperCase();
+    return initials.substring(0, 2);
   }
 }

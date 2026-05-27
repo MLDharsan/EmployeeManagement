@@ -3,6 +3,9 @@ using EmployeeManagement.api.DTOs.Employee;
 using EmployeeManagement.api.Interfaces;
 using EmployeeManagement.api.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace EmployeeManagement.api.Services
 {
@@ -10,11 +13,13 @@ namespace EmployeeManagement.api.Services
     {
         private readonly AppDbContext _context; //injects the AppDbContext
         private readonly IEmailService _emailService;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public EmployeeService(AppDbContext context, IEmailService emailService) 
+        public EmployeeService(AppDbContext context, IEmailService emailService, IWebHostEnvironment webHostEnvironment) 
         {
             _context = context;
             _emailService = emailService;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<List<EmployeeDto>> GetAllEmployees()
@@ -36,18 +41,21 @@ namespace EmployeeManagement.api.Services
                 LastName = e.LastName,
                 FullName = e.FirstName + " " + e.LastName,
                 Email = e.Email,
+                RecoveryEmail = e.RecoveryEmail,
                 Phone = e.Phone,
                 Address = e.Address,
                 DOB = e.DOB,
                 Gender = e.Gender,
                 JoiningDate = e.JoiningDate,
                 DepartmentId = e.DepartmentId,
-                DepartmentName = e.Department.DepartmentName, //navigational property database only stores DepartmentId
+                DepartmentName = e.Department.DepartmentName,
                 LevelId = e.LevelId,
-                LevelName = e.Level.LevelName, //navigational property 
+                LevelName = e.Level.LevelName,
                 RemainingLeaveDays = e.RemainingLeaveDays,
                 AllowedLeaveDays = e.Level.AllowedLeaveDays,
-                UserId = userMap.TryGetValue(e.EmployeeId, out var uid) ? uid : null
+                UserId = userMap.TryGetValue(e.EmployeeId, out var uid) ? uid : null,
+                ProfileImage = e.ProfileImage,
+                CvPath = e.CvPath
             }).ToList();
         }
 
@@ -71,6 +79,7 @@ namespace EmployeeManagement.api.Services
                 LastName = employee.LastName,
                 FullName = employee.FirstName + " " + employee.LastName,
                 Email = employee.Email,
+                RecoveryEmail = employee.RecoveryEmail,
                 Phone = employee.Phone,
                 Address = employee.Address,
                 DOB = employee.DOB,
@@ -82,7 +91,9 @@ namespace EmployeeManagement.api.Services
                 LevelName = employee.Level.LevelName,
                 RemainingLeaveDays = employee.RemainingLeaveDays,
                 AllowedLeaveDays = employee.Level.AllowedLeaveDays,
-                UserId = user?.UserId
+                UserId = user?.UserId,
+                ProfileImage = employee.ProfileImage,
+                CvPath = employee.CvPath
             };
         }
 
@@ -114,6 +125,7 @@ namespace EmployeeManagement.api.Services
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
                 Email = dto.Email,
+                RecoveryEmail = dto.RecoveryEmail,
                 Phone = dto.Phone,
                 Address = dto.Address,
                 DOB = dto.DOB,
@@ -229,7 +241,9 @@ namespace EmployeeManagement.api.Services
                 DepartmentId = employee.DepartmentId,
                 LevelId = employee.LevelId,
                 RemainingLeaveDays = employee.RemainingLeaveDays,
-                AllowedLeaveDays = allowedLeave
+                AllowedLeaveDays = allowedLeave,
+                ProfileImage = employee.ProfileImage,
+                CvPath = employee.CvPath
             };
         }
 
@@ -260,6 +274,7 @@ namespace EmployeeManagement.api.Services
             employee.FirstName = dto.FirstName;
             employee.LastName = dto.LastName;
             employee.Email = dto.Email;
+            employee.RecoveryEmail = dto.RecoveryEmail;
             employee.Phone = dto.Phone;
             employee.Address = dto.Address;
             employee.DepartmentId = dto.DepartmentId;
@@ -282,6 +297,70 @@ namespace EmployeeManagement.api.Services
             await _context.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<string> UploadProfilePhoto(int employeeId, IFormFile file)
+        {
+            var employee = await _context.Employees.FindAsync(employeeId);
+            if (employee == null)
+                throw new KeyNotFoundException("Employee not found");
+
+            // Define folder path
+            var uploadsFolder = Path.Combine(_webHostEnvironment.ContentRootPath, "uploads", "profile_photos");
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+
+            // Generate unique filename
+            var extension = Path.GetExtension(file.FileName);
+            var fileName = $"{Guid.NewGuid()}{extension}";
+            var filePath = Path.Combine(uploadsFolder, fileName);
+
+            // Save file
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            // Update database record with relative path
+            var relativePath = $"/uploads/profile_photos/{fileName}";
+            employee.ProfileImage = relativePath;
+            await _context.SaveChangesAsync();
+
+            return relativePath;
+        }
+
+        public async Task<string> UploadCv(int employeeId, IFormFile file)
+        {
+            var employee = await _context.Employees.FindAsync(employeeId);
+            if (employee == null)
+                throw new KeyNotFoundException("Employee not found");
+
+            // Define folder path
+            var uploadsFolder = Path.Combine(_webHostEnvironment.ContentRootPath, "uploads", "cvs");
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+
+            // Generate unique filename
+            var extension = Path.GetExtension(file.FileName);
+            var fileName = $"{Guid.NewGuid()}{extension}";
+            var filePath = Path.Combine(uploadsFolder, fileName);
+
+            // Save file
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            // Update database record with relative path
+            var relativePath = $"/uploads/cvs/{fileName}";
+            employee.CvPath = relativePath;
+            await _context.SaveChangesAsync();
+
+            return relativePath;
         }
     }
 }

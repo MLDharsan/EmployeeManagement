@@ -9,6 +9,7 @@ export interface UserSession {
   role: 'HR' | 'Employee' | string;
   userId: number;
   employeeId?: number;
+  profileImage?: string;
 }
 
 @Injectable({
@@ -56,6 +57,14 @@ export class AuthService {
     this.currentUserSubject.next(null);
   }
 
+  updateCurrentUserProfileImage(imageUrl: string): void {
+    const current = this.currentUserValue;
+    if (current) {
+      current.profileImage = imageUrl;
+      this.currentUserSubject.next({ ...current });
+    }
+  }
+
   forgotPassword(email: string): Observable<any> {
     return this.http.post(`${environment.apiUrl}/auth/forgot-password`, { email });
   }
@@ -94,12 +103,14 @@ export class AuthService {
       const role = decodedPayload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || decodedPayload['role'];
       const userId = Number(decodedPayload['UserId'] || decodedPayload['nameid']);
       const employeeId = Number(decodedPayload['EmployeeId']);
+      const profileImage = decodedPayload['ProfileImage'];
 
       return {
         username: username || '',
         role: role || '',
         userId: userId || 0,
-        employeeId: employeeId || undefined
+        employeeId: employeeId || undefined,
+        profileImage: profileImage || undefined
       };
     } catch (e) {
       console.error('Error parsing token:', e);

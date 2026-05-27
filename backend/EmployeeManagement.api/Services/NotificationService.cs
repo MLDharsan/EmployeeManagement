@@ -47,6 +47,7 @@ namespace EmployeeManagement.api.Services
                     Message = n.Message,
                     IsRead = n.IsRead,
                     CreatedAt = n.CreatedAt,
+                    SenderName = n.SenderName,
                     RecipientName = n.User.Employee != null ? (n.User.Employee.FirstName + " " + n.User.Employee.LastName) : n.User.Username
                 })
                 .ToListAsync();
@@ -55,8 +56,22 @@ namespace EmployeeManagement.api.Services
         public async Task<NotificationDto>
             CreateNotification(CreateNotificationDto dto)
         {
+            var targetUserId = dto.UserId;
+            
+            // Auto-routing to HR if UserId is 0 or less
+            if (targetUserId <= 0)
+            {
+                var hrUser = await _context.Users
+                    .Include(u => u.Role)
+                    .FirstOrDefaultAsync(u => u.Role.RoleName == "HR");
+                if (hrUser != null)
+                {
+                    targetUserId = hrUser.UserId;
+                }
+            }
+
             // Find the employee ID of the target user
-            var targetUser = await _context.Users.FirstOrDefaultAsync(u => u.UserId == dto.UserId);
+            var targetUser = await _context.Users.FirstOrDefaultAsync(u => u.UserId == targetUserId);
             if (targetUser != null)
             {
                 // Find all sibling user accounts linked to this EmployeeId
@@ -72,7 +87,8 @@ namespace EmployeeManagement.api.Services
                         Title = dto.Title,
                         Message = dto.Message,
                         IsRead = false,
-                        CreatedAt = DateTime.Now
+                        CreatedAt = DateTime.Now,
+                        SenderName = dto.SenderName
                     };
                     _context.Notifications.Add(siblingNotif);
                 }
@@ -80,11 +96,12 @@ namespace EmployeeManagement.api.Services
 
             var notification = new Notification
             {
-                UserId = dto.UserId,
+                UserId = targetUserId,
                 Title = dto.Title,
                 Message = dto.Message,
                 IsRead = false,
-                CreatedAt = DateTime.Now
+                CreatedAt = DateTime.Now,
+                SenderName = dto.SenderName
             };
 
             _context.Notifications.Add(notification);
@@ -99,6 +116,7 @@ namespace EmployeeManagement.api.Services
                 Message = notification.Message,
                 IsRead = notification.IsRead,
                 CreatedAt = notification.CreatedAt,
+                SenderName = notification.SenderName,
                 RecipientName = targetUser != null && targetUser.Employee != null ? (targetUser.Employee.FirstName + " " + targetUser.Employee.LastName) : (targetUser?.Username ?? string.Empty)
             };
         }

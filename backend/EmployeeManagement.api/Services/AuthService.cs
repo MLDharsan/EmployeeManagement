@@ -30,6 +30,7 @@ namespace EmployeeManagement.api.Services
         {
             var user = await _context.Users
                 .Include(u => u.Role)
+                .Include(u => u.Employee)
                 .FirstOrDefaultAsync(u => u.Username == dto.Username);
 
             if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
@@ -40,7 +41,8 @@ namespace EmployeeManagement.api.Services
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.Role, user.Role.RoleName),
                 new Claim("UserId", user.UserId.ToString()),
-                new Claim("EmployeeId", user.EmployeeId.ToString())
+                new Claim("EmployeeId", user.EmployeeId.ToString()),
+                new Claim("ProfileImage", user.Employee?.ProfileImage ?? string.Empty)
             };
 
             var key = new SymmetricSecurityKey(
@@ -84,10 +86,16 @@ namespace EmployeeManagement.api.Services
             var token = Guid.NewGuid().ToString("N");
             ResetTokens[token] = dto.Email;
 
+            // Determine where to send the reset link:
+            // Use the dedicated RecoveryEmail if it is set, otherwise fall back to the employee's primary email.
+            var sendTo = !string.IsNullOrWhiteSpace(employee.RecoveryEmail)
+                ? employee.RecoveryEmail
+                : employee.Email;
+
             // Print the simulated email to the console
             Console.WriteLine("\n========================================================================\n" +
                               "[EMAIL DISPATCH SYSTEM]\n" +
-                              $"Recipient: {dto.Email}\n" +
+                              $"Recipient: {sendTo} {(!string.IsNullOrWhiteSpace(employee.RecoveryEmail) ? "(Recovery Email)" : "(Primary Email)")}\n" +
                               "Subject: Reset Your UNIC HR Portal Password\n" +
                               "------------------------------------------------------------------------\n" +
                               "Hello,\n\n" +
@@ -105,8 +113,8 @@ namespace EmployeeManagement.api.Services
         <p style=""color: #6b7280; font-size: 14px; margin: 5px 0 0 0;"">Password Recovery Service</p>
     </div>
     <div style=""padding: 30px 20px; color: #374151; line-height: 1.6;"">
-        <p style=""font-size: 16px; margin-top: 0;"">Hello,</p>
-        <p style=""font-size: 15px;"">We received a request to reset the password linked to this email address. To set a new password, please click the button below:</p>
+        <p style=""font-size: 16px; margin-top: 0;"">Hello <strong>{employee.FirstName} {employee.LastName}</strong>,</p>
+        <p style=""font-size: 15px;"">We received a request to reset the password for your UNIC HR Portal account. To set a new password, please click the button below:</p>
         
         <div style=""text-align: center; margin: 30px 0;"">
             <a href=""http://localhost:4200/reset-password?token={token}"" style=""background-color: #4f46e5; color: #ffffff; padding: 12px 30px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 14px; display: inline-block; box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);"">Reset Your Password</a>
@@ -119,6 +127,7 @@ namespace EmployeeManagement.api.Services
     </div>
     <div style=""text-align: center; padding-top: 20px; border-top: 1px solid #f0f0f0; color: #9ca3af; font-size: 12px; line-height: 1.4;"">
         <p style=""margin: 0;"">This is an automated system email. Please do not reply directly to this message.</p>
+        <p style=""margin: 5px 0 0 0;"">This link was sent to: <strong>{sendTo}</strong></p>
         <p style=""margin: 5px 0 0 0;"">&copy; 2026 UNIC HR Portal. All rights reserved.</p>
     </div>
 </div>";
@@ -128,11 +137,11 @@ namespace EmployeeManagement.api.Services
             {
                 try
                 {
-                    await _emailService.SendEmailAsync(dto.Email, recoverySubject, recoveryBody);
+                    await _emailService.SendEmailAsync(sendTo, recoverySubject, recoveryBody);
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"[EMAIL SYSTEM ERROR] Failed to send recovery email to {dto.Email}: {ex}");
+                    Console.WriteLine($"[EMAIL SYSTEM ERROR] Failed to send recovery email to {sendTo}: {ex}");
                 }
             });
 

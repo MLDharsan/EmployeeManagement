@@ -33,7 +33,7 @@ export class EmployeeService {
   }
 
   // Specific employee editing their own details (restricted fields)
-  updateProfile(id: number, phone: string, address: string, email: string): Observable<Employee> {
+  updateProfile(id: number, phone: string, address: string, email: string, recoveryEmail?: string): Observable<Employee> {
     return this.getEmployeeById(id).pipe(
       switchMap(emp => {
         if (!emp) {
@@ -44,6 +44,7 @@ export class EmployeeService {
           firstName: emp.firstName,
           lastName: emp.lastName,
           email: email,
+          recoveryEmail: recoveryEmail,
           phone: phone,
           address: address,
           departmentId: emp.departmentId,
@@ -55,7 +56,8 @@ export class EmployeeService {
             ...emp,
             phone,
             address,
-            email
+            email,
+            recoveryEmail
           }))
         );
       })
@@ -69,15 +71,16 @@ export class EmployeeService {
     );
   }
 
-  // Simulate file upload (returns mock URL paths)
   uploadProfileImage(id: number, file: File): Observable<{ imageUrl: string }> {
-    const mockUrl = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200';
-    return of({ imageUrl: mockUrl }).pipe(delay(600));
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<{ imageUrl: string }>(`${environment.apiUrl}/employees/${id}/upload-profile-photo`, formData);
   }
 
   uploadCV(id: number, file: File): Observable<{ cvUrl: string }> {
-    const mockCv = `${file.name.replace(/\s+/g, '_')}`;
-    return of({ cvUrl: mockCv }).pipe(delay(800));
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<{ cvUrl: string }>(`${environment.apiUrl}/employees/${id}/upload-cv`, formData);
   }
 
   // Deduct leave days when leave is approved

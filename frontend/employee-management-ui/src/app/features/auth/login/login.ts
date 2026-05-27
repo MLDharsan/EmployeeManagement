@@ -28,25 +28,25 @@ import { ToastService } from '../../../core/services/toast.service';
   styleUrls: ['./login.css']
 })
 export class LoginComponent implements OnInit, AfterViewInit {
-  loginForm!: FormGroup;
-  forgotPasswordForm!: FormGroup;
-  isLoading = false;
-  hidePassword = true;
+  loginForm!: FormGroup;//reactive login form
+  forgotPasswordForm!: FormGroup;//reactive forgot password form
+  isLoading = false; //loading state
+  hidePassword = true; //password visibility
   returnUrl = '/dashboard';
 
-  activeRole: 'admin' | 'employee' = 'admin';
+  activeRole: 'admin' | 'employee' = 'admin'; //only allows admin,employee deafult admin
 
-  @ViewChild('forgotPasswordDialog') forgotPasswordDialog!: TemplateRef<any>;
-  dialogRef: MatDialogRef<any> | null = null;
+  @ViewChild('forgotPasswordDialog') forgotPasswordDialog!: TemplateRef<any>; //viewchild to get the forgot password dialog template
+  dialogRef: MatDialogRef<any> | null = null; //dialog reference
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private toastService: ToastService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private dialog: MatDialog,
-    private cdr: ChangeDetectorRef
+  constructor( //dependency injection
+    private fb: FormBuilder, //formbuilder service for creating reactive forms
+    private authService: AuthService, //authservice for authentication
+    private toastService: ToastService, //toastservice for displaying toast messages
+    private router: Router, //router service for navigation
+    private route: ActivatedRoute, //activatedroute service for getting route parameters
+    private dialog: MatDialog, //material dialog service
+    private cdr: ChangeDetectorRef //change detector reference
   ) {
     // Redirect immediately if already logged in
     if (this.authService.isLoggedIn()) {
@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
-      password: ['', [Validators.required, Validators.minLength(4)]]
+      password: ['', [Validators.required, Validators.minLength(8)]]
     });
 
     this.forgotPasswordForm = this.fb.group({
@@ -102,11 +102,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   openForgotPasswordDialog(event: Event): void {
-    event.preventDefault();
-    this.forgotPasswordForm.reset();
+    event.preventDefault(); //prevents default form submission
+    this.forgotPasswordForm.reset(); 
     this.dialogRef = this.dialog.open(this.forgotPasswordDialog, {
-      width: '400px',
-      disableClose: true
+      width: '400px', 
+      disableClose: true //prevents closing the dialog by clicking outside
     });
   }
 

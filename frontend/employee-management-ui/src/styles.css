@@ -312,20 +312,111 @@ h6 {
 /* Custom Snackbars for Toast Service */
 .toast-success {
   --mdc-snackbar-container-color: var(--success) !important;
-  --mdc-snackbar-supporting-text-color: #1ed139 !important;
+}
+.toast-success .mdc-snackbar__label,
+.toast-success .mat-mdc-snack-bar-label {
+  color: #ffffff !important;
+}
+.toast-success .mat-mdc-snack-bar-action,
+.toast-success .mdc-snackbar__actions button {
+  color: #ffffff !important;
 }
 
 .toast-error {
   --mdc-snackbar-container-color: var(--danger) !important;
-  --mdc-snackbar-supporting-text-color: #ea1d1d !important;
+}
+.toast-error .mdc-snackbar__label,
+.toast-error .mat-mdc-snack-bar-label {
+  color: #ffffff !important;
+}
+.toast-error .mat-mdc-snack-bar-action,
+.toast-error .mdc-snackbar__actions button {
+  color: #ffffff !important;
 }
 
 .toast-warning {
   --mdc-snackbar-container-color: var(--warning) !important;
-  --mdc-snackbar-supporting-text-color: #e0ee25 !important;
+}
+.toast-warning .mdc-snackbar__label,
+.toast-warning .mat-mdc-snack-bar-label {
+  color: #ffffff !important;
+}
+.toast-warning .mat-mdc-snack-bar-action,
+.toast-warning .mdc-snackbar__actions button {
+  color: #ffffff !important;
 }
 
 .toast-info {
   --mdc-snackbar-container-color: var(--info) !important;
-  --mdc-snackbar-supporting-text-color: #28d141 !important;
+}
+.toast-info .mdc-snackbar__label,
+.toast-info .mat-mdc-snack-bar-label {
+  color: #ffffff !important;
+}
+.toast-info .mat-mdc-snack-bar-action,
+.toast-info .mdc-snackbar__actions button {
+  color: #ffffff !important;
+}
+
+/* ==========================================
+   DARK THEME LEGIBILITY OVERRIDES
+   ========================================== */
+.dark-theme {
+  /* Dynamic overrides for standard HTML controls */
+  input,
+  textarea,
+  select,
+  label {
+    color: var(--text-primary) !important;
+  }
+
+  /* Angular Material Form Fields & Inputs */
+  .mat-mdc-input-element,
+  .mat-mdc-form-field-label,
+  .mat-mdc-form-field-placeholder {
+    color: var(--text-primary) !important;
+  }
+
+  /* Angular Material Selects & Autocomplete text */
+  .mat-mdc-select-value,
+  .mat-mdc-select-value-text,
+  .mat-mdc-select-placeholder,
+  .mat-mdc-select-arrow {
+    color: var(--text-primary) !important;
+  }
+
+  /* Custom dropdown options panel styling */
+  .mat-mdc-select-panel {
+    background-color: var(--surface) !important;
+  }
+
+  /* Dropdown option text overrides (preventing black-on-dark contrast issues) */
+  .mat-mdc-option,
+  .mat-mdc-option .mdc-list-item__primary-text,
+  .mat-mdc-optgroup-label {
+    color: var(--text-primary) !important;
+  }
+
+  /* Select option active/hover colors */
+  .mat-mdc-option.mat-mdc-option-active,
+  .mat-mdc-option:hover {
+    background-color: var(--surface-hover) !important;
+  }
+
+  /* Dark theme sidebar overrides for legibility */
+  .menu-item-link:not(.active-link) *,
+  .menu-item-link:not(.active-link) {
+    color: #ffffff !important;
+  }
+
+  .menu-item-link:not(.active-link):hover *,
+  .menu-item-link:not(.active-link):hover {
+    color: var(--primary) !important;
+  }
+
+  /* Ensure active link children are always white */
+  .active-link *,
+  .active-link {
+    color: white !important;
+  }
 }

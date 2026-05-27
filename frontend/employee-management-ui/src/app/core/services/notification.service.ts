@@ -24,8 +24,8 @@ export class NotificationService {
   }
 
   // Create new notification
-  createNotification(title: string, message: string, userId: number): Observable<Notification> {
-    const dto = { title, message, userId };
+  createNotification(title: string, message: string, userId: number, senderName?: string): Observable<Notification> {
+    const dto = { title, message, userId, senderName };
     return this.http.post<Notification>(`${environment.apiUrl}/notifications`, dto).pipe(
       tap(newNotif => { //runs after nortification creation
         const current = this.notificationsSubject.value;
