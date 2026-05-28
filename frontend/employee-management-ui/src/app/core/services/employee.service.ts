@@ -21,6 +21,13 @@ export class EmployeeService {
     );
   }
 
+  checkEmployeeCodeExists(code: string): Observable<boolean> {
+    return this.http.get<{ exists: boolean }>(`${environment.apiUrl}/employees/check-code/${code}`).pipe(
+      map(res => res.exists),
+      catchError(() => of(false))
+    );
+  }
+
   createEmployee(dto: CreateEmployeeDto): Observable<Employee> {
     return this.http.post<Employee>(`${environment.apiUrl}/employees`, dto);
   }
@@ -81,6 +88,12 @@ export class EmployeeService {
     const formData = new FormData();
     formData.append('file', file);
     return this.http.post<{ cvUrl: string }>(`${environment.apiUrl}/employees/${id}/upload-cv`, formData);
+  }
+
+  parseCvForRegistration(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<any>(`${environment.apiUrl}/employees/parse-cv`, formData);
   }
 
   // Deduct leave days when leave is approved

@@ -99,8 +99,25 @@ namespace EmployeeManagement.api.Services
             };
         }
 
+        public async Task<bool> CheckEmployeeCodeExists(string code)
+        {
+            if (string.IsNullOrWhiteSpace(code))
+                return false;
+
+            return await _context.Employees.AnyAsync(e => e.EmployeeCode.ToLower() == code.Trim().ToLower());
+        }
+
         public async Task<EmployeeDto> CreateEmployee(CreateEmployeeDto dto)
         {
+            if (!string.IsNullOrWhiteSpace(dto.EmployeeCode))
+            {
+                var codeExists = await CheckEmployeeCodeExists(dto.EmployeeCode);
+                if (codeExists)
+                {
+                    throw new InvalidOperationException("Employee ID is already taken by another employee.");
+                }
+            }
+
             if (!string.IsNullOrWhiteSpace(dto.Username))
             {
                 var usernameExists = await _context.Users.AnyAsync(u => u.Username.ToLower() == dto.Username.ToLower());

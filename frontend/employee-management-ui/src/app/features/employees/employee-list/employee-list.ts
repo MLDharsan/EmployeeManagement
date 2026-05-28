@@ -44,6 +44,8 @@ export class EmployeeListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+  isAiParsing = false;
+
   // Filter properties
   searchQuery = '';
   selectedDepartmentId = 0;
@@ -213,5 +215,65 @@ export class EmployeeListComponent implements OnInit {
     const parts = fullName.trim().split(/[.\s_-]+/);
     const initials = parts.filter(p => p.length > 0).map(p => p[0]).join('').toUpperCase();
     return initials.substring(0, 2);
+  }
+
+  onAiCvSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      if (file.type !== 'application/pdf') {
+        this.toastService.error('Please upload a PDF file.');
+        return;
+      }
+
+      this.isAiParsing = true;
+      this.toastService.info('🤖 UNIC AI is parsing the CV, please wait...');
+
+      this.employeeService.parseCvForRegistration(file).subscribe({
+        next: (parsedData) => {
+          this.isAiParsing = false;
+          this.toastService.success('✨ CV successfully parsed! Review the form fields.');
+          
+          input.value = '';
+
+          const dialogRef = this.dialog.open(EmployeeFormComponent, {
+            width: '600px',
+            data: { parsedData }
+          });
+
+          dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+              this.employeeService.createEmployee(result).subscribe({
+                next: (newEmp) => {
+                  this.loadEmployees();
+                  this.toastService.success(`Registered ${newEmp.fullName} successfully!`);
+                  
+                  this.dialog.open(CredentialsDialogComponent, {
+                    width: '450px',
+                    data: {
+                      fullName: newEmp.fullName || `${newEmp.firstName} ${newEmp.lastName}`,
+                      email: newEmp.email,
+                      username: result.username,
+                      password: result.password
+                    },
+                    disableClose: true
+                  });
+                },
+                error: (err) => {
+                  const errMsg = err?.error?.message || 'Failed to register new employee.';
+                  this.toastService.error(errMsg);
+                }
+              });
+            }
+          });
+        },
+        error: (err) => {
+          this.isAiParsing = false;
+          const errMsg = err?.error?.message || 'AI failed to parse the resume. Ensure it contains text and your API keys are valid.';
+          this.toastService.error(errMsg);
+          input.value = '';
+        }
+      });
+    }
   }
 }

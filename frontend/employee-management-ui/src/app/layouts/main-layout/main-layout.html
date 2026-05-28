@@ -85,9 +85,14 @@
       <mat-menu #notificationMenu="matMenu" xPosition="before" class="notification-dropdown">
         <div class="notif-header">
           <h3>Notifications</h3>
-          <button mat-button class="mark-all-read-btn" (click)="markAllAsRead()" *ngIf="unreadCount > 0">
-            Mark all read
-          </button>
+          <div class="notif-header-actions">
+            <button mat-button class="mark-all-read-btn" (click)="markAllAsRead()" *ngIf="unreadCount > 0">
+              Mark all read
+            </button>
+            <button mat-button class="clear-all-notifs-btn" (click)="clearAllNotifications()" *ngIf="notifications.length > 0">
+              Clear all
+            </button>
+          </div>
         </div>
         <mat-divider></mat-divider>
         <div class="notif-list-container">
@@ -96,9 +101,9 @@
             <p>No notifications yet</p>
           </div>
 
-          <button mat-menu-item *ngFor="let notif of notifications" class="notif-item"
+          <div mat-menu-item *ngFor="let notif of notifications" class="notif-item"
             [ngClass]="{'unread': !notif.isRead}"
-            (click)="markAsRead(notif.notificationId, $event)">
+            (click)="onNotificationClick(notif)">
             <div class="notif-item-content">
               <div class="notif-body">
                 <div class="notif-title-row">
@@ -110,8 +115,11 @@
                 <p class="notif-desc">{{ notif.message }}</p>
                 <span class="notif-time">{{ notif.createdAt | date:'MMM d, h:mm a' }}</span>
               </div>
+              <button mat-icon-button class="delete-notif-btn" (click)="deleteNotification(notif.notificationId, $event)" matTooltip="Remove notification">
+                <i class="bi bi-x-lg"></i>
+              </button>
             </div>
-          </button>
+          </div>
         </div>
       </mat-menu>
 

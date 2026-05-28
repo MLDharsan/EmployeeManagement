@@ -5,6 +5,16 @@
 
 <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
   <mat-dialog-content class="form-dialog-content">
+    
+    <!-- AI Parsed Alert Banner -->
+    <div class="ai-parsed-alert glass-panel mb-3" *ngIf="isAiParsed" style="margin: 0 0 16px 0; padding: 12px 16px; border-radius: 8px; border: 1.5px dashed var(--primary); background-color: var(--primary-glow); display: flex; align-items: center; gap: 12px;">
+      <i class="bi bi-stars text-primary" style="font-size: 20px;"></i>
+      <div>
+        <h4 style="margin:0 0 2px 0; font-size:13.5px; font-weight:700; color: var(--text-primary);">Pre-Filled by UNIC AI</h4>
+        <p style="margin:0; font-size:12px; color: var(--text-secondary);">We successfully parsed the uploaded CV. <strong>Please review and verify</strong> all fields before registering.</p>
+      </div>
+    </div>
+
     <div class="form-grid">
       <!-- Employee Code -->
       <mat-form-field appearance="outline">
@@ -13,6 +23,7 @@
         <mat-error *ngIf="employeeForm.get('employeeCode')?.hasError('required')">Code is required</mat-error>
         <mat-error *ngIf="employeeForm.get('employeeCode')?.hasError('pattern')">Format must match "EMP" followed by 3+
           numbers (e.g. EMP105)</mat-error>
+        <mat-error *ngIf="employeeForm.get('employeeCode')?.hasError('codeExists')">This Employee ID is already taken</mat-error>
       </mat-form-field>
 
       <!-- First Name -->

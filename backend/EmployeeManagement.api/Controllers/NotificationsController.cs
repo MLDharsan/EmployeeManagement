@@ -75,5 +75,16 @@ namespace EmployeeManagement.API.Controllers
 
             return Ok("Notification deleted successfully");
         }
+
+        [HttpDelete("clear-all/{userId}")]
+        public async Task<IActionResult>
+            DeleteAll(int userId)
+        {
+            var result = await _service.DeleteAllNotifications(userId);
+            if (!result)
+                return NotFound();
+
+            return Ok("All notifications cleared successfully");
+        }
     }
 }

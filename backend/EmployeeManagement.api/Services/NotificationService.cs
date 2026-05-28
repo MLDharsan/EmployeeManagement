@@ -30,11 +30,14 @@ namespace EmployeeManagement.api.Services
                 .Include(n => n.User)
                 .ThenInclude(u => u.Employee);
 
-            // If the user is HR, return all notifications so they can see sent private communications!
-            // Otherwise, filter by their UserId.
+            // Filter notifications specifically for the user, and if they are HR, include their sent communications
             if (user.Role.RoleName != "HR")
             {
                 query = query.Where(n => n.UserId == userId);
+            }
+            else
+            {
+                query = query.Where(n => n.UserId == userId || n.SenderName == "HR Administrator" || n.SenderName == user.Username);
             }
 
             return await query
@@ -72,7 +75,7 @@ namespace EmployeeManagement.api.Services
 
             // Find the employee ID of the target user
             var targetUser = await _context.Users.FirstOrDefaultAsync(u => u.UserId == targetUserId);
-            if (targetUser != null)
+            if (targetUser != null && dto.Title != "New Announcement Published")
             {
                 // Find all sibling user accounts linked to this EmployeeId
                 var siblingUsers = await _context.Users
@@ -162,26 +165,23 @@ namespace EmployeeManagement.api.Services
             if (notification == null)
                 return false;
 
-            // Find all matching notifications with the same title, message, and created at roughly the same time
-            var minTime = notification.CreatedAt.AddSeconds(-5);
-            var maxTime = notification.CreatedAt.AddSeconds(5);
-            var siblings = await _context.Notifications
-                .Where(n => n.Title == notification.Title &&
-                            n.Message == notification.Message &&
-                            n.CreatedAt >= minTime &&
-                            n.CreatedAt <= maxTime)
+            _context.Notifications.Remove(notification);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> DeleteAllNotifications(int userId)
+        {
+            var notifications = await _context.Notifications
+                .Where(n => n.UserId == userId)
                 .ToListAsync();
 
-            if (siblings.Any())
+            if (notifications.Any())
             {
-                _context.Notifications.RemoveRange(siblings);
-            }
-            else
-            {
-                _context.Notifications.Remove(notification);
+                _context.Notifications.RemoveRange(notifications);
+                await _context.SaveChangesAsync();
             }
 
-            await _context.SaveChangesAsync();
             return true;
         }
     }

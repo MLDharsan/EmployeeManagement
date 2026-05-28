@@ -3,6 +3,7 @@ using EmployeeManagement.api.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using System.Text;
 
 namespace EmployeeManagement.api.Controllers
 {
@@ -13,10 +14,12 @@ namespace EmployeeManagement.api.Controllers
     public class EmployeesController : ControllerBase
     {
         private readonly IEmployeeService _employeeService;
+        private readonly IAiService _aiService;
 
-        public EmployeesController(IEmployeeService employeeService)
+        public EmployeesController(IEmployeeService employeeService, IAiService aiService)
         {
             _employeeService = employeeService;
+            _aiService = aiService;
         }
 
         [HttpGet]
@@ -36,6 +39,13 @@ namespace EmployeeManagement.api.Controllers
                 return NotFound();
 
             return Ok(employee);
+        }
+
+        [HttpGet("check-code/{code}")]
+        public async Task<IActionResult> CheckEmployeeCodeExists(string code)
+        {
+            var exists = await _employeeService.CheckEmployeeCodeExists(code);
+            return Ok(new { exists });
         }
 
         [HttpPost]
@@ -115,6 +125,50 @@ namespace EmployeeManagement.api.Controllers
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpPost("parse-cv")]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> ParseCv(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("No file uploaded");
+
+            if (Path.GetExtension(file.FileName).ToLower() != ".pdf")
+                return BadRequest("Please upload a PDF CV.");
+
+            try
+            {
+                // Parse text from PDF stream using PdfPig
+                string extractedText = string.Empty;
+                using (var document = UglyToad.PdfPig.PdfDocument.Open(file.OpenReadStream()))
+                {
+                    var textBuilder = new StringBuilder();
+                    foreach (var page in document.GetPages())
+                    {
+                        textBuilder.AppendLine(page.Text);
+                    }
+                    extractedText = textBuilder.ToString();
+                }
+
+                if (string.IsNullOrWhiteSpace(extractedText))
+                {
+                    return BadRequest("Failed to extract any text from the PDF CV. Ensure the file contains selectable text.");
+                }
+
+                // Parse using AI
+                var parsedData = await _aiService.ParseCvTextAsync(extractedText);
+                if (parsedData == null)
+                {
+                    return StatusCode(500, "AI failed to parse the resume text. Ensure your Gemini API Key is configured correctly.");
+                }
+
+                return Ok(parsedData);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error parsing CV: {ex.Message}");
             }
         }
     }

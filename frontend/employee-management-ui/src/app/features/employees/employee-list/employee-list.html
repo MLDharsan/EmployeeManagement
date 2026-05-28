@@ -5,10 +5,23 @@
       <h2>Employees Directory</h2>
       <p>Search, filter, and manage staff credentials and profiles</p>
     </div>
-    <button mat-flat-button color="primary" (click)="openAddDialog()" class="register-btn">
-      <i class="bi bi-person-plus-fill"></i>
-      <span>Add New Employee</span>
-    </button>
+    <div class="header-actions-group" style="display: flex; gap: 12px; align-items: center;">
+      <!-- Hidden file input for AI CV upload -->
+      <input type="file" #aiCvInput (change)="onAiCvSelected($event)" accept="application/pdf" style="display: none;">
+      
+      <!-- AI Quick Register Button -->
+      <button mat-flat-button color="accent" (click)="aiCvInput.click()" [disabled]="isAiParsing" class="register-btn flex-btn text-glow-accent">
+        <i class="bi bi-stars" *ngIf="!isAiParsing" style="margin-right: 6px;"></i>
+        <i class="bi bi-arrow-repeat animate-spin" *ngIf="isAiParsing" style="margin-right: 6px;"></i>
+        <span>{{ isAiParsing ? 'AI Parsing...' : 'Register with AI CV' }}</span>
+      </button>
+
+      <!-- Standard Manual Register Button -->
+      <button mat-flat-button color="primary" (click)="openAddDialog()" class="register-btn flex-btn">
+        <i class="bi bi-person-plus-fill" style="margin-right: 6px;"></i>
+        <span>Add Manually</span>
+      </button>
+    </div>
   </div>
 
   <!-- SEARCH & FILTER TOOLBAR PANEL -->

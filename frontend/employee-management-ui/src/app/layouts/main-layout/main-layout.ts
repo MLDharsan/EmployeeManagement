@@ -85,8 +85,10 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
 
     // 2. Subscribe to the notification BehaviorSubject for real-time UI updates
     this.notifSubscription = this.notificationService.notifications$.subscribe(notifs => {
-      this.notifications = notifs.sort((a, b) => b.notificationId - a.notificationId);
-      this.unreadCount = notifs.filter(n => !n.isRead).length;
+      // Only show received notifications in the bell dropdown (UserId must match current logged-in user)
+      const receivedNotifs = notifs.filter(n => n.userId === this.currentUser?.userId);
+      this.notifications = receivedNotifs.sort((a, b) => b.notificationId - a.notificationId);
+      this.unreadCount = receivedNotifs.filter(n => !n.isRead).length;
     });
 
     // 3. Background polling every 5 seconds for near-real-time notifications
@@ -146,11 +148,58 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
     this.notificationService.markAsRead(notificationId).subscribe();
   }
 
+  onNotificationClick(notif: Notification): void {
+    // Mark as read if it is unread
+    if (!notif.isRead) {
+      this.notificationService.markAsRead(notif.notificationId).subscribe();
+    }
+
+    // Determine target route based on title or message content
+    const title = notif.title ? notif.title.toLowerCase() : '';
+    const message = notif.message ? notif.message.toLowerCase() : '';
+
+    if (title.includes('leave')) {
+      this.router.navigate(['/leave-management']);
+    } else if (title.includes('announcement') || title.includes('notice') || notif.senderName || title.includes('message') || message.includes('message')) {
+      this.router.navigate(['/announcements']);
+    } else {
+      // Fallback path
+      this.router.navigate(['/dashboard']);
+    }
+  }
+
+  deleteNotification(notificationId: number, event: Event): void {
+    event.stopPropagation(); // Avoid triggering navigation or closing menu
+    this.notificationService.deleteNotification(notificationId).subscribe({
+      next: () => {
+        this.toastService.success('Notification removed');
+      },
+      error: () => {
+        this.toastService.error('Failed to remove notification');
+      }
+    });
+  }
+
   markAllAsRead(): void {
     if (this.currentUser) {
       this.notificationService.markAllAsRead(this.currentUser.userId).subscribe(() => {
         this.toastService.success('All notifications marked as read');
       });
+    }
+  }
+
+  clearAllNotifications(): void {
+    if (this.currentUser) {
+      if (confirm('Are you sure you want to clear all your notifications?')) {
+        this.notificationService.deleteAllNotifications(this.currentUser.userId).subscribe({
+          next: () => {
+            this.toastService.success('All notifications cleared');
+          },
+          error: () => {
+            this.toastService.error('Failed to clear notifications');
+          }
+        });
+      }
     }
   }
 

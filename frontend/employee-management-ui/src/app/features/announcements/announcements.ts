@@ -106,7 +106,7 @@ export class AnnouncementsComponent implements OnInit {
         .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
       this.cdr.detectChanges();
     });
-  }
+  } 
 
   loadDismissedNotices(): void {
     const userId = this.authService.currentUserValue?.userId || 0;

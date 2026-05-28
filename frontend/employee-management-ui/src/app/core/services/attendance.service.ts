@@ -27,7 +27,7 @@ export class AttendanceService {
     const today = new Date().toISOString().split('T')[0];
     return this.getEmployeeAttendance(employeeId).pipe(
       map(logs => logs.find(l => {
-        const logDateStr = l.date.split('T')[0];
+        const logDateStr = l.date.split('T')[0]; //instead backend side filtering will be more efficient.
         return logDateStr === today;
       }))
     );

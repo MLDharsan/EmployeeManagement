@@ -8,6 +8,8 @@ namespace EmployeeManagement.api.Interfaces
         Task<List<EmployeeDto>> GetAllEmployees();
 
         Task<EmployeeDto?> GetEmployeeById(int id);
+        
+        Task<bool> CheckEmployeeCodeExists(string code);
 
         Task<EmployeeDto> CreateEmployee(CreateEmployeeDto dto);
 

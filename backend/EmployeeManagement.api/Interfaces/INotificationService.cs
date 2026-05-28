@@ -18,5 +18,8 @@ namespace EmployeeManagement.api.Interfaces
 
         Task<bool>
             DeleteNotification(int notificationId);
+
+        Task<bool>
+            DeleteAllNotifications(int userId);
     }
 }

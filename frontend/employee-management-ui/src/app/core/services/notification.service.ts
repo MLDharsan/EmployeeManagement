@@ -74,4 +74,16 @@ export class NotificationService {
       })
     );
   }
+
+  // Delete all notifications for a user
+  deleteAllNotifications(userId: number): Observable<boolean> {
+    return this.http.delete(`${environment.apiUrl}/notifications/clear-all/${userId}`, { responseType: 'text' }).pipe(
+      map(() => {
+        // Keep other users' notifications or sent communications in the subject if any, but clear user's received ones
+        const updated = this.notificationsSubject.value.filter(n => n.userId !== userId);
+        this.notificationsSubject.next(updated);
+        return true;
+      })
+    );
+  }
 }

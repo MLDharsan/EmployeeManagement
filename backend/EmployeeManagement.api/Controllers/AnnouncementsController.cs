@@ -39,10 +39,13 @@ namespace EmployeeManagement.API.Controllers
             _context.Announcements.Add(announcement);
             await _context.SaveChangesAsync();
 
-            // Create notification for ALL users
+            // Create notification for ALL users except HR users
             try
             {
-                var users = await _context.Users.ToListAsync();
+                var users = await _context.Users
+                    .Include(u => u.Role)
+                    .Where(u => u.Role.RoleName != "HR")
+                    .ToListAsync();
                 foreach (var user in users)
                 {
                     await _notificationService.CreateNotification(new CreateNotificationDto

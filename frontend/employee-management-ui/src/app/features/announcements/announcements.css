@@ -434,6 +434,21 @@
   padding: 14px 16px;
 }
 
+.recipient-scope-label {
+  display: block !important;
+  margin-bottom: 8px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+.recipient-scope-group {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+
 .employee-select-field {
   margin-top: 8px;
 }

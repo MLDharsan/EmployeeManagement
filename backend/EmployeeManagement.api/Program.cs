@@ -79,6 +79,7 @@ builder.Services.AddScoped<INotificationService,NotificationService>();
 builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IEmployeeLevelService, EmployeeLevelService>();
+builder.Services.AddHttpClient<IAiService, GeminiAiService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
