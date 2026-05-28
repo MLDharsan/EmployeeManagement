@@ -18,7 +18,9 @@ namespace EmployeeManagement.api.Services
         public GeminiAiService(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient;
-            _apiKey = configuration["Gemini:ApiKey"] ?? string.Empty;
+            _apiKey = Environment.GetEnvironmentVariable("GEMINI_API_KEY") 
+                      ?? configuration["Gemini:ApiKey"] 
+                      ?? string.Empty;
         }
 
         public async Task<ParsedResumeDto?> ParseCvTextAsync(string cvText)

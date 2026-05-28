@@ -26,3 +26,7 @@ frontend/employee-management-ui/node_modules/
 Thumbs.db
 
 uploads
+
+# Environments / Secrets
+.env
+backend/EmployeeManagement.api/.env

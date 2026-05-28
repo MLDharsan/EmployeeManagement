@@ -12,6 +12,25 @@ using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Load local .env file if present
+var envFilePath = Path.Combine(builder.Environment.ContentRootPath, ".env");
+if (File.Exists(envFilePath))
+{
+    foreach (var line in File.ReadAllLines(envFilePath))
+    {
+        if (string.IsNullOrWhiteSpace(line) || line.StartsWith("#"))
+            continue;
+
+        var parts = line.Split('=', 2);
+        if (parts.Length == 2)
+        {
+            var key = parts[0].Trim();
+            var val = parts[1].Trim();
+            Environment.SetEnvironmentVariable(key, val);
+        }
+    }
+}
+
 //allows the angular app to make requests
 builder.Services.AddCors(options =>
 {

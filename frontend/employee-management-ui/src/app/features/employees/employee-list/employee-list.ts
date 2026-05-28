@@ -245,6 +245,17 @@ export class EmployeeListComponent implements OnInit {
             if (result) {
               this.employeeService.createEmployee(result).subscribe({
                 next: (newEmp) => {
+                  // Automatically upload and bind the CV file used for parsing
+                  this.employeeService.uploadCV(newEmp.employeeId, file).subscribe({
+                    next: () => {
+                      this.toastService.success('CV file uploaded and bound to profile successfully!');
+                      this.loadEmployees();
+                    },
+                    error: () => {
+                      this.toastService.error('Failed to upload CV to employee profile.');
+                    }
+                  });
+
                   this.loadEmployees();
                   this.toastService.success(`Registered ${newEmp.fullName} successfully!`);
                   
